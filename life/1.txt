@@ -1,0 +1,47 @@
+Markdown 简单说明
+=======
+
+Markdown一看就是标准程序员的作品，能够在文本文件中进行标识，然后通过perl的自动生成[工具][]，
+完成到html的转换。这样做有什么作用呢？
+
+[工具]:http://daringfireball.net/projects/downloads/Markdown_1.0.1.zip
+
+如果要进行分享，就是通过Blog或者其他方式发布到网上，这样的话往往会遇到几个问题。
+
+### 问题
+
+* 通行格式是html，html是一种方式，但不适合每个人
+* 文章和程序一样，是慢慢生长的，直接发布无法跟踪记录
+* 网站的编辑器往往令人抓狂
+* 调整各种格式简直就是侮辱智商
+
+Markdown是一个不错的解决方案，可以看看他的[官方网站][]，[wiki][]，国人的总结[简体][] [繁体][]。
+
+[官方网站]:http://daringfireball.net/projects/markdown/
+[wiki]:http://en.wikipedia.org/wiki/Markdown
+[简体]:http://wowubuntu.com/markdown/
+[繁体]:http://markdown.tw/
+
+**Markdown不是唯一的方案，其他标记语言也可以完成**，但按照上面的几个问题，
+Markdown都可以无压力的解决：
+
+### 办法
+
+* html有些标记比较繁琐，Markdown的标记都比较简单，不用费心去记住
+* 文本文档用一些版本控制，可以很好的跟踪每一个修改，比如这篇也在[github][]
+* 对于文本文档，编辑器就不是什么问题了，当然可以选择一些方便[markdown工具][]
+* 可以用一些脚本进行Markdown2xxx的转换，样式可以通过css指定（需要的话）
+
+[markdown工具]:http://dillinger.io/
+[github]:http://yazengo.github.com/
+
+### 附加价值
+
+我现在是在Dropbox建了一个同步文件夹，这样的话几乎所有平台都可以同步更新，为了在手机上比较方便，
+在文件后缀写为.txt，可以方便打开编辑。
+
+当然，工具是一个方面，另一个重要的是真正花时间去记录的动力，人好歹得坚持一点
+什么。
+
+![程序员](../images/1-1.jpg)
+

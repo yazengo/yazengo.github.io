@@ -1,0 +1,140 @@
+
+/*
+Design by zengo
+Modifide from Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+html {
+    font-family: sans-serif;
+}
+
+html.hasFontSmoothing-true {
+    font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+}
+
+body {
+    margin: 0;
+	padding: 0;
+	background: #FFFFFF;
+    text-align: center;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+	letter-spacing: -0.08em;
+	text-transform: uppercase;
+	font-family: sans-serif, 'Arvo', serif;
+	color: #0285CE;
+    margin-top: 1em
+}
+
+h1 {
+	font-size: 2.5em;
+}
+
+h2 {
+	font-size: 2.4em;
+}
+
+h3 {
+	font-size: 1.6em;
+}
+
+p, ul, ol {
+	margin-top: 0;
+	line-height: 180%;
+}
+
+ul, ol {
+}
+
+a {
+	text-decoration: none;
+	color: #0285CE;
+}
+
+a:hover {
+}
+
+pre code {
+    margin:0;
+	padding: 0;
+    background: #FFC;
+    overflow:auto;
+    font-family:"Courier New",Courier,mono;
+	font-size: 0.8em;
+    line-height: 130%;
+    padding:1em 0 1em 2.8em;
+    color:#3366CC;
+    width:90%;
+}
+
+img {
+	-moz-box-shadow: 3px 3px 4px #000;
+	-webkit-box-shadow: 3px 3px 4px #000;
+	box-shadow: 3px 3px 4px #000;
+	/* For IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	/* For IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+
+/* body */
+
+#container {
+    display: block;
+    margin: 0;
+	padding: 1%;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	color: #3B3B3B;
+    width: 75%;
+    text-align: left;
+	background: #EEE;
+}
+
+/* Header */
+
+#header-wrapper {
+}
+
+#header {
+	clear: both;
+	width: 80%;
+	margin: 0px auto;
+}
+
+/* Footer */
+
+#footer {
+	height: 50px;
+	margin: 0 auto;
+	padding: 0px 0 15px 0;
+	background: #E9E9E9;
+	border-top: 5px solid #D8D8D8;
+	font-family: 'Arvo', serif;
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 20px;
+	line-height: normal;
+	font-size: 12px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #A0A0A0;
+}
+
+#footer a {
+	color: #8A8A8A;
+}
+
+#banner {
+	width: 80%;
+	margin: 0px auto;
+}
