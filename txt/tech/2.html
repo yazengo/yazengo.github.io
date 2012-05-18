@@ -9,9 +9,9 @@
     <body>
         <div id="container">
             
-<h1>MCU的Flash控制器</h1>
+<h1>Flash vs EEPROM</h1>
 
-<h3>Flash vs EEPROM</h3>
+<h3>工艺</h3>
 
 <p>Flash和EEPROM是类似的存储介质，从存储的原理上基本上是<em>一样的</em>，差别仅仅在于
 Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块数据的操作。</p>
@@ -20,21 +20,13 @@ Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块
   <p>Flash memory is a later form of EEPROM. In the industry, there is a convention to reserve the term EEPROM to byte-wise erasable memories compared to block-wise erasable flash memories. EEPROM takes more die area than flash memory for the same capacity because each cell usually needs both a read, write and erase transistor, while in flash memory the erase circuits are shared by large blocks of cells (often 512×8).  </p>
 </blockquote>
 
-<p>Flash的读写一般花的时间都比较长，耗时最长的是擦除过程，整块Flash的擦除是100ms级别的，
-而写操作的时间也不短，因为需要先进行擦除操作（写为0xff），因此也比较耗时，读操作相对较快，
-但一般也需要几个时钟的时间。擦除之后，Flash的写入时间较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值
-是5-10ms。</p>
+<p>虽然功能类似，但把Flash和传统的EEPROM放在一个芯片上却是不行的，COMS工艺导致了两者不能共存（？）。</p>
 
-<p>虽然功能类似，但把Flash和EEPROM放在一个芯片上却是不行的，COMS工艺导致了两者不能共存（？）。
-MCU中因为面积和功耗的关系，一般只有一个Flash控制器，这就导致了在进行写Flash操作的时候，
-Flash中的程序无法运行（相当于没办法同时进行读操作），中断也无法运行，因此在进行系统在线升级，
-或者一些关键的中断程序，需要将部分程序拷贝到Ram运行。因此也有处理器将Flash分为两大块进行
-操作，比如Fujitsu的<a href="">MB90F897</a></p>
+<h3>读写时间</h3>
 
-<p>将Flash分为两个bank,这样操作一个bank的时候，另一个bank的读取不受影响，在在线升级的系统中，
-可以简化程序的设计，同时也能够防止升级过程中掉电的导致的影响。</p>
-
-<p><img src="../../images/2-1.png" alt="two bank flash" title="" /></p>
+<p>Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。
+擦除之后，Flash的写入时间较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值
+是5-10ms。所以外置Flash的读写总线经常是SPI, 而EEPROM是IIC(？）。</p>
 
 <h3>EEPROM Simulation</h3>
 
