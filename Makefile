@@ -8,8 +8,11 @@ HTML = $(patsubst %.txt, %.html, $(TXT))
 
 all: $(HTML) index.html
 
-index.html: stylesheets/main.css
-	firefox index.html
+index.html: index/header.html index/footer.html index/body.html
+	cat index/header.html index/body.html index/footer.html > $@
+
+index/body.html: txt/tech/*.txt txt/life/*.txt index/index_body.py
+	python index/index_body.py > $@
 
 %.temp: %.txt
 	perl Markdown_1.0.1/Markdown.pl $< > $@
