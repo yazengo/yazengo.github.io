@@ -11,7 +11,7 @@ all: $(HTML) index.html
 index.html: index/header.html index/footer.html index/body.html
 	cat index/header.html index/body.html index/footer.html > $@
 
-index/body.html: txt/tech/*.txt txt/life/*.txt index/index_body.py
+index/body.html: $(TXT) index/index_body.py
 	python index/index_body.py > $@
 
 %.temp: %.txt
