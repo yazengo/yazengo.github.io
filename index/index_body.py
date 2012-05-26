@@ -5,7 +5,13 @@ import os, glob
 from subprocess import call
 
 def parsefile(filepath):
-    for index, file in enumerate(glob.glob(filepath)):
+    files = glob.glob(filepath)
+    if files:
+        files.sort()
+    else:
+        return
+
+    for file in files:
         mkd_file = open(file, 'r')
         first_line = mkd_file.readline().strip()
         print("<li><a href=" + '"' + file.replace(".txt", ".html") + '"' + '>' + first_line + "</a></li>")
