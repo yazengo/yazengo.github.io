@@ -8,8 +8,8 @@
 。
 
 gEDA安装下来只有几个M ，与其他的软件真是不能比，但够用就行，KISS。电路仿真基本
-上都是基于Spice的，可能版本不同，但都大同小异，网上有关于[Spice]()的手册，使用
-gEDA进行仿真也有相关的说明。[gEDA tutorial]()
+上都是基于Spice的，可能版本不同，但都大同小异，网上有关于[Spice][]的手册，使用
+gEDA进行仿真也有相关的说明。[gEDA tutorial][]
 
 [Spice]:http://www.seas.upenn.edu/~jan/spice/spice.overview.html#Operating
 [gEDA tutorial]:http://www.brorson.com/gEDA/SPICE/t1.html
