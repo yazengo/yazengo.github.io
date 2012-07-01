@@ -3,7 +3,8 @@
 TXT = $(wildcard txt/tech/*.txt txt/life/*.txt)
 
 # make a list of html files
-TEMP = $(patsubst %.txt, %.body, %.header $(TXT))
+TEMP_HEADER = $(patsubst %.txt, %.header, $(TXT))
+TEMP_BODY = $(patsubst %.txt, %.body, $(TXT))
 HTML = $(patsubst %.txt, %.html, $(TXT))
 
 all: $(HTML) index.html
@@ -24,4 +25,5 @@ index/body.html: $(TXT) index/index_body.py
 	cat $^ > $@
 
 clean:
-	rm $(TEMP)
+	rm $(TEMP_HEADER)
+	rm $(TEMP_BODY)

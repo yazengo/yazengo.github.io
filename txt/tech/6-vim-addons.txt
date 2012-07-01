@@ -1,0 +1,73 @@
+Vim 的插件更新方式
+=======
+
+##应用为王
+
+**应用**这个词渐渐已经成为互联网内的热门词汇，iOS/Android等纷纷推出自己的应用
+中心，PC机上也有类似的软件，类似中国特色的360装机等，这种方式连接了开发者和使
+用者，也是热门的所谓**平台**布局，方便开发者改进程序，也方便使用者更新程序。
+
+当然这种方式在程序员世界却也是很自然的事情，一个程序集体进行改善，必定需要同步
+更新，才能保证大家的同步开发，有如svn/git等工具极大方便了程序员之间的交流。
+将这种方式推广到Linux世界就是各种版本上的包管理，渐渐推广到更广泛的应用，有如
+今天的各种应用平台。
+
+Vim的插件某种意义上也是一种应用，Vim的开发者很有先见之明的留下了接口和配置文件
+，使其成为程序员的贴身装备。同上所述，这种应用也有更新和同步的需求，于是有了插
+件管理插件[vim-addons-manager][]。可以通过比较方便的方式增删应用，并保持同步。
+
+[vim-addons-manager]:http://www.vim.org/scripts/script.php?script_id=2905
+
+##更新方式
+
+既然本身是应用，也是需要“与时俱进”，这里使用的github的代码仓库，可以方便的进行
+同步。
+
+    git://github.com/MarcWeber/vim-addon-manager
+
+还有自动更新的配置列表，配置了更新应用的配置，如下载地址，更新方式等，也是在代
+码仓库里。
+
+    git://github.com/MarcWeber/vim-addon-manager-known-repositories
+
+可以在你的.vim目录里面增加addons，然后将这些插件clone到这个文件夹内，这个目录
+需要设置到.vimrc配置路径里面。
+
+    set runtimepath+=~/.vim/addons/vim-addon-manager
+
+有了这些之后，剩下的事情就是寻找适合自己的插件了，把他们添加到你的.vimrc，如
+下一节里面的例子，然后泡杯茶，等着你的应用安装到机子上。
+
+更新插件的方式就剩下一条指令了:
+
+    :UpdateAddons
+
+在Windows上的安装过程可以参考网上[说明][]
+
+[说明]:http://choorucode.wordpress.com/2010/12/09/using-vim-addon-manager-on-windows/
+
+##我的应用需求
+
+我目前使用的插件在这里做个备份
+
+    fun SetupVAM()
+      set runtimepath+=~/.vim/addons/vim-addon-manager
+      call vam#ActivateAddons([
+                            \ 'taglist',
+                            \ 'desertEx',
+                            \ 'a',
+                            \ 'VimIM',
+                            \ 'SuperTab',
+                            \ 'cscope_plus',
+                            \ 'The_NERD_Commenter',
+                            \ 'minibufexpl',
+                            \ 'snipmate',
+                            \ 'TxtBrowser',
+                            \ 'xmledit',
+                            \ 'Markdown',
+                            \ 'OmniCppComplete',
+                            \ ], {'auto_install' : 0})
+    endf
+
+    call SetupVAM()
+
