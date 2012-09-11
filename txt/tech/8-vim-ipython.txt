@@ -1,0 +1,59 @@
+python的vim环境设置
+=========
+
+IDE环境作为编程时候的辅助工具，有时候是有助于效率提升的，特别是对于上手不久的
+新手。作为python的新手，我也找过一阵子相关的程序和说明。发现python可选择的IDE
+很多，但这个世界往往是公平的，可选择的多了并不一定是一件好事，相继试用了eric、
+ipython、自带的IDE等，但都感觉不是很趁手。可能是vi用习惯了，还是习惯往这方面
+试验，虽然eclipse+pydev也是不错的选择，但试用了vim+ipython之后，觉得对于简单的
+程序，这种组合基本上也能满足要求了。
+
+作为IDE，一些基本的需求如下：
+* 自动补全
+* 函数说明
+* 基本调试
+
+### 安装使用
+首先安装vim-ipython插件，安装过程可以参考前面的[文章][]，使用前需要启动
+ipython的server，可以采用下面任一种方式：
+
+    ipython kernel
+    ipython console
+    ipython qtkernel
+
+[文章]:http://jieyige.com/txt/tech/6-vim-addons.html
+
+在vi中执行
+
+    :IPython
+
+这样vi就连接到ipython server上了。
+
+如果以后对于py的文件都使用ipython调试可以在*.vimrc*中加入*autocmd*
+
+    autocmd BufRead *.py IPython
+
+这样每次打开py文件都会“卡”一下，连接到ipython的server。
+
+###自动补全
+vi里面的自动补全不是天生的，一般需要通过omnicompletion实现，然后使用supertab可
+以比较方便的使用**tab**进行自动补全。
+
+    [C-X][C-I] 在路径中查找补全项
+    [C-X][C-O] omni自动补全
+
+###函数说明
+在ipython里面，函数说明是通过加问号实现的，比如对于一个字符串
+
+    str = "test"
+    str?
+
+通过vim-ipython可以在vi里面直接通过**<leader>d**，一般<leader>是'\'，我把
+<leader>映射为','，所以对于我来说就是‘,d’，可以打开一个窗口显示说明，可以输入
+q退出。
+    
+###基本调试
+直接通过ipython调试不是很方便，在vi里面打开后，可以直接通过[Ctrl+S]将某行或者
+某些行发送到ipython执行，在后来的版本更改为[Alt+S]，这样就可以通过ipython继续
+调试。
+
