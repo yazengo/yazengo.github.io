@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>NTC电阻的用法对比</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+    </head>
+    <body>
+        <div id="container">
+    
+<h1>NTC电阻的用法对比</h1>
+
+<p>NTC电阻，全称是负温度系数电阻，详见<a href="http://en.wikipedia.org/wiki/Thermistor">wiki</a>。主要用来进行温度检测或者过温保护
+，温度检测的精度不是很高，但比温感会便宜不少，体积上也占优势，因而应用面应该
+还是挺广的。</p>
+
+<p>最近接触了一下这方面的资料，从电路上看可能会有4种接法（忽然想起“回”字有四种写
+法。。）</p>
+
+<p><img src="../../images/9-1.png" alt="NTC connetion mode" title="" /></p>
+
+<p>遇到的主要是两个问题：</p>
+
+<ul>
+<li>按照图中右上角的接法，常温和高温下检测温度偏差比较大</li>
+<li>程序中需要进行非线性拟合</li>
+</ul>
+
+<h3>常温和高温下检测温度偏差比较大</h3>
+
+<p>如果NTC直接通过电流源驱动，检测端口AD值的话，由于NTC的电阻值随着温度是指数关系
+，导致在常温和高温下检测值比较小的变化就会导致温度拟合值比较大的变化，如下图
+所示，横轴是检测值（Q10），纵轴是温度，可见在常温和高温部分，检测值变化很小，
+导致分辨率较低。</p>
+
+<p><img src="../../images/9-2.png" alt="NTC result 0" title="" /></p>
+
+<p>PS:这里刚开始想用spice进行仿真，发现NTC建模也是一门学问，可以参考网上的
+<a href="http://www.ecircuitcenter.com/Circuits/therm_model1/therm_model1.htm">方法</a>，主要思路是用电流源来模拟电阻。想想自己的仿真实在是不熟练，后来还是直
+接使用表格软件还方便一些。</p>
+
+<p>后来搜索一圈发现NTC一般接法主要是剩下的3种方式，数学上相当于在对数运算上加了一
+个倒数，使得在一定范围内可以达到局部线性的效果。前两种的效果类似，如图</p>
+
+<p><img src="../../images/9-3.png" alt="NTC result 1" title="" /></p>
+
+<p>用内部电流源的话，一般使用并联电阻的方式，虽然在高温部分斜率还是较大，好处是局
+部线性的同时，使用片内电流源比使用外部参考电压的方式得到的数值更为准确。</p>
+
+<p><img src="../../images/9-4.png" alt="NTC result 2" title="" /></p>
+
+<h3>程序中需要进行非线性拟合</h3>
+
+<p>小型CPU由于计算资源和函数库的关系，对某些复杂计算显得力不从心，这里实现主要使
+用了查找表加上线性插值的思路，具体实现上可以参考<a href="www.jieyige.com">下篇文章</a></p>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

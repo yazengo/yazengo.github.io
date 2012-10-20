@@ -1,0 +1,22 @@
+业余
+=======
+
+:Tue 16 Oct 2012 10:51:28 PM CST
+
+* 关于嵌入式的创业
+
+搜索来看嵌入式的创业项目和团队比较少，不像互联网那种到处都是，这条路的确需要一
+定的积累和资本，独立创业的难度较大。
+
+todo 阅读嵌入式操作系统的博客 http://blog.csdn.net/feixiaoxing/article/category/1078728
+
+:Wed 17 Oct 2012 10:00:46 PM CST
+
+难得发现一个关注于嵌入式技术的博客，发现专家们都好老额。。似乎年轻人都搞互联网
+去了。。
+
+todo http://embeddedgurus.com/
+
+:Thu 18 Oct 2012 09:13:18 PM CST
+
+todo snipmate 不能用了
