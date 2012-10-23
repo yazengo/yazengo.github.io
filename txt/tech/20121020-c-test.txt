@@ -1,0 +1,53 @@
+嵌入式C语言问答
+======
+
+[Barr group][]上面的一个嵌入式C语言QUIZ，有些triky~
+
+[Barr group]:http://barrgroup.com/embedded-systems/embedded-c-quiz/
+
+*Q*：定义一年有多少秒的宏定义
+
+*A*：#define SECOND_PER_YEAR (365 * 24 * 24 * 24UL)
+
+*Q*：定义两值取小的宏定义
+
+*A*：#define MIN(x,y) ((x) < (y) ? (x))
+
+*Q*：无限循环的定义方式
+
+*A*：while(1) for(;;) loop: goto loop;
+
+*Q*：int (*a)[10]的作用
+
+*A*：定义10个整形指针的数组(x)
+*A*：指向一个整形数组的指针
+
+*Q*：static 的用法
+
+*A*：函数内的变量是常驻内存，不可重入；定义文件内的函数；定义文件那的变量
+
+*Q*：int * const x
+
+*A*：a pointer to a const int(x)
+*A*：a const pointer to an int
+BTW: 
+    const int *x : pointer to a const int
+    const int *const x : const pointer to a const int
+
+*Q*：variable 的用法
+
+*A*：访问外设寄存器；中断函数用到的全局变量；多任务或多线程用到的变量；
+
+*Q*：复位最后一个bit
+
+*A*：x &= ~0x1;
+
+*Q*：哪一个编译器支持把变量定义为volatile const 
+
+*A*：ALL ANSI
+BTW: 这里可以用于外部存储器的固定数据定义，比如Data Flash
+
+*Q*：直接地址写入数据
+
+*A*：*(Uint16 * const)(0xaaaa) = 0x1234;
+

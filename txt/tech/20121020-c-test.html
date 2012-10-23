@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>嵌入式C语言问答</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+    </head>
+    <body>
+        <div id="container">
+    
+<h1>嵌入式C语言问答</h1>
+
+<p><a href="http://barrgroup.com/embedded-systems/embedded-c-quiz/">Barr group</a>上面的一个嵌入式C语言QUIZ，有些triky~</p>
+
+<p><em>Q</em>：定义一年有多少秒的宏定义</p>
+
+<p><em>A</em>：#define SECOND<em>PER</em>YEAR (365 * 24 * 24 * 24UL)</p>
+
+<p><em>Q</em>：定义两值取小的宏定义</p>
+
+<p><em>A</em>：#define MIN(x,y) ((x) &lt; (y) ? (x))</p>
+
+<p><em>Q</em>：无限循环的定义方式</p>
+
+<p><em>A</em>：while(1) for(;;) loop: goto loop;</p>
+
+<p><em>Q</em>：int (*a)[10]的作用</p>
+
+<p><em>A</em>：定义10个整形指针的数组(x)
+<em>A</em>：指向一个整形数组的指针</p>
+
+<p><em>Q</em>：static 的用法</p>
+
+<p><em>A</em>：函数内的变量是常驻内存，不可重入；定义文件内的函数；定义文件那的变量</p>
+
+<p><em>Q</em>：int * const x</p>
+
+<p><em>A</em>：a pointer to a const int(x)
+<em>A</em>：a const pointer to an int
+BTW: 
+    const int *x : pointer to a const int
+    const int *const x : const pointer to a const int</p>
+
+<p><em>Q</em>：variable 的用法</p>
+
+<p><em>A</em>：访问外设寄存器；中断函数用到的全局变量；多任务或多线程用到的变量；</p>
+
+<p><em>Q</em>：复位最后一个bit</p>
+
+<p><em>A</em>：x &amp;= ~0x1;</p>
+
+<p><em>Q</em>：哪一个编译器支持把变量定义为volatile const </p>
+
+<p><em>A</em>：ALL ANSI
+BTW: 这里可以用于外部存储器的固定数据定义，比如Data Flash</p>
+
+<p><em>Q</em>：直接地址写入数据</p>
+
+<p><em>A</em>：*(Uint16 * const)(0xaaaa) = 0x1234;</p>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
