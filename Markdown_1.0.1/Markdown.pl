@@ -1102,6 +1102,7 @@ sub _FormParagraphs {
 		unless (defined( $g_html_blocks{$_} )) {
 			$_ = _RunSpanGamut($_);
 			s/^([ \t]*)/<p>/;
+			s/\n+//g;
 			$_ .= "</p>";
 		}
 	}

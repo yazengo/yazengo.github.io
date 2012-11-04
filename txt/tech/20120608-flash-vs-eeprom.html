@@ -15,26 +15,17 @@
 
 <h3>工艺</h3>
 
-<p>Flash和EEPROM是类似的存储介质，从存储的原理上基本上是<em>一样的</em>，差别仅仅在于
-Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块数据的操作。</p>
+<p>Flash和EEPROM是类似的存储介质，从存储的原理上基本上是<em>一样的</em>，差别仅仅在于Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块数据的操作。</p>
 
 <blockquote>
-  <p>Flash memory is a later form of EEPROM. In the industry, there is a
-convention to reserve the term EEPROM to byte-wise erasable memories
-compared to block-wise erasable flash memories. EEPROM takes more die area
-than flash memory for the same capacity because each cell usually needs both
-a read, write and erase transistor, while in flash memory the erase circuits
-are shared by large blocks of cells (often 512×8).  </p>
+  <p>Flash memory is a later form of EEPROM. In the industry, there is aconvention to reserve the term EEPROM to byte-wise erasable memoriescompared to block-wise erasable flash memories. EEPROM takes more die areathan flash memory for the same capacity because each cell usually needs botha read, write and erase transistor, while in flash memory the erase circuitsare shared by large blocks of cells (often 512×8).  </p>
 </blockquote>
 
-<p>虽然功能类似，但把Flash和传统的EEPROM放在一个芯片上却是不行的，COMS工艺导致了
-两者不能共存（？）。</p>
+<p>虽然功能类似，但把Flash和传统的EEPROM放在一个芯片上却是不行的，COMS工艺导致了两者不能共存（？）。</p>
 
 <h3>读写时间</h3>
 
-<p>Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。擦除之后，Flash的写入时间
-较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值是5-10ms。所以外置Flash的读写
-总线经常是SPI, 而EEPROM是IIC(？）。</p>
+<p>Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。擦除之后，Flash的写入时间较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值是5-10ms。所以外置Flash的读写总线经常是SPI, 而EEPROM是IIC(？）。</p>
 
 <h3>EEPROM Simulation</h3>
 

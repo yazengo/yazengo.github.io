@@ -13,40 +13,22 @@
     
 <h1>关于Linux的本地化和乱码处理</h1>
 
-<p>本来想写另外一篇记录文章，当时一打开vi就看见一堆乱码，看来字符集又出问题了，可
-能和这几天的系统升级有关，但又不知道到底是哪个升级可能会影响字符集，只好再从头
-研究一遍。以前是搜索一下解决问题就忘记了，这里记录一下，以后如果再出问题可以在
-这个文档的基础上进行补充。</p>
+<p>本来想写另外一篇记录文章，当时一打开vi就看见一堆乱码，看来字符集又出问题了，可能和这几天的系统升级有关，但又不知道到底是哪个升级可能会影响字符集，只好再从头研究一遍。以前是搜索一下解决问题就忘记了，这里记录一下，以后如果再出问题可以在这个文档的基础上进行补充。</p>
 
-<p>用命令<strong>locale</strong>检查一下字符集，发现全变成了POSIX，虽然这是标准接口，但用在字
-符集就不适用了，原来Arch里面的初始化系统配置是在<em>/etc/rc.conf</em>里面，有
-<strong>LOCALE</strong>的定义，看了一下是<em>en_US.UTF8</em>，应该也没什么问题。看了一下目录下还有
-一些后缀.pacnew的文件，这些是Arch的滚动升级遗留下来的产物，看了一下<em>rc.conf</em>，
-才发现现在的<em>rc.conf</em>已经没有承载那么多配置项，可以看看Arch论坛上的相关<a href="https://bbs.archlinux.org/viewtopic.php?id=145532">讨论</a></p>
+<p>用命令<strong>locale</strong>检查一下字符集，发现全变成了POSIX，虽然这是标准接口，但用在字符集就不适用了，原来Arch里面的初始化系统配置是在<em>/etc/rc.conf</em>里面，有<strong>LOCALE</strong>的定义，看了一下是<em>en_US.UTF8</em>，应该也没什么问题。看了一下目录下还有一些后缀.pacnew的文件，这些是Arch的滚动升级遗留下来的产物，看了一下<em>rc.conf</em>，才发现现在的<em>rc.conf</em>已经没有承载那么多配置项，可以看看Arch论坛上的相关<a href="https://bbs.archlinux.org/viewtopic.php?id=145532">讨论</a></p>
 
-<p>正如讨论中所讲，编辑一个文件进行配置和编辑多个文件进行配置各有利弊，看来也是
-讨论了很长时间才真正的尽量放弃rc.conf这个配置文件，配置文件的取舍真是个麻烦的
-问题，就像有人吐槽Linux一样，有众多的配置文件，但没有统一的规范。但或许这也是
-他的魅力所在，一直在改进，一直在寻找最合适的方式。Arch也是一样，随着它滚啊滚的
-，现在系统里面有好几个<strong>.pacnew</strong>文件，还没有去刷新，全部都去追最新的文件意义
-也不是太大，就是看什么时候遇到问题再处理一下吧。。</p>
+<p>正如讨论中所讲，编辑一个文件进行配置和编辑多个文件进行配置各有利弊，看来也是讨论了很长时间才真正的尽量放弃rc.conf这个配置文件，配置文件的取舍真是个麻烦的问题，就像有人吐槽Linux一样，有众多的配置文件，但没有统一的规范。但或许这也是他的魅力所在，一直在改进，一直在寻找最合适的方式。Arch也是一样，随着它滚啊滚的，现在系统里面有好几个<strong>.pacnew</strong>文件，还没有去刷新，全部都去追最新的文件意义也不是太大，就是看什么时候遇到问题再处理一下吧。。</p>
 
-<p>废话不提，先看看<strong>systemd</strong>是什么，从<a href="http://en.wikipedia.org/wiki/Systemd">wiki</a>上看，这是为了取代原有的系统启动
-配置<em>sysvinit</em>，为了更好的<strong>并行</strong>，提高启动效率。</p>
+<p>废话不提，先看看<strong>systemd</strong>是什么，从<a href="http://en.wikipedia.org/wiki/Systemd">wiki</a>上看，这是为了取代原有的系统启动配置<em>sysvinit</em>，为了更好的<strong>并行</strong>，提高启动效率。</p>
 
-<p>按照Arch上的<a href="https://wiki.archlinux.org/index.php/Systemd">帮助文件</a>初步配置了一下，把<em>rc.conf</em>上的配置都转移到几个
-<em>/etc</em>目录下的文件，发现水还是比较深，看来得找时间研究一下。修改的过程中还把
-qingy的登录界面弄挂了，登录不了系统，看来还是得先整个备用系统再修改这些文件，
-不然像上次折腾<em>glibc</em>的改变时，又要找系统盘。</p>
+<p>按照Arch上的<a href="https://wiki.archlinux.org/index.php/Systemd">帮助文件</a>初步配置了一下，把<em>rc.conf</em>上的配置都转移到几个<em>/etc</em>目录下的文件，发现水还是比较深，看来得找时间研究一下。修改的过程中还把qingy的登录界面弄挂了，登录不了系统，看来还是得先整个备用系统再修改这些文件，不然像上次折腾<em>glibc</em>的改变时，又要找系统盘。</p>
 
-<p>最后还是把在用户配置的<em>.bashrc</em>里面直接加入LOCALE的配置，总算让方块字显示了出
-来。</p>
+<p>最后还是把在用户配置的<em>.bashrc</em>里面直接加入LOCALE的配置，总算让方块字显示了出来。</p>
 
 <pre><code>export LC_ALL="en_US.UTF-8"
 </code></pre>
 
-<p>找到一个对几个LOCALE解释的比较清楚的<a href="http://www.linuxsir.org/bbs/thread312372.html">文章</a>，不过把所有选项LC<em>ALL配置为
-en</em>US倒也没什么问题。</p>
+<p>找到一个对几个LOCALE解释的比较清楚的<a href="http://www.linuxsir.org/bbs/thread312372.html">文章</a>，不过把所有选项LC<em>ALL配置为en</em>US倒也没什么问题。</p>
 <!--Passit BUTTON BEGIN-->
 <script type="text/javascript">
 var passit_title = "";//自定义分享标题，删除和留空表示使用默认
