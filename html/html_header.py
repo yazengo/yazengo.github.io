@@ -25,8 +25,10 @@ def main():
     print("""
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
     </head>
-    <body>
+    <body onload = "prettyPrint()">
         <div id="container">
     """)
 

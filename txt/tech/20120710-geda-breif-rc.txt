@@ -1,4 +1,4 @@
-体验一下gEDA
+使用 gEDA 进行RC滤波电路仿真
 ======
 
 一直对win 下面的电路仿真软件有点意见，需要各种各样的license ，而且用法都比较复
@@ -16,7 +16,7 @@ gEDA进行仿真也有相关的说明。[gEDA tutorial][]
 
 参考这些说明，做了一个简单的**RC滤波仿真**。
 
-###使用gschem画原理图
+##使用gschem画原理图
 
 这个过程和其他软件一样，但主要就是用一种直观的方式把连接关系标示清楚，以便得到
 网表。这里是初步实验，就用一个RC滤波，示意一下。
@@ -26,7 +26,7 @@ gEDA进行仿真也有相关的说明。[gEDA tutorial][]
 主要需要进行refdes 和value 的标示，refdes 表示在网表中的名称，value 表示数值，
 这里用一个脉冲方波看看rc 的滤波结果。
 
-###使用gnetlist生成网表
+##使用gnetlist生成网表
 
 调用命令
     gnetlist -g spice-sdb -o rc.net rc.sch
@@ -46,7 +46,7 @@ gEDA进行仿真也有相关的说明。[gEDA tutorial][]
     R1 2 1 1k  
     .end
 
-###使用ngspice进行电路仿真
+##使用ngspice进行电路仿真
 
     ngspice rc.net
 

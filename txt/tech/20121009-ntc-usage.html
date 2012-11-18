@@ -7,8 +7,10 @@
 
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
     </head>
-    <body>
+    <body onload = "prettyPrint()">
         <div id="container">
     
 <h1>NTC电阻的用法对比</h1>
@@ -26,7 +28,7 @@
 <li>程序中需要进行非线性拟合</li>
 </ul>
 
-<h3>常温和高温下检测温度偏差比较大</h3>
+<h2>常温和高温下检测温度偏差比较大</h2>
 
 <p>如果NTC直接通过电流源驱动，检测端口AD值的话，由于NTC的电阻值随着温度是指数关系，导致在常温和高温下检测值比较小的变化就会导致温度拟合值比较大的变化，如下图所示，横轴是检测值（Q10），纵轴是温度，可见在常温和高温部分，检测值变化很小，导致分辨率较低。</p>
 
@@ -42,7 +44,7 @@
 
 <p><img src="../../images/9-4.png" alt="NTC result 2" title="" /></p>
 
-<h3>程序中需要进行非线性拟合</h3>
+<h2>程序中需要进行非线性拟合</h2>
 
 <p>小型CPU由于计算资源和函数库的关系，对某些复杂计算显得力不从心，这里实现主要使用了查找表加上线性插值的思路，具体实现上可以参考<a href="www.jieyige.com/txt/tech/10-ln-lut.html">下篇文章</a></p>
 <!--Passit BUTTON BEGIN-->

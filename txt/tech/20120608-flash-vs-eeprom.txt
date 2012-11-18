@@ -1,7 +1,7 @@
-Flash vs EEPROM
+Flash vs EEPROM 区别以及操作方法
 ========
 
-###工艺
+##工艺
 
 Flash和EEPROM是类似的存储介质，从存储的原理上基本上是*一样的*，差别仅仅在于
 Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块数据的操作。
@@ -16,14 +16,14 @@ Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块
 虽然功能类似，但把Flash和传统的EEPROM放在一个芯片上却是不行的，COMS工艺导致了
 两者不能共存（？）。
 
-###读写时间
+##读写时间
 
 Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。擦除之后，Flash的写入时间
 较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值是5-10ms。所以外置Flash的读写
 总线经常是SPI, 而EEPROM是IIC(？）。
 
 
-###EEPROM Simulation
+##EEPROM Simulation
 
 TI提供了TMS320Fxx使用片内Flash模拟EEPROM的[操作方法][]。
 

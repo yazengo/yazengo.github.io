@@ -3,15 +3,17 @@
     <head>
         <meta charset="UTF-8">
     
-		<title>关于Linux的本地化和乱码处理</title>
+		<title>关于 Linux 的本地化和乱码处理</title>
 
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
     </head>
-    <body>
+    <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>关于Linux的本地化和乱码处理</h1>
+<h1>关于 Linux 的本地化和乱码处理</h1>
 
 <p>本来想写另外一篇记录文章，当时一打开vi就看见一堆乱码，看来字符集又出问题了，可能和这几天的系统升级有关，但又不知道到底是哪个升级可能会影响字符集，只好再从头研究一遍。以前是搜索一下解决问题就忘记了，这里记录一下，以后如果再出问题可以在这个文档的基础上进行补充。</p>
 
@@ -25,7 +27,7 @@
 
 <p>最后还是把在用户配置的<em>.bashrc</em>里面直接加入LOCALE的配置，总算让方块字显示了出来。</p>
 
-<pre><code>export LC_ALL="en_US.UTF-8"
+<pre class = "prettyprint"><code>export LC_ALL="en_US.UTF-8"
 </code></pre>
 
 <p>找到一个对几个LOCALE解释的比较清楚的<a href="http://www.linuxsir.org/bbs/thread312372.html">文章</a>，不过把所有选项LC<em>ALL配置为en</em>US倒也没什么问题。</p>

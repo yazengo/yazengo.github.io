@@ -1,4 +1,4 @@
-Vim 的插件更新方式
+Vim 的插件更新方式——Vim Addons Manager使用说明
 =======
 
 ##应用为王

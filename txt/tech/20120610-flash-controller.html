@@ -3,17 +3,19 @@
     <head>
         <meta charset="UTF-8">
     
-		<title>Flash控制器</title>
+		<title>Flash 控制器与读写时间</title>
 
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
     </head>
-    <body>
+    <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>Flash控制器</h1>
+<h1>Flash 控制器与读写时间</h1>
 
-<h3>MCU中的Flash控制器</h3>
+<h2>MCU中的Flash控制器</h2>
 
 <p>MCU中因为面积和功耗的关系，一般只有一个Flash控制器，这就导致了在进行写Flash操作的时候，Flash中的程序无法运行（相当于没办法同时进行读操作），中断也无法运行，因此在进行系统在线升级，或者一些关键的中断程序，需要将部分程序拷贝到Ram运行。因此也有处理器将Flash分为两大块进行操作，比如Fujitsu的<a href="http://mcu.emea.fujitsu.com/document/appnotes/Public/16Bit/mcu-an-390091-e-16lx_dual_operation_flash/mcu-an-390091-e-v12-16lx_dual_operation_flash.pdf">MB90F897</a></p>
 
@@ -25,11 +27,11 @@
 
 <p><img src="../../images/3-2.png" alt="two bank flash" title="" /></p>
 
-<h3>Flash的操作</h3>
+<h2>Flash的操作</h2>
 
 <p>Flash主要分为3种操作，读写和擦除，从物理过程上讲，主要是电子的移动过程。Flash是浮柵结构，写的过程是注入电子，读的过程相当于根据浮柵上电子的情况判断0和1，擦除的过程就是把浮柵上的电子全部赶走。</p>
 
-<h3>Flash读写时间</h3>
+<h2>Flash读写时间</h2>
 
 <p>Flash的读写一般花的时间都比较长，耗时最长的是擦除过程，整块Flash的擦除是100ms级别的，而写操作的时间也不短，因为需要先进行擦除操作（写为0xff），因此也比较耗时，读操作相对较快，但一般也需要几个时钟的时间。</p>
 <!--Passit BUTTON BEGIN-->

@@ -3,17 +3,19 @@
     <head>
         <meta charset="UTF-8">
     
-		<title>Flash vs EEPROM</title>
+		<title>Flash vs EEPROM 区别以及操作方法</title>
 
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
     </head>
-    <body>
+    <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>Flash vs EEPROM</h1>
+<h1>Flash vs EEPROM 区别以及操作方法</h1>
 
-<h3>工艺</h3>
+<h2>工艺</h2>
 
 <p>Flash和EEPROM是类似的存储介质，从存储的原理上基本上是<em>一样的</em>，差别仅仅在于Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块数据的操作。</p>
 
@@ -23,11 +25,11 @@
 
 <p>虽然功能类似，但把Flash和传统的EEPROM放在一个芯片上却是不行的，COMS工艺导致了两者不能共存（？）。</p>
 
-<h3>读写时间</h3>
+<h2>读写时间</h2>
 
 <p>Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。擦除之后，Flash的写入时间较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值是5-10ms。所以外置Flash的读写总线经常是SPI, 而EEPROM是IIC(？）。</p>
 
-<h3>EEPROM Simulation</h3>
+<h2>EEPROM Simulation</h2>
 
 <p>TI提供了TMS320Fxx使用片内Flash模拟EEPROM的<a href="http://www.ti.com/lit/an/sprab69/sprab69.pdf">操作方法</a>。</p>
 

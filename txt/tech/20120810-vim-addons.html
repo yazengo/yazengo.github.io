@@ -3,15 +3,17 @@
     <head>
         <meta charset="UTF-8">
     
-		<title>Vim 的插件更新方式</title>
+		<title>Vim 的插件更新方式——Vim Addons Manager使用说明</title>
 
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
     </head>
-    <body>
+    <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>Vim 的插件更新方式</h1>
+<h1>Vim 的插件更新方式——Vim Addons Manager使用说明</h1>
 
 <h2>应用为王</h2>
 
@@ -25,24 +27,24 @@
 
 <p>既然本身是应用，也是需要“与时俱进”，这里使用的github的代码仓库，可以方便的进行同步。</p>
 
-<pre><code>git://github.com/MarcWeber/vim-addon-manager
+<pre class = "prettyprint"><code>git://github.com/MarcWeber/vim-addon-manager
 </code></pre>
 
 <p>还有自动更新的配置列表，配置了更新应用的配置，如下载地址，更新方式等，也是在代码仓库里。</p>
 
-<pre><code>git://github.com/MarcWeber/vim-addon-manager-known-repositories
+<pre class = "prettyprint"><code>git://github.com/MarcWeber/vim-addon-manager-known-repositories
 </code></pre>
 
 <p>可以在你的.vim目录里面增加addons，然后将这些插件clone到这个文件夹内，这个目录需要设置到.vimrc配置路径里面。</p>
 
-<pre><code>set runtimepath+=~/.vim/addons/vim-addon-manager
+<pre class = "prettyprint"><code>set runtimepath+=~/.vim/addons/vim-addon-manager
 </code></pre>
 
 <p>有了这些之后，剩下的事情就是寻找适合自己的插件了，把他们添加到你的.vimrc，如下一节里面的例子，然后泡杯茶，等着你的应用安装到机子上。</p>
 
 <p>更新插件的方式就剩下一条指令了:</p>
 
-<pre><code>:UpdateAddons
+<pre class = "prettyprint"><code>:UpdateAddons
 </code></pre>
 
 <p>在Windows上的安装过程可以参考网上<a href="http://choorucode.wordpress.com/2010/12/09/using-vim-addon-manager-on-windows/">说明</a></p>
@@ -51,7 +53,7 @@
 
 <p>我目前使用的插件在这里做个备份</p>
 
-<pre><code>fun SetupVAM()
+<pre class = "prettyprint"><code>fun SetupVAM()
   set runtimepath+=~/.vim/addons/vim-addon-manager
   call vam#ActivateAddons([
                         \ 'taglist',

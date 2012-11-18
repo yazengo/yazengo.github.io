@@ -1,3 +1,5 @@
 git add images/*
 git add txt/*
+git add js/*
+git add stylesheets/*
 git commit -a
