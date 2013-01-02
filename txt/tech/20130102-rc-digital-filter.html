@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>RC滤波的数字实现</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>RC滤波的数字实现</h1>
+
+<p>信号与系统里面对数字滤波器的设计方法提供了方法论的指引，但在实际应用是会感觉难以使用，或者陷入公式的推导中间而无法对方法的本质做到“掌握”。这里对模拟系统离散化的一种方法——数值积分法的工程应用做一个简单的总结，并以RC滤波的设计为例子进行理论推导。</p>
+
+<p>数字应用中常常需要对输入信号进行滤波处理，而达到较为平稳的输出结果，比如AD采样数据，如果直接使用采样进来的数据可能会发现比较大的抖动，在一个平均值附近进行无规律的跳动，这种数据可能无法直接用到数字控制或者监控系统。按照模拟的方法一般是加上低通滤波器滤除高频信号，得到较为平稳的采样数据。通过一些数学推导可以将该模拟滤波器通过数字编程实现，这里主要使用比较常用的模拟离散化方法——数值积分法，对原理的推导可以参考信号与系统理论，我们只利用结果进行推导。</p>
+
+<p>RC滤波的模拟实现见下图：</p>
+
+<p><img src="../../images/20130102-1-1.png" alt="RC Filter" title="" /></p>
+
+<p>根据拉普拉斯变换可以得到RC系统的s域传递函数</p>
+
+<p>Y(s) = X(s) * 1/CS/(R + 1/CS) = X(s) * 1 / (RCS + 1)</p>
+
+<p>通过数值积分法从s域变换为z域，其中T为采样频率</p>
+
+<ul>
+<li>一阶后向差法：s = (1 - z(-1)) / T</li>
+<li>一阶后向差法：s = (z - 1) / T</li>
+<li>双线性变换法：s = 2/T * (z - 1)/(z + 1)</li>
+</ul>
+
+<p>这里采用后向差法进行实例计算得到z域传递函数</p>
+
+<p>Y(z) = X(z) * 1 / (RC * (1 - z(-1)) + 1)</p>
+
+<p>最后可以得到数字实现公式</p>
+
+<p>y(n) = y(n-1) / (1 + T/RC) + x(n) / (1 + RC/T)</p>
+
+<p>实际数字计算时为了简化计算过程，通常采样移位的方式替代乘除法，因此需要取2^k为计算步长，因此取<strong>1 + RC/T = 2^k</strong>，得到最后的计算公式</p>
+
+<p>y(n) = (1 - 1/2^k) * y(n-1) + (1/2^k) * x(n)</p>
+
+<p>这样就可以通过简单的移位操作进行程序处理，得到滤波器的数字实现，编程简单实现如下：</p>
+
+<pre class = "prettyprint"><code>int rc_filter(const int adc)
+{
+    const int shift = 4;
+    static int adc_shift = adc;
+
+    adc_shift = adc_shift - (adc_shift &gt;&gt; shift) + adc;
+    return (adc_shift &gt;&gt; shift);
+}
+</code></pre>
+
+<p>这样就通过很少的内存占用（adc_shift）实现深度为4的一阶RC滤波。</p>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
