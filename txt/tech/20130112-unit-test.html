@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>关于单元测试</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>关于单元测试</h1>
+
+<h2>来源</h2>
+
+<p>有几个场景，有过项目开发经验的程序员一般都不陌生：</p>
+
+<ul>
+<li>开发人员写好程序，交给测试人员，测试人员一顿折腾后，周五下班前发过来一堆问题
+单，进度压力下，开发人员又哼哧哼哧的过来加班。后来学乖了，也在下班前提交给测试
+，大家一起来加班，最后弄得开发和测试关系总是不太好。</li>
+<li>处理遗留代码，这些代码已经在网运行n年了，可靠性从某种程度上得到了验证，但代
+码本身惨不忍睹，见一次吐一次，而需求总是变化的，最后改得越来越恶心。</li>
+<li>开发基本完成的时候，发现对某个场景根本没有分析清楚，导致客户的恼火，重新走一
+遍流程发现需要改动的地方太多了。</li>
+</ul>
+
+<h2>重要性</h2>
+
+<p>一些在瀑布开发流程中暴发出来的问题，比如需求不明确，需求经常变动，技术上有风险、问题太多无法收敛等等，导致了一些大型软件开发项目的流产。同时，互联网等需要快速响应的场景的飞速发展，使得程序员在实践中总结了一些敏捷、极限编程等开发理念，大大提升了软件开发的效率。而其中很重要的一个环节就是单元测试，加快了迭代的速度、提升了需求反馈的速度、减小了重构的风险。</p>
+
+<h2>基本思路</h2>
+
+<p>所谓单元测试，必须是<strong>单元</strong>的，直观上的限制就是跑完整个测试是以秒以下为单位。目的主要是对某个函数或者某个算法进行功能上的基本测试，始作俑者是变化的需求，当开发者收到某个新的需求或者特性，首先进行的是场景分析，这里的产出可以是测试用例（某种程度上的TDD）、算法、Story分解等。程序开发的同时进行单元测试，为了达到这个目的，往往要对程序架构进行有效的分层和解耦，并引入可测试性，从而达到代码质量提升和需求满足的良性循环。</p>
+
+<h2>难点</h2>
+
+<h3>解依赖</h3>
+
+<p>我们要进行单元测试，但测试对象本身往往不是“单元”的，即与其他函数、其他文件、甚至其他系统有着各种各样的联系，尤其是面向过程的程序，如果架构不清晰，很容易陷入“依赖死锁”。解依赖的一些技术在<a href="http://book.douban.com/subject/2248759/">修改代码的艺术</a>里面有比较清晰的描述，主要通过STUB（打桩）和MOCK（仿对象）等进行。</p>
+
+<h3>测试用例构建</h3>
+
+<p>测试用例的来源往往包括场景、需求、算法和案例等，对于函数本身还有一些边界情况需要考虑，因此测试函数的编写也是需要花费大量的时间和精力。程序本身可能几个小时就搞定了，但为了保证它的质量往往需要一个流程保障。</p>
+
+<h2>测试框架</h2>
+
+<ul>
+<li><a href="http://www.jera.com/techinfo/jtns/jtn002.html">minUnit</a>: 只有3行，进行基本的输入输出的断言</li>
+<li><a href="http://ccodearchive.net/">CCan</a>: 提供了输入输出的判断</li>
+<li><a href="http://code.google.com/p/cmockery/">cmockery</a>: Google出品，提供了断言和Mock</li>
+</ul>
+
+<p>这里只列出了几个C语言的，因为后面可能会用到，其实C语言进行单元测试可能是不太直观和KISS的，没有面向对象的多态性。Java和CPP都有很优秀的测试框架供选择。</p>
+
+<h2>最后的话</h2>
+
+<p>“软件开发没有银弹” 单元测试也不能解决软件开发中的所有问题，很多问题还是需要系统测试发现（测试部存在的意义）。另一方面，单元测试并<strong>不能减少BUG</strong>，只能将BUG暴露的更早一些，BUG数量本身往往是由开发者的素质决定的。</p>
+
+<p>单元测试往往也是和自动化水平联系在一起的，如果没有提高效率的工具，单元测试的工作量可想而知。同时，某种程度上也和领导的重视程度相关，单元测试需要花费很多时间和精力，但又没有直接的产出，大部分组织往往更关注时间点。</p>
+
+<p><img src="../../images/20130112-1.jpg" alt="UT" title="" /></p>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
