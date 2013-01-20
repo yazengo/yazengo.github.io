@@ -58,3 +58,13 @@ q退出。
 某些行发送到ipython执行，在后来的版本更改为[Alt+S]，这样就可以通过ipython继续
 调试。
 
+##缺点
+
+* iPython本身启动较慢，无法进行很快的编辑和运行
+* 有时候绑定的自动完成容易与omniComplete冲突
+* 静态检查需要增加其他的插件
+
+最近正在使用[python-mode][]，集成了python开发需要的多种插件，按照默认的配置就
+可以高效的工作。
+
+[python-mode]:https://github.com/klen/python-mode
