@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <mi>y</mi>
+   <mrow>
+    <mrow>
+     <mo stretchy="false">(</mo>
+     <mrow>
+      <mi>n</mi>
+     </mrow>
+     <mo stretchy="false">)</mo>
+    </mrow>
+    <mo stretchy="false">=</mo>
+    <mrow>
+     <mfrac>
+      <mrow>
+       <mi>y</mi>
+       <mrow>
+        <mo stretchy="false">(</mo>
+        <mrow>
+         <mrow>
+          <mi>n</mi>
+          <mo stretchy="false">−</mo>
+          <mn>1</mn>
+         </mrow>
+        </mrow>
+        <mo stretchy="false">)</mo>
+       </mrow>
+      </mrow>
+      <mrow>
+       <mrow>
+        <mn>1</mn>
+        <mo stretchy="false">+</mo>
+        <mfrac>
+         <mrow>
+          <mi>T</mi>
+         </mrow>
+         <mrow>
+          <mi mathvariant="italic">RC</mi>
+         </mrow>
+        </mfrac>
+       </mrow>
+      </mrow>
+     </mfrac>
+     <mo stretchy="false">+</mo>
+     <mfrac>
+      <mrow>
+       <mi>x</mi>
+       <mrow>
+        <mo stretchy="false">(</mo>
+        <mrow>
+         <mi>n</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+       </mrow>
+      </mrow>
+      <mrow>
+       <mrow>
+        <mn>1</mn>
+        <mo stretchy="false">+</mo>
+        <mfrac>
+         <mrow>
+          <mi mathvariant="italic">RC</mi>
+         </mrow>
+         <mrow>
+          <mi>T</mi>
+         </mrow>
+        </mfrac>
+       </mrow>
+      </mrow>
+     </mfrac>
+    </mrow>
+   </mrow>
+  </mrow>
+  <annotation encoding="StarMath 5.0">y(n)={y(n-1)} over {1+{T} over {RC} } +{x(n)} over {1+{RC} over {T} } </annotation>
+ </semantics>
+</math>

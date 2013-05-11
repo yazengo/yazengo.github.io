@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <mi>Y</mi>
+   <mrow>
+    <mrow>
+     <mo stretchy="false">(</mo>
+     <mrow>
+      <mi>s</mi>
+     </mrow>
+     <mo stretchy="false">)</mo>
+    </mrow>
+    <mo stretchy="false">=</mo>
+    <mi>X</mi>
+   </mrow>
+   <mrow>
+    <mo stretchy="false">(</mo>
+    <mrow>
+     <mi>s</mi>
+    </mrow>
+    <mo stretchy="false">)</mo>
+   </mrow>
+   <mrow>
+    <mfrac>
+     <mrow>
+      <mrow>
+       <mn>1</mn>
+       <mo stretchy="false">/</mo>
+       <mi mathvariant="italic">CS</mi>
+      </mrow>
+     </mrow>
+     <mrow>
+      <mrow>
+       <mi>R</mi>
+       <mo stretchy="false">+</mo>
+       <mrow>
+        <mn>1</mn>
+        <mo stretchy="false">/</mo>
+        <mi mathvariant="italic">CS</mi>
+       </mrow>
+      </mrow>
+     </mrow>
+    </mfrac>
+    <mo stretchy="false">=</mo>
+    <mi>X</mi>
+   </mrow>
+   <mrow>
+    <mo stretchy="false">(</mo>
+    <mrow>
+     <mi>s</mi>
+    </mrow>
+    <mo stretchy="false">)</mo>
+   </mrow>
+   <mfrac>
+    <mrow>
+     <mn>1</mn>
+    </mrow>
+    <mrow>
+     <mrow>
+      <mi mathvariant="italic">RCS</mi>
+      <mo stretchy="false">+</mo>
+      <mn>1</mn>
+     </mrow>
+    </mrow>
+   </mfrac>
+  </mrow>
+  <annotation encoding="StarMath 5.0">Y(s) = X(s) {1/CS} over {R + 1/CS }=X(s){1} over {RCS + 1 } </annotation>
+ </semantics>
+</math>

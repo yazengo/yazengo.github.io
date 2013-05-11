@@ -25,7 +25,9 @@
 
 <p>根据拉普拉斯变换可以得到RC系统的s域传递函数</p>
 
-<p>Y(s) = X(s) * 1/CS/(R + 1/CS) = X(s) * 1 / (RCS + 1)</p>
+<p><?xml version="1.0" encoding="UTF-8"?></p>
+
+<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>Y</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>s</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mi>X</mi>   </mrow>   <mrow>    <mo stretchy="false">(</mo>    <mrow>     <mi>s</mi>    </mrow>    <mo stretchy="false">)</mo>   </mrow>   <mrow>    <mfrac>     <mrow>      <mrow>       <mn>1</mn>       <mo stretchy="false">/</mo>       <mi mathvariant="italic">CS</mi>      </mrow>     </mrow>     <mrow>      <mrow>       <mi>R</mi>       <mo stretchy="false">+</mo>       <mrow>        <mn>1</mn>        <mo stretchy="false">/</mo>        <mi mathvariant="italic">CS</mi>       </mrow>      </mrow>     </mrow>    </mfrac>    <mo stretchy="false">=</mo>    <mi>X</mi>   </mrow>   <mrow>    <mo stretchy="false">(</mo>    <mrow>     <mi>s</mi>    </mrow>    <mo stretchy="false">)</mo>   </mrow>   <mfrac>    <mrow>     <mn>1</mn>    </mrow>    <mrow>     <mrow>      <mi mathvariant="italic">RCS</mi>      <mo stretchy="false">+</mo>      <mn>1</mn>     </mrow>    </mrow>   </mfrac>  </mrow>  <annotation encoding="StarMath 5.0">Y(s) = X(s) {1/CS} over {R + 1/CS }=X(s){1} over {RCS + 1 } </annotation> </semantics></p>
 
 <p>通过数值积分法从s域变换为z域，其中T为采样频率</p>
 
@@ -37,15 +39,21 @@
 
 <p>这里采用后向差法进行实例计算得到z域传递函数</p>
 
-<p>Y(z) = X(z) * 1 / (RC * (1 - z(-1)) + 1)</p>
+<p><?xml version="1.0" encoding="UTF-8"?></p>
+
+<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>Y</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>z</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mfrac>     <mrow>      <mi>X</mi>      <mrow>       <mo stretchy="false">(</mo>       <mrow>        <mi>z</mi>       </mrow>       <mo stretchy="false">)</mo>      </mrow>     </mrow>     <mrow>      <mi mathvariant="italic">RC</mi>      <mrow>       <mfrac>        <mrow>         <mrow>          <mn>1</mn>          <mo stretchy="false">−</mo>          <msup>           <mi>z</mi>           <mrow>            <mrow>             <mo stretchy="false">−</mo>             <mn>1</mn>            </mrow>           </mrow>          </msup>         </mrow>        </mrow>        <mrow>         <mi>T</mi>        </mrow>       </mfrac>       <mo stretchy="false">+</mo>       <mn>1</mn>      </mrow>     </mrow>    </mfrac>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">Y(z)={X(z)} over {RC{1-z^{-1}} over {T}+1} </annotation> </semantics></p>
 
 <p>最后可以得到数字实现公式</p>
 
-<p>y(n) = y(n-1) / (1 + T/RC) + x(n) / (1 + RC/T)</p>
+<p><?xml version="1.0" encoding="UTF-8"?></p>
+
+<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>y</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>n</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mrow>     <mfrac>      <mrow>       <mi>y</mi>       <mrow>        <mo stretchy="false">(</mo>        <mrow>         <mrow>          <mi>n</mi>          <mo stretchy="false">−</mo>          <mn>1</mn>         </mrow>        </mrow>        <mo stretchy="false">)</mo>       </mrow>      </mrow>      <mrow>       <mrow>        <mn>1</mn>        <mo stretchy="false">+</mo>        <mfrac>         <mrow>          <mi>T</mi>         </mrow>         <mrow>          <mi mathvariant="italic">RC</mi>         </mrow>        </mfrac>       </mrow>      </mrow>     </mfrac>     <mo stretchy="false">+</mo>     <mfrac>      <mrow>       <mi>x</mi>       <mrow>        <mo stretchy="false">(</mo>        <mrow>         <mi>n</mi>        </mrow>        <mo stretchy="false">)</mo>       </mrow>      </mrow>      <mrow>       <mrow>        <mn>1</mn>        <mo stretchy="false">+</mo>        <mfrac>         <mrow>          <mi mathvariant="italic">RC</mi>         </mrow>         <mrow>          <mi>T</mi>         </mrow>        </mfrac>       </mrow>      </mrow>     </mfrac>    </mrow>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">y(n)={y(n-1)} over {1+{T} over {RC} } +{x(n)} over {1+{RC} over {T} } </annotation> </semantics></p>
 
 <p>实际数字计算时为了简化计算过程，通常采样移位的方式替代乘除法，因此需要取2^k为计算步长，因此取<strong>1 + RC/T = 2^k</strong>，得到最后的计算公式</p>
 
-<p>y(n) = (1 - 1/2^k) * y(n-1) + (1/2^k) * x(n)</p>
+<p><?xml version="1.0" encoding="UTF-8"?></p>
+
+<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>y</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>n</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mrow>       <mn>1</mn>       <mo stretchy="false">−</mo>       <mfrac>        <mrow>         <mn>1</mn>        </mrow>        <mrow>         <msup>          <mn>2</mn>          <mrow>           <mi>k</mi>          </mrow>         </msup>        </mrow>       </mfrac>      </mrow>     </mrow>     <mo stretchy="false">)</mo>    </mrow>   </mrow>   <mi>y</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mrow>       <mi>n</mi>       <mo stretchy="false">−</mo>       <mn>1</mn>      </mrow>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">+</mo>    <mfrac>     <mrow>      <mn>1</mn>     </mrow>     <mrow>      <msup>       <mn>2</mn>       <mrow>        <mi>k</mi>       </mrow>      </msup>     </mrow>    </mfrac>   </mrow>   <mi>x</mi>   <mrow>    <mo stretchy="false">(</mo>    <mrow>     <mi>n</mi>    </mrow>    <mo stretchy="false">)</mo>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">y(n)=(1-{1} over {2^{k}})y(n-1)+ {1} over {2^{k}}x(n)</annotation> </semantics></p>
 
 <p>这样就可以通过简单的移位操作进行程序处理，得到滤波器的数字实现，编程简单实现如下：</p>
 
