@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>关于 core dump</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>关于 core dump</h1>
+
+<h2>core dump 是什么</h2>
+
+<p>所谓的 <strong>core</strong> 其实就是 memory，早先的存储器十分昂贵，是用磁心器件做的用于保存临时数据， core dump 就是把运行出错时把进程的内存段像倒垃圾一样倾泻出来。现在的计算机就是倒腾到磁盘上，用于事后分析问题，最开始的计算机就是全部打印出来（反正总共可以用到的内存也不是很多）。于是可以想象一下当年码农的作业场景，一个长发胡子拉擦的人通过打孔机把指令交给计算机，然后兴奋的等待结果，忽然，红灯一闪，然后打印机里面开始疯狂的工作。接着，码农垂头丧气的拿着一卷 core dump 的结果回去分析去了。</p>
+
+<h2>什么时候 core dump</h2>
+
+<p>空指针、野指针、非法指针，这些在c语言里面耳熟能详的名字往往是导致 core dump 的罪魁祸首。操作系统能够给你的内存总是有限的，你一越界他就不干了，立马终止程序运行，把你产生的垃圾还给你。</p>
+
+<h2>core dump 到哪里去了</h2>
+
+<p>参考 stackoverflow 上面的这个<a href="http://stackoverflow.com/questions/2065912/core-dumped-but-core-file-is-not-in-current-directory">问题</a>，可以通过</p>
+
+<pre class = "prettyprint"><code>cat /proc/sys/kernel/core_pattern
+</code></pre>
+
+<p>来查看自己的计算机是 core dump 到哪里了。</p>
+
+<p>一般是在/var/cache/abrt，如果使用的是 systemd，那么 core dump 是记录到 systemd自己的日志里面，可以通过 systemd-coredumpctl 进行操作。比如</p>
+
+<pre class = "prettyprint"><code>sudo systemd-coredumpctl list
+</code></pre>
+
+<p>就是用来列出所有 dump 的文件，然后可以同 gdb 调试。</p>
+
+<p>嵌入式系统里面，可以把这些信息重定向到串口输出。</p>
+
+<h2>如何分析</h2>
+
+<p>一般是用 objdump 查看 core dump 的文件，然后可以用万能的 gdb 进行调试。比如，我给 strlen 传递了一个空指针。通过</p>
+
+<pre class = "prettyprint"><code>sudo systemd-coredumpctl gdb 3058
+</code></pre>
+
+<p>可以看到出错的信息</p>
+
+<pre class = "prettyprint"><code>Program terminated with signal 11, Segmentation fault.
+#0  0x00007fa595b56801 in __strlen_sse2_pminub ()
+from /usr/lib/libc.so.6
+</code></pre>
+
+<p>这样就可以看到出错的“大概”位置。</p>
+
+<p><img src="../../images/20130601-1-1.jpg" alt="core dump" title="" /></p>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

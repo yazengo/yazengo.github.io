@@ -1,0 +1,54 @@
+关于 core dump
+=====
+
+## core dump 是什么
+
+所谓的 **core** 其实就是 memory，早先的存储器十分昂贵，是用磁心器件做的用于保
+存临时数据， core dump 就是把运行出错时把进程的内存段像倒垃圾一样倾泻出来。现
+在的计算机就是倒腾到磁盘上，用于事后分析问题，最开始的计算机就是全部打印出来（
+反正总共可以用到的内存也不是很多）。于是可以想象一下当年码农的作业场景，一个长
+发胡子拉擦的人通过打孔机把指令交给计算机，然后兴奋的等待结果，忽然，红灯一闪，
+然后打印机里面开始疯狂的工作。接着，码农垂头丧气的拿着一卷 core dump 的结果回
+去分析去了。
+
+## 什么时候 core dump
+
+空指针、野指针、非法指针，这些在c语言里面耳熟能详的名字往往是导致 core dump 的
+罪魁祸首。操作系统能够给你的内存总是有限的，你一越界他就不干了，立马终止程序运
+行，把你产生的垃圾还给你。
+
+## core dump 到哪里去了
+
+参考 stackoverflow 上面的这个[问题][]，可以通过
+
+    cat /proc/sys/kernel/core_pattern
+
+来查看自己的计算机是 core dump 到哪里了。
+
+一般是在/var/cache/abrt，如果使用的是 systemd，那么 core dump 是记录到 systemd
+自己的日志里面，可以通过 systemd-coredumpctl 进行操作。比如
+
+    sudo systemd-coredumpctl list
+
+就是用来列出所有 dump 的文件，然后可以同 gdb 调试。
+
+嵌入式系统里面，可以把这些信息重定向到串口输出。
+
+[问题]:http://stackoverflow.com/questions/2065912/core-dumped-but-core-file-is-not-in-current-directory
+
+## 如何分析
+
+一般是用 objdump 查看 core dump 的文件，然后可以用万能的 gdb 进行调试。比如，
+我给 strlen 传递了一个空指针。通过
+
+    sudo systemd-coredumpctl gdb 3058
+
+可以看到出错的信息
+
+    Program terminated with signal 11, Segmentation fault.
+    #0  0x00007fa595b56801 in __strlen_sse2_pminub ()
+    from /usr/lib/libc.so.6
+
+这样就可以看到出错的“大概”位置。
+
+![core dump](../../images/20130601-1-1.jpg)

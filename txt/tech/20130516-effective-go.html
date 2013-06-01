@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>Effective GO 阅读要点</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>Effective GO 阅读要点</h1>
+
+<pre class = "prettyprint"><code>godoc -http=:8080
+</code></pre>
+
+<h2>格式</h2>
+
+<ul>
+<li>没有必要纠结于格式，gofmt 可以帮助我们做这些烦人的事情</li>
+<li>不用纠结于一行的长度</li>
+<li>不用像c一样用一堆括号</li>
+<li>自动行末分号</li>
+</ul>
+
+<h2>注释</h2>
+
+<ul>
+<li>注释即是文档，不用纠结于格式</li>
+<li>将相关变量集中到{}内</li>
+</ul>
+
+<h2>命名</h2>
+
+<ul>
+<li>package 命名一般要短而精，小写字母，单word</li>
+<li>package 名即是文件名</li>
+<li>注释文档比长命名有效</li>
+<li>大写字母开头的函数为 package 对外接口</li>
+<li>getter 函数不用 get，可以 set</li>
+<li>interface 函数常以 er 结尾</li>
+<li>mixCap or MixCap > mix_cap</li>
+</ul>
+
+<h2>语句</h2>
+
+<ul>
+<li>没有 while 或者 do...while，使用 for 实现</li>
+<li>:= 至少有一个是新定义的变量</li>
+<li>for key(_), value range map:</li>
+<li>swith 的用法被大大扩展，无需 break，可作为多重判断，无所谓是 int 类型</li>
+<li>defer 的执行顺序是LIFO</li>
+</ul>
+
+<h2>数据</h2>
+
+<ul>
+<li>make 用于 map, slice, channel 的内存分配 “需要初始化(长度等信息)”</li>
+<li>new 分配内存，zero，返回第一个地址指针</li>
+<li>函数传递 array 时会进行拷贝操作，而不是指针</li>
+<li>slice > array</li>
+<li>map 是无序的</li>
+<li>struct 的匿名字段可以用于继承</li>
+</ul>
+
+<h2>Print</h2>
+
+<ul>
+<li>%v 可以作为通用类型输出</li>
+<li>%T 变量的类型</li>
+</ul>
+
+<h2>Interface</h2>
+
+<ul>
+<li>有助于实现 ducking type</li>
+<li>type switch value.(typename)</li>
+<li>checking val.(interface)</li>
+</ul>
+
+<h2>go routine</h2>
+
+<ul>
+<li>channel 缓冲或者不缓冲</li>
+<li>channel 可以通过 range 遍历，直到生产者 close</li>
+<li>share by communication</li>
+</ul>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
