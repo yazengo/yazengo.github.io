@@ -1,0 +1,83 @@
+程序错误异常处理(1)
+=======
+
+##引子
+
+如果面试时需要写一段字符串拷贝的代码，应该如何写才能让考官满意呢，也许很多人
+可以很快写出来。
+
+    void strcpy(char* to, char* from) {
+        while (*from) {
+            *to ++ = *from++;
+        }
+        *to = '\0';
+    }
+
+或者更为精简的一段：
+
+    while((*to ++ = *form ++) != '\0')
+        continue;
+
+考官或许会说 strncpy 才是安全的，这个暂时不作为本文的讨论范围，另一些考官或许
+会问如果要在函数内进行错误和异常的处理，应该如何进行，我们又可以看到五花八门
+的答案（茴字的x种写法）。ps: 这里先抛开语言，同时，具体的拷贝函数以 ... 代替。
+
+1、什么都不做
+
+    void strcpy(char* to, char* from) {
+        if ((to == NULL) || (from == NULL))
+            return;
+        ...
+    }
+
+2、返回负数
+
+    int strcpy(char* to, char* from) {
+        if ((to == NULL) || (from == NULL))
+            return -1;
+        ...
+    }
+
+3、使用断言
+
+    void strcpy(char* to, char* from) {
+        assert(to != NULL);
+        assert(from != NULL);
+        ...
+    }
+
+4、使用异常
+
+    void strcpy(char* to, char* from) {
+        if ((to == NULL) || (from == NULL))
+            throw exception;
+        ...
+    }
+
+5、记录到log文件
+
+    void strcpy(char* to, char* from) {
+        if ((to == NULL) || (from == NULL))
+            fwrite(error);
+        ...
+    }
+
+6、使用 last error 的方式
+
+    #include <error.h>
+    void strcpy(char* to, char* from) {
+        if ((to == NULL) || (from == NULL))
+            error = 16;
+        ...
+    }
+
+7、将错误信息打印出来
+
+    void strcpy(char* to, char* from) {
+        if ((to == NULL) || (from == NULL))
+            fprintf(stderr, "strcpy takes no NULL pointer")
+        ...
+    }
+
+当然，可能还会有其他方式，那么这个时候面对五花八门的答案，有没有哪个是标准答案
+呢，这下傻眼的就是考官自己了。

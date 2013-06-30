@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>程序错误异常处理(1)</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>程序错误异常处理(1)</h1>
+
+<h2>引子</h2>
+
+<p>如果面试时需要写一段字符串拷贝的代码，应该如何写才能让考官满意呢，也许很多人可以很快写出来。</p>
+
+<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+    while (*from) {
+        *to ++ = *from++;
+    }
+    *to = '\0';
+}
+</code></pre>
+
+<p>或者更为精简的一段：</p>
+
+<pre class = "prettyprint"><code>while((*to ++ = *form ++) != '\0')
+    continue;
+</code></pre>
+
+<p>考官或许会说 strncpy 才是安全的，这个暂时不作为本文的讨论范围，另一些考官或许会问如果要在函数内进行错误和异常的处理，应该如何进行，我们又可以看到五花八门的答案（茴字的x种写法）。ps: 这里先抛开语言，同时，具体的拷贝函数以 ... 代替。</p>
+
+<p>1、什么都不做</p>
+
+<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+    if ((to == NULL) || (from == NULL))
+        return;
+    ...
+}
+</code></pre>
+
+<p>2、返回负数</p>
+
+<pre class = "prettyprint"><code>int strcpy(char* to, char* from) {
+    if ((to == NULL) || (from == NULL))
+        return -1;
+    ...
+}
+</code></pre>
+
+<p>3、使用断言</p>
+
+<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+    assert(to != NULL);
+    assert(from != NULL);
+    ...
+}
+</code></pre>
+
+<p>4、使用异常</p>
+
+<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+    if ((to == NULL) || (from == NULL))
+        throw exception;
+    ...
+}
+</code></pre>
+
+<p>5、记录到log文件</p>
+
+<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+    if ((to == NULL) || (from == NULL))
+        fwrite(error);
+    ...
+}
+</code></pre>
+
+<p>6、使用 last error 的方式</p>
+
+<pre class = "prettyprint"><code>#include &lt;error.h&gt;
+void strcpy(char* to, char* from) {
+    if ((to == NULL) || (from == NULL))
+        error = 16;
+    ...
+}
+</code></pre>
+
+<p>7、将错误信息打印出来</p>
+
+<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+    if ((to == NULL) || (from == NULL))
+        fprintf(stderr, "strcpy takes no NULL pointer")
+    ...
+}
+</code></pre>
+
+<p>当然，可能还会有其他方式，那么这个时候面对五花八门的答案，有没有哪个是标准答案呢，这下傻眼的就是考官自己了。</p>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>程序错误异常处理(3)</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>程序错误异常处理(3)</h1>
+
+<p>虽然“错误处理的基本方式是看着办”，但设计程序接口的时候还是有一些常用的原则可以遵循。</p>
+
+<p><strong>发生错误的时候第一件需要考虑的事情是释放资源</strong>，比如打开的文件、分配的内存等，发生错误表示函数已经无法在预计的流程下继续处理，这时候可能已经打开了一些资源，需要进行及时的释放，防止因为反复错误导致程序当机。golang 里面的 defer 函数的设计可以以较为优雅的方式进行资源释放，同时保证了函数的内聚性。</p>
+
+<p><strong>是否返回错误需要考虑让调用者如何处理</strong>，错误处理不是上报了事，本地处理的好处是简化函数接口，调用者可以进行简单的错误处理判断。假如函数设计者自己都不知道应该如何处理某个错误，那么返回给上层函数后，很可能出现的情况是调用者也不处理这个错误。这种情况可以称之为“虚伪的可靠性”，似乎考虑了很多种情况，并进行了上报，但容易导致大多数的调用者忽略该错误值。</p>
+
+<p><strong>只对不可能的错误报异常</strong>，当所有输入条件已经准备妥当，函数还是无法返回正确的数值的时候，最好可以上报为异常，通知上层程序“我已经尽力了，但确实是没办法”。比如通讯处理函数中，输入参数已经是打开确认可以通信的接口，但调用函数时硬件接口断开了，导致通信异常，这时候上报异常可以让函数处理流程简化直观。可以用 try (someread call) ... catch (ConnectException) 的方式方便上层应用程序调用。</p>
+
+<h2>后面的话</h2>
+
+<p>在阅读 golang 文档的时候，对这个语言在设计时所考虑的一些问题深深着迷。一段时间迷糊后在<a href="www.douban.com/subject/1951158">代码大全</a>里面发现有个章节对防御性编程做了很好的总结，这些讨论算是读后感吧。</p>
+<!--Passit BUTTON BEGIN-->
+<script type="text/javascript">
+var passit_title = "";//自定义分享标题，删除和留空表示使用默认
+var passit_url = "";//自定义分享网址，删除和留空表示使用默认
+var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
+var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
+var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
+var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
+</script>
+<script type="text/javascript">
+bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
+<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
+<!--Passit BUTTON END-->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
