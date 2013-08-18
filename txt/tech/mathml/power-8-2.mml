@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <msub>
+    <mi>G</mi>
+    <mrow>
+     <mi mathvariant="italic">vd</mi>
+    </mrow>
+   </msub>
+   <mrow>
+    <mrow>
+     <mo stretchy="false">(</mo>
+     <mrow>
+      <mi>s</mi>
+     </mrow>
+     <mo stretchy="false">)</mo>
+    </mrow>
+    <mo stretchy="false">=</mo>
+    <mfrac>
+     <mrow>
+      <mover accent="true">
+       <mi>v</mi>
+       <mo stretchy="false">̂</mo>
+      </mover>
+      <mrow>
+       <mo stretchy="false">(</mo>
+       <mrow>
+        <mi>s</mi>
+       </mrow>
+       <mo stretchy="false">)</mo>
+      </mrow>
+     </mrow>
+     <mrow>
+      <mover accent="true">
+       <msub>
+        <mi>v</mi>
+        <mrow>
+         <mi>d</mi>
+        </mrow>
+       </msub>
+       <mo stretchy="false">̂</mo>
+      </mover>
+      <mrow>
+       <mo stretchy="false">(</mo>
+       <mrow>
+        <mi>s</mi>
+       </mrow>
+       <mo stretchy="false">)</mo>
+      </mrow>
+     </mrow>
+    </mfrac>
+   </mrow>
+   <mfenced open="(" close=")">
+    <mrow>
+     <mover accent="true">
+      <msub>
+       <mi>v</mi>
+       <mrow>
+        <mi>g</mi>
+       </mrow>
+      </msub>
+      <mo stretchy="false">̂</mo>
+     </mover>
+     <mrow>
+      <mrow>
+       <mo stretchy="false">(</mo>
+       <mrow>
+        <mi>s</mi>
+       </mrow>
+       <mo stretchy="false">)</mo>
+      </mrow>
+      <mo stretchy="false">=</mo>
+      <mn>0</mn>
+     </mrow>
+    </mrow>
+   </mfenced>
+  </mrow>
+  <annotation encoding="StarMath 5.0">G_{vd}(s)={hat v(s) } over {hat v_{d} (s)} left ( hat v_{g}(s) =0 right ) </annotation>
+ </semantics>
+</math>
