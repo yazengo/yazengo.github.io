@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <mrow>
+    <msub>
+     <mrow>
+      <mrow>
+       <mo stretchy="false">∥</mo>
+       <mrow>
+        <mi>G</mi>
+       </mrow>
+       <mo stretchy="false">∥</mo>
+      </mrow>
+     </mrow>
+     <mi mathvariant="italic">dB</mi>
+    </msub>
+    <mo stretchy="false">=</mo>
+    <msub>
+     <mn>20log</mn>
+     <mn>10</mn>
+    </msub>
+   </mrow>
+   <mrow>
+    <msup>
+     <mrow>
+      <mrow>
+       <mo stretchy="false">(</mo>
+       <mrow>
+        <mfrac>
+         <mi>f</mi>
+         <mrow>
+          <msub>
+           <mi>f</mi>
+           <mn>0</mn>
+          </msub>
+         </mrow>
+        </mfrac>
+       </mrow>
+       <mo stretchy="false">)</mo>
+      </mrow>
+     </mrow>
+     <mrow>
+      <mi>n</mi>
+     </mrow>
+    </msup>
+    <mo stretchy="false">=</mo>
+    <mn>20n</mn>
+   </mrow>
+   <msub>
+    <mi>log</mi>
+    <mn>10</mn>
+   </msub>
+   <mrow>
+    <mo stretchy="false">(</mo>
+    <mrow>
+     <mfrac>
+      <mi>f</mi>
+      <mrow>
+       <msub>
+        <mi>f</mi>
+        <mn>0</mn>
+       </msub>
+      </mrow>
+     </mfrac>
+    </mrow>
+    <mo stretchy="false">)</mo>
+   </mrow>
+  </mrow>
+  <annotation encoding="StarMath 5.0">{ldline G rdline} _dB=20log _10{(f over {f _0})} ^{n}=20n log _10(f over {f _0})</annotation>
+ </semantics>
+</math>

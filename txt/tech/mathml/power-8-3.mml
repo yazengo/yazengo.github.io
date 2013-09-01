@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <mrow>
+    <msub>
+     <mrow>
+      <mo stretchy="false">∥</mo>
+      <mrow>
+       <mi>G</mi>
+      </mrow>
+      <mo stretchy="false">∥</mo>
+     </mrow>
+     <mrow>
+      <mi mathvariant="italic">dB</mi>
+     </mrow>
+    </msub>
+    <mo stretchy="false">=</mo>
+    <msub>
+     <mrow>
+      <mn>20log</mn>
+     </mrow>
+     <mrow>
+      <mn>10</mn>
+     </mrow>
+    </msub>
+   </mrow>
+   <mrow>
+    <mo stretchy="false">(</mo>
+    <mrow>
+     <mrow>
+      <mo stretchy="false">∥</mo>
+      <mrow>
+       <mi>G</mi>
+      </mrow>
+      <mo stretchy="false">∥</mo>
+     </mrow>
+    </mrow>
+    <mo stretchy="false">)</mo>
+   </mrow>
+  </mrow>
+  <annotation encoding="StarMath 5.0">ldline G rdline _{dB}={20log} _{10}(ldline G rdline) </annotation>
+ </semantics>
+</math>

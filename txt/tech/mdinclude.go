@@ -36,14 +36,14 @@ func main() {
 
     infile, err := os.Open(os.Args[1])
     if err != nil {
-        fmt.Printf("\x1b[31;1mfile %s no exit\x1b[0m\n", os.Args[1])
+        fmt.Printf("\x1b[31;1mfile %s is not exit\x1b[0m\n", os.Args[1])
         return
     }
     defer infile.Close()
 
     outfile, err := os.Create(os.Args[2])
     if err != nil {
-        fmt.Printf("\x1b[31;1mfile %s no exit\x1b[0m\n", os.Args[2])
+        fmt.Printf("\x1b[31;1mfile %s is not exit\x1b[0m\n", os.Args[2])
         return
     }
     defer outfile.Close()

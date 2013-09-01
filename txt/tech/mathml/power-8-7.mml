@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <mi>G</mi>
+   <mrow>
+    <mrow>
+     <mo stretchy="false">(</mo>
+     <mrow>
+      <mi>s</mi>
+     </mrow>
+     <mo stretchy="false">)</mo>
+    </mrow>
+    <mo stretchy="false">=</mo>
+    <mfrac>
+     <mn>1</mn>
+     <mrow>
+      <mrow>
+       <mo stretchy="false">(</mo>
+       <mrow>
+        <mfrac>
+         <mi>s</mi>
+         <mrow>
+          <msub>
+           <mi>w</mi>
+           <mn>0</mn>
+          </msub>
+         </mrow>
+        </mfrac>
+       </mrow>
+       <mo stretchy="false">)</mo>
+      </mrow>
+     </mrow>
+    </mfrac>
+   </mrow>
+  </mrow>
+  <annotation encoding="StarMath 5.0">G(s)=1 over {(s over {w _0})}</annotation>
+ </semantics>
+</math>

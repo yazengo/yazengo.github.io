@@ -1,5 +1,7 @@
-[翻译] Fundamentals of Power Electronics (8.0)
-========
+[翻译]功率电子基础 8.0
+=====
+
+Fundamentals of Power Electronics
 
 #8 变换器的传递函数
 
