@@ -1,7 +1,7 @@
 [翻译]功率电子基础 8.1
 =====
 
-Fundamentals of Power Electronics
+**Fundamentals of Power Electronics**
 
 ##波特图
 
