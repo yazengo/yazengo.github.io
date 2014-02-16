@@ -38,19 +38,9 @@
 <p>反复的异常处理往往会比较麻烦，可能导致程序结构很不清晰，c语言里面有时候会用goto 来解决这个问题，但毕竟不是一个“喜闻乐见”的处理方式。于是现代语言里面往往引入了 try .. catch .. (finally) .. 的处理结构，try 里面的代码可能 throw 出一些异常，上层函数通过catch 这些异常进行比较优雅的处理。同样的，异常容易引来滥用，把一些本该自己处理的问题 throw 出去，或者 throw 了内部信息，暴露了自己的处理方式。所以<strong>异常往往用在处理真正的例外——不可忽略的错误</strong>，如果大家都在throw 异常，到处推卸责任，就会出现很多空的 catch 语句，因为<strong>调用者根本不知道如何处理某些异常</strong>。</p>
 
 <p>综上所述，<strong>错误处理的基本方式就是看着办</strong>。</p>
-<!--Passit BUTTON BEGIN-->
-<script type="text/javascript">
-var passit_title = "";//自定义分享标题，删除和留空表示使用默认
-var passit_url = "";//自定义分享网址，删除和留空表示使用默认
-var passit_content= "";//自定义分享内容，删除和留空表示使用默认Meta中的描述
-var passit_image= "";//自定义分享图片，删除和留空表示不分享图片
-var sina_appkey= "";//sina微博appkey,删除和留空表示使用默认
-var qq_appkey= "";//腾讯微博appkey,删除和留空表示使用默认
-</script>
-<script type="text/javascript">
-bookmark_service="share,twitter,qqkj,sinaweibo,xnzt,qq,kxzt,qqxy,baiduHi,bookmark,baidu,douban,sohuweibo,163weibo,qqweibo,fhwwb,more";</script>
-<script type="text/javascript" src="http://www.passit.cn/js/passit_float_new.js?pub=12589&img_src=btn18&move=0&simple=1" charset="UTF-8"></script>
-<!--Passit BUTTON END-->
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">
