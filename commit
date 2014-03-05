@@ -7,4 +7,3 @@ git add txt/tech/mathml/*.mml
 git add js/*
 git add stylesheets/*
 git add index.html
-git commit -a

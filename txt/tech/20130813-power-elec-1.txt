@@ -3,7 +3,7 @@
 
 **Fundamentals of Power Electronics**
 
-#8 变换器的传递函数
+## 8 变换器的传递函数
 
 变换器的工程设计流程一般包含以下几个主要步骤：
 

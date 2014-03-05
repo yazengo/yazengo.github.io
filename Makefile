@@ -27,5 +27,6 @@ index/body.html: $(TXT) index/index_body.py
 	cat $^ > $@
 
 clean:
-	rm $(TEMP_HEADER)
-	rm $(TEMP_BODY)
+	rm -rf $(TEMP_HEADER)
+	rm -rf $(TEMP_BODY)
+	rm -rf $(HTML)
