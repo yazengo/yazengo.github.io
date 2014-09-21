@@ -13,19 +13,11 @@ Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块
 > a read, write and erase transistor, while in flash memory the erase circuits
 > are shared by large blocks of cells (often 512×8).  
 
-虽然功能类似，但把Flash和传统的EEPROM放在一个芯片上却是不行的，COMS工艺导致了
-两者不能共存（？）。
-
-##读写时间
-
-Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。擦除之后，Flash的写入时间
-较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值是5-10ms。所以外置Flash的读写
-总线经常是SPI, 而EEPROM是IIC(？）。
-
-
-##EEPROM Simulation
-
-TI提供了TMS320Fxx使用片内Flash模拟EEPROM的[操作方法][]。
+虽然功能类似，由于擦除的操作特性不同，Flash比较适合大块的存储数据，比如程序本
+身；EEPROM比较适合可以修改的数据，比如自定义运行参数。芯片设计中可以把两者放在
+同一个芯片（比如AVR系列）；或者使用单独一小块Flash作为配置数据，增加ECC（比如
+TI UCD系列）；如果只有Flash，也可以用某块单独Page的Flash作为模拟EEPROM的擦写效
+果，TI提供了TMS320Fxx使用片内Flash模拟EEPROM的[操作方法][]。。
 
 [操作方法]: http://www.ti.com/lit/an/sprab69/sprab69.pdf
 
@@ -34,6 +26,12 @@ TI提供了TMS320Fxx使用片内Flash模拟EEPROM的[操作方法][]。
 * 启动时需要把Flash操作的API拷贝到RAM
 * 需要把整个sector作为操作对象
 * 循环使用Flash，对已经写过的区域打标签
+
+##读写时间
+
+Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。擦除之后，Flash的写入时间
+较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值是5-10ms。所以外置Flash（通常
+是AND Flash）的读写总线经常是SPI, 而EEPROM是IIC。
 
 ![EEPROM simulation](../../images/2-2.png)
 

@@ -51,10 +51,12 @@ Oolite调试单板由母板和无线模块组成，采用AR9331芯片方案。
 
 注意这里需要使用root权限，才能够访问/dev/ttyUSB0。
 
-*TODO*
+*DONE*
 
 * 通过screen\minicom\picocom输出的数据都有分行有误的情况
 * 串口无法进行Termial的调试
+
+screen 登录后需要使用 C-a C-k 退出后其他终端才能正常访问。
 
 # 连接OpenWrt
 

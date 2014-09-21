@@ -7,6 +7,7 @@ TEMP_HEADER = $(patsubst %.txt, %.header, $(TXT))
 TEMP_BODY = $(patsubst %.txt, %.body, $(TXT))
 HTML = $(patsubst %.txt, %.html, $(TXT))
 
+.PHONY: all
 all: $(HTML) index.html
 
 index.html: index/header.html index/body.html index/footer.html 
@@ -26,6 +27,7 @@ index/body.html: $(TXT) index/index_body.py
 %.html: %.header %.body html/footer.html
 	cat $^ > $@
 
+.PHONY: clean
 clean:
 	rm -rf $(TEMP_HEADER)
 	rm -rf $(TEMP_BODY)
