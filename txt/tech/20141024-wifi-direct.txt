@@ -1,0 +1,72 @@
+Wi-Fi Direct 概述
+=====
+
+关于WiFi Direct的初步介绍可以参照[wiki][], [百科][]，[官方][]，[知乎][]。
+
+[wiki]:http://en.wikipedia.org/wiki/Wi-Fi_Direct
+[百科]:http://baike.baidu.com/view/4581675.htm
+[知乎]:http://www.zhihu.com/question/20770501
+[官方]:http://www.wi-fi.org/discover-wi-fi/wi-fi-direct
+
+简单来说就是让WiFi脱离接入点（AP）独立工作互相交换数据，用来与高速蓝牙竞争。
+
+## 传统 Wi-Fi 组建连接方式
+
+### Infratruction Mode
+
+星型拓扑，必须有一个接入点作为各个节点的数据交换枢纽，接入点通过广播[Beacon][]
+让其他节点搜索到接入点信息。
+
+[Beacon]:http://en.wikipedia.org/wiki/Beacon_frame
+
+### Ad-hoc
+
+类似Mesh拓扑，每一个节点都是一个单独的接入点（Stations），维护各自独立的路由表，
+每个节点各自通过Beacon更新路由表，从而适应网络变化。
+
+## Wi-Fi Direct 组建连接方式
+
+在网络层建立一个P2P Group，通过既定规则决定某个节点为Group Owner，其他节点为
+Client，这样在一个Group里面类似一个传统星型拓扑的Infratruction Mode。
+
+P2P Group协商方式可以选择：
+
+* Standard 根据节点能力决定Owner
+* Autonomous 自行变成Owner，抢占Group
+* Persistent 根据历史的节点角色，尽量维持原有角色分配
+
+建立P2P Group之后通过[WPS][]验证Client接入权限，从而实现客户端的接入。配对的形
+式可以是按键、NFC等。
+
+[WPS]:http://en.wikipedia.org/wiki/Wi-Fi_Protected_Setup
+
+## Wi-Fi Direct Service
+
+用于区分各种设备的属性，可以用类似uPnP的方式实现，现有标准还比较模糊。主要分了
+几个大类，对应蓝牙的[profile][]，包括display, print, send, play等，Android 4.1
+主要实现了send service实现。
+
+[profile]:http://en.wikipedia.org/wiki/List_of_Bluetooth_profiles
+
+## 应用
+
+* 电视 LG SmartTV, Sony
+* 打印机 Brother
+
+## FAQ
+
+### 与ad-hoc有什么关系？
+
+都可以实现自组网，但网路的拓扑结构不同，运行在ad-hoc的每一个节点都可能消耗比较
+多的资源用于网络变动，而Direct的Group Owner并不需要负责Client之间的数据交互
+[todo]。同时Direct也提供了更为可靠的认证方式。
+
+### Group Owner 的角色
+
+Group Owner可以扮演两个角色，一个是原有Infratruction Mode里面的Client，另一个
+是P2P Group的Owner，通过分时复用实现两个角色的功能。
+
+### 对软硬件的需求？
+
+兼容原有硬件，可以用软件构建AP。[todo]
+

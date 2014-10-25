@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>Wi-Fi Direct 概述</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>Wi-Fi Direct 概述</h1>
+
+<p>关于WiFi Direct的初步介绍可以参照<a href="http://en.wikipedia.org/wiki/Wi-Fi_Direct">wiki</a>, <a href="http://baike.baidu.com/view/4581675.htm">百科</a>，<a href="http://www.wi-fi.org/discover-wi-fi/wi-fi-direct">官方</a>，<a href="http://www.zhihu.com/question/20770501">知乎</a>。</p>
+
+<p>简单来说就是让WiFi脱离接入点（AP）独立工作互相交换数据，用来与高速蓝牙竞争。</p>
+
+<h2>传统 Wi-Fi 组建连接方式</h2>
+
+<h3>Infratruction Mode</h3>
+
+<p>星型拓扑，必须有一个接入点作为各个节点的数据交换枢纽，接入点通过广播<a href="http://en.wikipedia.org/wiki/Beacon_frame">Beacon</a>让其他节点搜索到接入点信息。</p>
+
+<h3>Ad-hoc</h3>
+
+<p>类似Mesh拓扑，每一个节点都是一个单独的接入点（Stations），维护各自独立的路由表，每个节点各自通过Beacon更新路由表，从而适应网络变化。</p>
+
+<h2>Wi-Fi Direct 组建连接方式</h2>
+
+<p>在网络层建立一个P2P Group，通过既定规则决定某个节点为Group Owner，其他节点为Client，这样在一个Group里面类似一个传统星型拓扑的Infratruction Mode。</p>
+
+<p>P2P Group协商方式可以选择：</p>
+
+<ul>
+<li>Standard 根据节点能力决定Owner</li>
+<li>Autonomous 自行变成Owner，抢占Group</li>
+<li>Persistent 根据历史的节点角色，尽量维持原有角色分配</li>
+</ul>
+
+<p>建立P2P Group之后通过<a href="http://en.wikipedia.org/wiki/Wi-Fi_Protected_Setup">WPS</a>验证Client接入权限，从而实现客户端的接入。配对的形式可以是按键、NFC等。</p>
+
+<h2>Wi-Fi Direct Service</h2>
+
+<p>用于区分各种设备的属性，可以用类似uPnP的方式实现，现有标准还比较模糊。主要分了几个大类，对应蓝牙的<a href="http://en.wikipedia.org/wiki/List_of_Bluetooth_profiles">profile</a>，包括display, print, send, play等，Android 4.1主要实现了send service实现。</p>
+
+<h2>应用</h2>
+
+<ul>
+<li>电视 LG SmartTV, Sony</li>
+<li>打印机 Brother</li>
+</ul>
+
+<h2>FAQ</h2>
+
+<h3>与ad-hoc有什么关系？</h3>
+
+<p>都可以实现自组网，但网路的拓扑结构不同，运行在ad-hoc的每一个节点都可能消耗比较多的资源用于网络变动，而Direct的Group Owner并不需要负责Client之间的数据交互[todo]。同时Direct也提供了更为可靠的认证方式。</p>
+
+<h3>Group Owner 的角色</h3>
+
+<p>Group Owner可以扮演两个角色，一个是原有Infratruction Mode里面的Client，另一个是P2P Group的Owner，通过分时复用实现两个角色的功能。</p>
+
+<h3>对软硬件的需求？</h3>
+
+<p>兼容原有硬件，可以用软件构建AP。[todo]</p>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://www.jieyige.com">www.jieyige.com</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
