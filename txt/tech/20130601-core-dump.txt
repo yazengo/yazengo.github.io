@@ -25,12 +25,14 @@
 
 来查看自己的计算机是 core dump 到哪里了。
 
-一般是在/var/cache/abrt，如果使用的是 systemd，那么 core dump 是记录到 systemd
-自己的日志里面，可以通过 systemd-coredumpctl 进行操作。比如
+一般是在/var/cache/abrt，如果使用的是 systemd，~~那么 core dump 是记录到 systemd
+自己的日志里面，可以通过 systemd-coredumpctl 进行操作~~。比如
 
     sudo systemd-coredumpctl list
 
 就是用来列出所有 dump 的文件，然后可以同 gdb 调试。
+
+在目录 /var/lib/systemd/coredump 里面可以找到
 
 嵌入式系统里面，可以把这些信息重定向到串口输出。
 
@@ -51,4 +53,10 @@
 
 这样就可以看到出错的“大概”位置。
 
+调试近期的 coredump
+
+    coredumpctl gdb gvim
+    
+
 ![core dump](../../images/20130601-1-1.jpg)
+
