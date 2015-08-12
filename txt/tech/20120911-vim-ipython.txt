@@ -22,7 +22,7 @@ ipython的server，可以采用下面任一种方式：
     ipython console
     ipython qtkernel
 
-[文章]:http://jieyige.com/txt/tech/6-vim-addons.html
+[文章]: http://yazengo.github.io/txt/tech/20120810-vim-addons.html
 
 在vi中执行
 

@@ -71,3 +71,8 @@ Vim的插件某种意义上也是一种应用，Vim的开发者很有先见之�
 
     call SetupVAM()
 
+**UPDATE**
+
+后来用到了更为简单易用的[VimPlug][]，查找安装应用更为直接。
+
+[VimPlug]:https://github.com/junegunn/vim-plug

@@ -12,7 +12,7 @@
 的情况是让你缓冲区越界的，注入的SQL等不怀好意的输入。这就需要调用者自己保证
 输入的合法性，比如一些库函数的设计中，如果出错了，可能就是暴力的 [core dump][]。
 
-[core dump]:http://jieyige.com/txt/tech/20130601-core-dump.html
+[core dump]:http://yazengo.github.io/txt/tech/20130601-core-dump.html
 
 ##外部的数据vs内部的数据
 

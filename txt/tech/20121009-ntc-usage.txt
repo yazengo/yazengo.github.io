@@ -47,4 +47,4 @@ PS:这里刚开始想用spice进行仿真，发现NTC建模也是一门学问，
 小型CPU由于计算资源和函数库的关系，对某些复杂计算显得力不从心，这里实现主要使
 用了查找表加上线性插值的思路，具体实现上可以参考[下篇文章][]
 
-[下篇文章]:www.jieyige.com/txt/tech/10-ln-lut.html
+[下篇文章]:http://yazengo.github.io/txt/tech/20121012-ln-lut.html
