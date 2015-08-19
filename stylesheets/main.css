@@ -11,7 +11,7 @@ html {
 }
 
 html.hasFontSmoothing-true {
-    font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
 }
 
 body {
@@ -27,7 +27,6 @@ h1, h2, h3 {
 	letter-spacing: -0.06em;
 	/*text-transform: uppercase;*/
     font-weight: bold;
-	font-family: sans-serif, 'Arial', serif;
 	color: #0285CE;
     margin: 1em auto 0.5em 0
 }
@@ -90,6 +89,7 @@ img {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
 	/* For IE 5.5 - 7 */
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+    max-width: 100%;
 }
 
 /* body */
@@ -99,7 +99,6 @@ img {
     margin: 0;
 	padding: 1%;
     margin: 2em auto 2em;
-    font-family: Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	color: #3B3B3B;
     width: 40em;
@@ -127,7 +126,6 @@ img {
 	padding: 0px 0 15px 0;
 	background: #E9E9E9;
 	border-top: 5px solid #D8D8D8;
-	font-family: 'Arvo', serif;
 }
 
 #footer p {
