@@ -1,0 +1,53 @@
+Torch 初体验
+=======
+
+[Torch](http://torch.ch/) 是 Facebook 发布的用于机器学习的开发库，使用 Lua + C
+作为基本语言，合理的利用了 Lua 简单高效的 C 接口，包含了神经网络、图像训练等基
+本模型和算法，Luajit 的加速和 CUDA 加速，简直就是工程应用的利器。初步发布的时
+候确实挺原始的，安装和调试感觉有点生硬。经过一段时间的社区贡献，安装过程友好了
+很多。不过开发社区的
+[活跃度](https://github.com/torch/torch7/graphs/contributors)感觉一般，一个可
+能是算法门槛确实有点高，另外算法的实用性可能也没达到一定的验证。
+
+## 基本数据结构
+
+进行算法开发离不开矩阵运算，Matlab 和 NumPy 都有比较成熟的模型，富人用 Matlab
+，穷人用 NumPy，用 Torch 的呢？可能是瞎折腾的吧。
+
+Torch 里面的基本数据结构是 [Tensor](https://github.com/torch/torch7/blob/master/doc/tensor.md)，
+使用了 Lua 里面的 userdata 实现，高效简洁，加上 Lua 丰富的表达能力后工程应用确
+实如虎添翼。但因为 Lua 本身的一些特性，也会遇到一些坑。
+
+比如，x 是一个 Tensor 数据，那么 2 + x 是不行的，而 x + 2 才可以。[issue28](https://github.com/torch/torch7/issues/28)
+
+    x = torch.linspace(1, 10)
+    y = x + 2 -- OK
+    y = 2 + x -- NOT OK
+    y = torch.add(x, 2) -- efficient
+
+基本原因就是 Lua 里面数字的 metadata 默认是不能重载的，这个可能会随着语言的发
+展得到解决。
+
+x + 2 还不是最高效的写法，因为重载后的数据会进行一次 userdata 的复制，相当于进
+行一次运算要重新拷贝一次数据，而使用内建函数（比如 torch.add）可以零拷贝运算。
+
+## 画图工具
+
+Torch 集成了 gnuplot 作为图形展示，可以方便的进行调试和可视化。
+
+    require('gnuplot')
+    f = 1000
+    fs = 44100
+    n = torch.linspace(1, 100)
+    y = torch.cos(n:mul(2 * math.pi * f / fs))
+    gnuplot.plot(n, y)
+
+可以得到余弦函数的图形显示。
+
+![余弦](../../images/20151217-1.png)
+
+## 复数
+
+信号处理里面复平面是一个很重要的概念，但 Torch 对复数的支持不是内置的，而是有
+另外的包 [ztorch](https://github.com/facebook/ztorch) 去处理，目前似乎还没有合
+入主安装包，需要另外添加。

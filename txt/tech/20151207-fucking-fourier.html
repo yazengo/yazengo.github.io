@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>数字信号处理（1） —— 该死的傅立叶</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1>数字信号处理（1） —— 该死的傅立叶</h1>
+
+<h2>傅立叶变换</h2>
+
+<p>$$F(X)$$</p>
+
+<p>上面的公式是傅立叶变换的基本表达，看完之后在点头称是的时候，都会默问：“这是什么鬼？(WTF)”。</p>
+
+<h2>傅立叶</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Joseph_Fourier">傅立叶</a>在戎马生涯之后还能专心科研，还能有那样的开创性贡献，真是令人惊叹。既然他已作古，理解他的思想又是这么有难度，因此学完信号处理课程之后都有一个共同的想法——该死的傅立叶。</p>
+
+<p>傅立叶的贡献是什么呢？简单来说就是所有所有信号的都可以用正弦信号的和来表示。</p>
+
+<p>当时他研究的对象还不是信号，而是热力学，通过微积分的思想解释所有的热力流动都可以基于两边温度微小的温度差之和。后继者们发现对信号进行这种描述非常方便计算和建模，于是把这个思想发扬光大，有了信号系统里面的各种傅立叶变换。为什么傅立叶级数方便信号分析呢？主要是正弦信号也是非常理想的信号描述因子，因为正弦信号通过理想的线性系统后，只会发生幅度和相位的变化，形状却保持一致。这就在信号的数学描述上，提供了一个很好的<strong>基</strong>，使得信号和系统的建模就容易很多。</p>
+
+<p>从而，我们就可以知道该如何描述一个信号，就如</p>
+
+<p>$$x=a<em>{n}cos\phi + b</em>{n}sin\phi $$</p>
+
+<h2>欧拉公式</h2>
+
+<p>$$exp{ix} = cos(x)+isin(x)$$</p>
+
+<p>正常人看完公式又要默念：“这又是什么鬼？”，但数学上看，这是一个非常完美的公式，包含了数学上的多种表达方式，公式优雅极简，有如天籁。</p>
+
+<p>为什么说着傅立叶，把欧拉也拉下水了，（虽然从公式上看这两人是一路货色），因为数学上课正余弦是相通的，统一都叫正弦信号（Sinosouid），因为正余弦信号只是相位上的差别。引入复平面，就可以把 cos 和 sin 的分量用复数表示出来，从而信号的相位信息可以有了数学上的表达。</p>
+
+<h2>傅立叶的儿子们</h2>
+
+<p>等等，儿子又是什么鬼？也就是傅立叶级数、傅立叶变换、离散傅立叶等等，想当年基本上是傻傻分不清楚。后来才知道是历史遗留问题，根据处理信号的不同，不同空间变化有不同的叫法和解释。根据信号是否是连续的，可以分为连续信号和离散信号，根据信号是否是周期的可以分为周期信号和非周期信号。两个条件叠加起来的话，就有4种信号，对应的频率空间就有4种叫法和计算公式。</p>
+
+<p>---   ---             ---FS    傅立叶级数      连续周期信号DFS/T 离散傅立叶级数  离散周期信号CTFT  傅立叶变换      连续非周期信号DTFT  离散傅立叶变换  离散非周期信号---   ---             ---</p>
+
+<p>对于信号处理，最常用的就是 DFT，因为计算的输入和输出都是离散信号，方便计算机处理。但可以看到 DFT 是针对离散周期信号而言的，因此计算前理论上还有一个周期延展的过程，将信号两边的数值补齐。</p>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，伪Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
