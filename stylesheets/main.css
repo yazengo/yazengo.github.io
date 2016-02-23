@@ -4,21 +4,21 @@ Design by zengo
 Modifide from Free CSS Templates
 http://www.freecsstemplates.org
 Released for free under a Creative Commons Attribution 2.5 License
-*/
+ */
 
 html {
-    font-family: sans-serif;
+	font-family: sans-serif;
 }
 
 html.hasFontSmoothing-true {
-    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+	font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
 }
 
 body {
-    margin: 0;
+	margin: 0;
 	padding: 0;
 	background: #FFFFFF;
-    text-align: center;
+	text-align: center;
 }
 
 h1, h2, h3 {
@@ -26,14 +26,14 @@ h1, h2, h3 {
 	padding: 0;
 	letter-spacing: -0.06em;
 	/*text-transform: uppercase;*/
-    font-weight: bold;
+	font-weight: bold;
 	color: #0285CE;
-    margin: 1em auto 0.5em 0
+	margin: 1em auto 0.5em 0
 }
 
 h1 {
 	font-size: 2.5em;
-    font-style: italic;
+	font-style: italic;
 }
 
 h2 {
@@ -60,25 +60,42 @@ a {
 a:hover {
 }
 
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+	background-color: #0285CE;
+	color: white;
+}
+
 pre code {
-    margin:0;
-    padding: 0;
-    background: #FFC;
-    overflow:auto;
-    font-family:"Courier New",Courier,mono;
-    font-size: 0.8em;
-    line-height: 120%;
-    padding:1em 0 1em 2.8em;
-    color:#3366CC;
+	margin:0;
+	padding: 0;
+	background: #FFC;
+	overflow:auto;
+	font-family:"Courier New",Courier,mono;
+	font-size: 0.8em;
+	line-height: 120%;
+	padding:1em 0 1em 2.8em;
+	color:#3366CC;
 }
 
 blockquote {
-  font: italic sans-serif;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 20px;
-  padding-left: 15px;
-  border-left: 3px solid #ccc;
+	font: italic sans-serif;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	padding-left: 15px;
+	border-left: 3px solid #ccc;
 }
 
 img {
@@ -89,20 +106,20 @@ img {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
 	/* For IE 5.5 - 7 */
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
-    max-width: 100%;
+	max-width: 100%;
 }
 
 /* body */
 
 #container {
-    display: block;
-    margin: 0;
+	display: block;
+	margin: 0;
 	padding: 1%;
-    margin: 2em auto 2em;
+	margin: 2em auto 2em;
 	font-size: 16px;
 	color: #3B3B3B;
-    width: 40em;
-    text-align: justify;
+	width: 40em;
+	text-align: justify;
 	background: #EEE;
 	box-shadow: 0px 8px 10px #888888;
 }
@@ -130,7 +147,7 @@ img {
 
 #footer p {
 	margin: 0;
-    float: left;
+	float: left;
 	padding: 10px 10px 10px 10px;
 	line-height: normal;
 	font-size: 12px;
