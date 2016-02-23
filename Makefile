@@ -17,9 +17,7 @@ index/body.html: $(TXT) index/index_body.py
 	python index/index_body.py > $@
 
 %.body: %.txt
-	txt/tech/mdinclude $< temp
-	perl Markdown_1.0.1/Markdown.pl temp > $@
-	rm temp
+	pandoc -fmarkdown+ignore_line_breaks -S --mathjax $< -o $@
 
 %.header: %.txt
 	python html/html_header.py $< > $@

@@ -8,62 +8,44 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>关于单元测试</h1>
-
-<h2>来源</h2>
-
+<h1 id="关于单元测试">关于单元测试</h1>
+<h2 id="来源">来源</h2>
 <p>有几个场景，有过项目开发经验的程序员一般都不陌生：</p>
-
 <ul>
-<li>开发人员写好程序，交给测试人员，测试人员一顿折腾后，周五下班前发过来一堆问题
-单，进度压力下，开发人员又哼哧哼哧的过来加班。后来学乖了，也在下班前提交给测试
-，大家一起来加班，最后弄得开发和测试关系总是不太好。</li>
-<li>处理遗留代码，这些代码已经在网运行n年了，可靠性从某种程度上得到了验证，但代
-码本身惨不忍睹，见一次吐一次，而需求总是变化的，最后改得越来越恶心。</li>
-<li>开发基本完成的时候，发现对某个场景根本没有分析清楚，导致客户的恼火，重新走一
-遍流程发现需要改动的地方太多了。</li>
+<li>开发人员写好程序，交给测试人员，测试人员一顿折腾后，周五下班前发过来一堆问题单，进度压力下，开发人员又哼哧哼哧的过来加班。后来学乖了，也在下班前提交给测试，大家一起来加班，最后弄得开发和测试关系总是不太好。</li>
+<li>处理遗留代码，这些代码已经在网运行n年了，可靠性从某种程度上得到了验证，但代码本身惨不忍睹，见一次吐一次，而需求总是变化的，最后改得越来越恶心。</li>
+<li>开发基本完成的时候，发现对某个场景根本没有分析清楚，导致客户的恼火，重新走一遍流程发现需要改动的地方太多了。</li>
 </ul>
-
-<h2>重要性</h2>
-
+<h2 id="重要性">重要性</h2>
 <p>一些在瀑布开发流程中暴发出来的问题，比如需求不明确，需求经常变动，技术上有风险、问题太多无法收敛等等，导致了一些大型软件开发项目的流产。同时，互联网等需要快速响应的场景的飞速发展，使得程序员在实践中总结了一些敏捷、极限编程等开发理念，大大提升了软件开发的效率。而其中很重要的一个环节就是单元测试，加快了迭代的速度、提升了需求反馈的速度、减小了重构的风险。</p>
-
-<h2>基本思路</h2>
-
+<h2 id="基本思路">基本思路</h2>
 <p>所谓单元测试，必须是<strong>单元</strong>的，直观上的限制就是跑完整个测试是以秒以下为单位。目的主要是对某个函数或者某个算法进行功能上的基本测试，始作俑者是变化的需求，当开发者收到某个新的需求或者特性，首先进行的是场景分析，这里的产出可以是测试用例（某种程度上的TDD）、算法、Story分解等。程序开发的同时进行单元测试，为了达到这个目的，往往要对程序架构进行有效的分层和解耦，并引入可测试性，从而达到代码质量提升和需求满足的良性循环。</p>
-
-<h2>难点</h2>
-
-<h3>解依赖</h3>
-
+<h2 id="难点">难点</h2>
+<h3 id="解依赖">解依赖</h3>
 <p>我们要进行单元测试，但测试对象本身往往不是“单元”的，即与其他函数、其他文件、甚至其他系统有着各种各样的联系，尤其是面向过程的程序，如果架构不清晰，很容易陷入“依赖死锁”。解依赖的一些技术在<a href="http://book.douban.com/subject/2248759/">修改代码的艺术</a>里面有比较清晰的描述，主要通过STUB（打桩）和MOCK（仿对象）等进行。</p>
-
-<h3>测试用例构建</h3>
-
+<h3 id="测试用例构建">测试用例构建</h3>
 <p>测试用例的来源往往包括场景、需求、算法和案例等，对于函数本身还有一些边界情况需要考虑，因此测试函数的编写也是需要花费大量的时间和精力。程序本身可能几个小时就搞定了，但为了保证它的质量往往需要一个流程保障。</p>
-
-<h2>测试框架</h2>
-
+<h2 id="测试框架">测试框架</h2>
 <ul>
 <li><a href="http://www.jera.com/techinfo/jtns/jtn002.html">minUnit</a>: 只有3行，进行基本的输入输出的断言</li>
 <li><a href="http://ccodearchive.net/">CCan</a>: 提供了输入输出的判断</li>
 <li><a href="http://code.google.com/p/cmockery/">cmockery</a>: Google出品，提供了断言和Mock</li>
 </ul>
-
 <p>这里只列出了几个C语言的，因为后面可能会用到，其实C语言进行单元测试可能是不太直观和KISS的，没有面向对象的多态性。Java和CPP都有很优秀的测试框架供选择。</p>
-
-<h2>最后的话</h2>
-
+<h2 id="最后的话">最后的话</h2>
 <p>“软件开发没有银弹” 单元测试也不能解决软件开发中的所有问题，很多问题还是需要系统测试发现（测试部存在的意义）。另一方面，单元测试并<strong>不能减少BUG</strong>，只能将BUG暴露的更早一些，BUG数量本身往往是由开发者的素质决定的。</p>
-
 <p>单元测试往往也是和自动化水平联系在一起的，如果没有提高效率的工具，单元测试的工作量可想而知。同时，某种程度上也和领导的重视程度相关，单元测试需要花费很多时间和精力，但又没有直接的产出，大部分组织往往更关注时间点。</p>
-
-<p><img src="../../images/20130112-1.jpg" alt="UT" title="" /></p>
+<div class="figure">
+<img src="../../images/20130112-1.jpg" alt="UT" /><p class="caption">UT</p>
+</div>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->

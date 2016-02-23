@@ -8,51 +8,39 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>Torch 初体验</h1>
-
+<h1 id="torch-初体验">Torch 初体验</h1>
 <p><a href="http://torch.ch/">Torch</a> 是 Facebook 发布的用于机器学习的开发库，使用 Lua + C作为基本语言，合理的利用了 Lua 简单高效的 C 接口，包含了神经网络、图像训练等基本模型和算法，Luajit 的加速和 CUDA 加速，简直就是工程应用的利器。初步发布的时候确实挺原始的，安装和调试感觉有点生硬。经过一段时间的社区贡献，安装过程友好了很多。不过开发社区的<a href="https://github.com/torch/torch7/graphs/contributors">活跃度</a>感觉一般，一个可能是算法门槛确实有点高，另外算法的实用性可能也没达到一定的验证。</p>
-
-<h2>基本数据结构</h2>
-
+<h2 id="基本数据结构">基本数据结构</h2>
 <p>进行算法开发离不开矩阵运算，Matlab 和 NumPy 都有比较成熟的模型，富人用 Matlab，穷人用 NumPy，用 Torch 的呢？可能是瞎折腾的吧。</p>
-
 <p>Torch 里面的基本数据结构是 <a href="https://github.com/torch/torch7/blob/master/doc/tensor.md">Tensor</a>，使用了 Lua 里面的 userdata 实现，高效简洁，加上 Lua 丰富的表达能力后工程应用确实如虎添翼。但因为 Lua 本身的一些特性，也会遇到一些坑。</p>
-
 <p>比如，x 是一个 Tensor 数据，那么 2 + x 是不行的，而 x + 2 才可以。<a href="https://github.com/torch/torch7/issues/28">issue28</a></p>
-
-<pre class = "prettyprint"><code>x = torch.linspace(1, 10)
+<pre><code>x = torch.linspace(1, 10)
 y = x + 2 -- OK
 y = 2 + x -- NOT OK
-y = torch.add(x, 2) -- efficient
-</code></pre>
-
+y = torch.add(x, 2) -- efficient</code></pre>
 <p>基本原因就是 Lua 里面数字的 metadata 默认是不能重载的，这个可能会随着语言的发展得到解决。</p>
-
 <p>x + 2 还不是最高效的写法，因为重载后的数据会进行一次 userdata 的复制，相当于进行一次运算要重新拷贝一次数据，而使用内建函数（比如 torch.add）可以零拷贝运算。</p>
-
-<h2>画图工具</h2>
-
+<h2 id="画图工具">画图工具</h2>
 <p>Torch 集成了 gnuplot 作为图形展示，可以方便的进行调试和可视化。</p>
-
-<pre class = "prettyprint"><code>require('gnuplot')
+<pre><code>require(&#39;gnuplot&#39;)
 f = 1000
 fs = 44100
 n = torch.linspace(1, 100)
 y = torch.cos(n:mul(2 * math.pi * f / fs))
-gnuplot.plot(n, y)
-</code></pre>
-
+gnuplot.plot(n, y)</code></pre>
 <p>可以得到余弦函数的图形显示。</p>
-
-<p><img src="../../images/20151217-1.png" alt="余弦" title="" /></p>
-
-<h2>复数</h2>
-
+<div class="figure">
+<img src="../../images/20151217-1.png" alt="余弦" /><p class="caption">余弦</p>
+</div>
+<h2 id="复数">复数</h2>
 <p>信号处理里面复平面是一个很重要的概念，但 Torch 对复数的支持不是内置的，而是有另外的包 <a href="https://github.com/facebook/ztorch">ztorch</a> 去处理，目前似乎还没有合入主安装包，需要另外添加。</p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>

@@ -8,159 +8,93 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>[翻译]功率电子基础 8.1</h1>
-
+<h1 id="翻译功率电子基础-8.1">[翻译]功率电子基础 8.1</h1>
 <p><strong>Fundamentals of Power Electronics</strong></p>
-
-<h2>波特图</h2>
-
+<h2 id="波特图">波特图</h2>
 <p>波特图是传递函数或者其他复数的幅频特性曲线，幅度使用分贝db作为单位，相位使用角度，使用对数轴。</p>
-
 <p>幅度的无方向增益G可以表示为：</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mrow>    <msub>     <mrow>      <mo stretchy="false">∥</mo>      <mrow>       <mi>G</mi>      </mrow>      <mo stretchy="false">∥</mo>     </mrow>     <mrow>      <mi mathvariant="italic">dB</mi>     </mrow>    </msub>    <mo stretchy="false">=</mo>    <msub>     <mrow>      <mn>20log</mn>     </mrow>     <mrow>      <mn>10</mn>     </mrow>    </msub>   </mrow>   <mrow>    <mo stretchy="false">(</mo>    <mrow>     <mrow>      <mo stretchy="false">∥</mo>      <mrow>       <mi>G</mi>      </mrow>      <mo stretchy="false">∥</mo>     </mrow>    </mrow>    <mo stretchy="false">)</mo>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">ldline G rdline _{dB}={20log} _{10}(ldline G rdline) </annotation> </semantics></p>
-
-<p><img src="../../images/power-table-8-1.png" alt="table.8.1" title="" /></p>
-
+<h1 id="include-txttechmathmlpower-8-3.mml">include “txt/tech/mathml/power-8-3.mml”</h1>
+<div class="figure">
+<img src="../../images/power-table-8-1.png" alt="table.8.1" /><p class="caption">table.8.1</p>
+</div>
 <p>一些简单幅度的分贝值如Table 8.1.所示，需要注意当增益是有方向的时候。由于数的对数值没有方向的概念，幅度需要先进行归一化处理。例如，以db表示阻抗Z的幅度值，我们需要对阻抗Z除以一个基数Rbase得到归一化的数值。</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mrow>    <msub>     <mrow>      <mo stretchy="false">∥</mo>      <mrow>       <mi>Z</mi>      </mrow>      <mo stretchy="false">∥</mo>     </mrow>     <mrow>      <mi mathvariant="italic">dB</mi>     </mrow>    </msub>    <mo stretchy="false">=</mo>    <msub>     <mn>20log</mn>     <mrow>      <mn>10</mn>     </mrow>    </msub>   </mrow>   <mrow>    <mo stretchy="false">(</mo>    <mrow>     <mfrac>      <mrow>       <mrow>        <mo stretchy="false">∥</mo>        <mrow>         <mi>Z</mi>        </mrow>        <mo stretchy="false">∥</mo>       </mrow>      </mrow>      <mrow>       <msub>        <mi>R</mi>        <mrow>         <mi mathvariant="italic">base</mi>        </mrow>       </msub>      </mrow>     </mfrac>    </mrow>    <mo stretchy="false">)</mo>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">ldline Z rdline _{dB}=20log _{10}({ldline Z rdline} over {R _{base}})</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-4.mml">include “txt/tech/mathml/power-8-4.mml”</h1>
 <p>Rbase的可以是任意值，但我们需要告知他人所使用的值。所以如果|Z|是5欧，Rbase为10欧，可以得到 |Z|db = 20log10(5/10) = -6db （对于10欧来说）。通常Rbase可以选择为1欧，这样得到的单位就是db欧。因此5欧等同于14db欧。转换器输入电流谐波一般表示为dBuA，即归一化为1uA的dB值。60dBuA等同于1000uA，或者1mA。</p>
-
 <p>幅度的波特图可以推导出f的能量是线性的。比如无方向量纲G(f)的幅度可以表示为</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mrow>    <mrow>     <mo stretchy="false">∥</mo>     <mrow>      <mi>G</mi>     </mrow>     <mo stretchy="false">∥</mo>    </mrow>    <mo stretchy="false">=</mo>    <msup>     <mrow>      <mo stretchy="false">(</mo>      <mrow>       <mfrac>        <mrow>         <mi>f</mi>        </mrow>        <mrow>         <msub>          <mi>f</mi>          <mn>0</mn>         </msub>        </mrow>       </mfrac>      </mrow>      <mo stretchy="false">)</mo>     </mrow>     <mrow>      <mi>n</mi>     </mrow>    </msup>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">ldline G rdline=({f} over {f _0})^{n}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-5.mml">include “txt/tech/mathml/power-8-5.mml”</h1>
 <p>式中f0和n都是常数，表示为dB值可以得到</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mrow>    <msub>     <mrow>      <mrow>       <mo stretchy="false">∥</mo>       <mrow>        <mi>G</mi>       </mrow>       <mo stretchy="false">∥</mo>      </mrow>     </mrow>     <mi mathvariant="italic">dB</mi>    </msub>    <mo stretchy="false">=</mo>    <msub>     <mn>20log</mn>     <mn>10</mn>    </msub>   </mrow>   <mrow>    <msup>     <mrow>      <mrow>       <mo stretchy="false">(</mo>       <mrow>        <mfrac>         <mi>f</mi>         <mrow>          <msub>           <mi>f</mi>           <mn>0</mn>          </msub>         </mrow>        </mfrac>       </mrow>       <mo stretchy="false">)</mo>      </mrow>     </mrow>     <mrow>      <mi>n</mi>     </mrow>    </msup>    <mo stretchy="false">=</mo>    <mn>20n</mn>   </mrow>   <msub>    <mi>log</mi>    <mn>10</mn>   </msub>   <mrow>    <mo stretchy="false">(</mo>    <mrow>     <mfrac>      <mi>f</mi>      <mrow>       <msub>        <mi>f</mi>        <mn>0</mn>       </msub>      </mrow>     </mfrac>    </mrow>    <mo stretchy="false">)</mo>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">{ldline G rdline} _dB=20log _10{(f over {f _0})} ^{n}=20n log _10(f over {f _0})</annotation> </semantics></p>
-
-<p>该等式对以不同n值可以参见Fig. 8.3。幅度在频率f=f0的时候可以得到幅度值1=>0dB。它们是log10(f)的线性方程。斜率表示对于log10(f)的一单位变化|G|dB的变化幅度，log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出，频率f的十倍频变化引起幅度|G|dB变化为20n dB。因此，斜率就是20n/十倍频。同样的，我们可以说斜率是20n log10(2) = 6n dB每八倍频，这里的八倍频表示频率的2的乘积变化。实际上，大部分频率相关的函数可以用一定范围的频率方程表示，方程的一般形式参见8.5式，在这些频率范围上，波特图可以近似为20n dB每十倍频变化。</p>
-
-<p><img src="../../images/power-8-3.png" alt="fig.8.3" title="" /></p>
-
+<h1 id="include-txttechmathmlpower-8-6.mml">include “txt/tech/mathml/power-8-6.mml”</h1>
+<p>该等式对以不同n值可以参见Fig. 8.3。幅度在频率f=f0的时候可以得到幅度值1=&gt;0dB。它们是log10(f)的线性方程。斜率表示对于log10(f)的一单位变化|G|dB的变化幅度，log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出，频率f的十倍频变化引起幅度|G|dB变化为20n dB。因此，斜率就是20n/十倍频。同样的，我们可以说斜率是20n log10(2) = 6n dB每八倍频，这里的八倍频表示频率的2的乘积变化。实际上，大部分频率相关的函数可以用一定范围的频率方程表示，方程的一般形式参见8.5式，在这些频率范围上，波特图可以近似为20n dB每十倍频变化。</p>
+<div class="figure">
+<img src="../../images/power-8-3.png" alt="fig.8.3" /><p class="caption">fig.8.3</p>
+</div>
 <p>一个简单的单极点传递函数：</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>G</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>s</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mfrac>     <mn>1</mn>     <mrow>      <mrow>       <mo stretchy="false">(</mo>       <mrow>        <mfrac>         <mi>s</mi>         <mrow>          <msub>           <mi>w</mi>           <mn>0</mn>          </msub>         </mrow>        </mfrac>       </mrow>       <mo stretchy="false">)</mo>      </mrow>     </mrow>    </mfrac>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">G(s)=1 over {(s over {w _0})}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-7.mml">include “txt/tech/mathml/power-8-7.mml”</h1>
 <p>幅度可以表示为</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mrow>    <mrow>     <mrow>      <mo stretchy="false">∥</mo>      <mrow>       <mi>G</mi>       <mrow>        <mo stretchy="false">(</mo>        <mrow>         <mi mathvariant="italic">jw</mi>        </mrow>        <mo stretchy="false">)</mo>       </mrow>      </mrow>      <mo stretchy="false">∥</mo>     </mrow>     <mo stretchy="false">=</mo>     <mfrac>      <mn>1</mn>      <mrow>       <mrow>        <mo stretchy="false">∥</mo>        <mrow>         <mrow>          <mfrac>           <mi mathvariant="italic">jw</mi>           <mrow>            <msub>             <mi>w</mi>             <mn>0</mn>            </msub>           </mrow>          </mfrac>         </mrow>        </mrow>        <mo stretchy="false">∥</mo>       </mrow>      </mrow>     </mfrac>    </mrow>    <mo stretchy="false">=</mo>    <mfrac>     <mn>1</mn>     <mrow>      <mrow>       <mo stretchy="false">(</mo>       <mrow>        <mfrac>         <mi>w</mi>         <mrow>          <msub>           <mi>w</mi>           <mn>0</mn>          </msub>         </mrow>        </mfrac>       </mrow>       <mo stretchy="false">)</mo>      </mrow>     </mrow>    </mfrac>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">ldline G(jw) rdline=1 over {ldline {jw over {w _0}} rdline}=1 over {(w over {w _0})}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-8.mml">include “txt/tech/mathml/power-8-8.mml”</h1>
 <p>我们定义f=w/2pi，则f0=w0/2pi，式8.8变化为</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mrow>    <mrow>     <mo stretchy="false">∥</mo>     <mrow>      <mi>G</mi>     </mrow>     <mo stretchy="false">∥</mo>    </mrow>    <mo stretchy="false">=</mo>    <msup>     <mrow>      <mo stretchy="false">(</mo>      <mrow>       <mfrac>        <mi>f</mi>        <mrow>         <msub>          <mi>f</mi>          <mn>0</mn>         </msub>        </mrow>       </mfrac>      </mrow>      <mo stretchy="false">)</mo>     </mrow>     <mrow>      <mrow>       <mo stretchy="false">−</mo>       <mn>1</mn>      </mrow>     </mrow>    </msup>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">ldline G rdline=(f over {f _0})^{-1}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-9.mml">include “txt/tech/mathml/power-8-9.mml”</h1>
 <p>该式即为当n=-1的8.5式，如Fig. 8.3所示，8.7的波特图斜率为-20dB每十倍频，同时，在f=f0的时候通过0dB。</p>
-
-<h2>单极点响应</h2>
-
+<h2 id="单极点响应">单极点响应</h2>
 <p>单极点传递函数的标准形式：</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>G</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>s</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mfrac>     <mrow>      <mn>1</mn>     </mrow>     <mrow>      <mrow>       <mn>1</mn>       <mo stretchy="false">+</mo>       <mfrac>        <mrow>         <mn>1</mn>        </mrow>        <mrow>         <msub>          <mi>w</mi>          <mn>0</mn>         </msub>        </mrow>       </mfrac>      </mrow>     </mrow>    </mfrac>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">G(s)={1} over {1+ {1} over {w _0}} </annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-12.mml">include “txt/tech/mathml/power-8-12.mml”</h1>
 <p>［注］波特图一般估算过程：</p>
-
 <ul>
 <li>根据传递函数得到幅值和角度公式</li>
-<li>分低频高频段估算波特图趋势 w '&lt;&lt;' w0 w '&lt;&lt;' w0 w '==' w0</li>
+<li>分低频高频段估算波特图趋势 w ‘&lt;&lt;’ w0 w ‘&lt;&lt;’ w0 w ‘==’ w0</li>
 </ul>
-
-<p><img src="../../images/power-8-11.png" alt="fig.8.11" title="" /></p>
-
-<h2>单零点响应</h2>
-
+<div class="figure">
+<img src="../../images/power-8-11.png" alt="fig.8.11" /><p class="caption">fig.8.11</p>
+</div>
+<h2 id="单零点响应">单零点响应</h2>
 <p>单零点传递函数的标准形式：</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>G</mi>   <mi>（</mi>   <mi>s</mi>   <mrow>    <mi>）</mi>    <mo stretchy="false">=</mo>    <mrow>     <mn>1</mn>     <mo stretchy="false">+</mo>     <mfrac>      <mrow>       <mi>s</mi>      </mrow>      <mrow>       <msub>        <mi>w</mi>        <mn>0</mn>       </msub>      </mrow>     </mfrac>    </mrow>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">G（s）=1+ {s} over {w _0}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-29.mml">include “txt/tech/mathml/power-8-29.mml”</h1>
 <p>波特图</p>
-
-<p><img src="../../images/power-8-12.png" alt="fig.8.12" title="" /></p>
-
-<h2>右半平面零点</h2>
-
+<div class="figure">
+<img src="../../images/power-8-12.png" alt="fig.8.12" /><p class="caption">fig.8.12</p>
+</div>
+<h2 id="右半平面零点">右半平面零点</h2>
 <p>标准形式</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>G</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>s</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mrow>     <mn>1</mn>     <mo stretchy="false">−</mo>     <mfrac>      <mrow>       <mi>s</mi>      </mrow>      <mrow>       <msub>        <mi>w</mi>        <mn>0</mn>       </msub>      </mrow>     </mfrac>    </mrow>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">G(s)=1- {s} over {w _0}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-32.mml">include “txt/tech/mathml/power-8-32.mml”</h1>
 <p>波特图</p>
-
-<p><img src="../../images/power-8-13.png" alt="fig.8.13" title="" /></p>
-
-<h2>频率反转</h2>
-
+<div class="figure">
+<img src="../../images/power-8-13.png" alt="fig.8.13" /><p class="caption">fig.8.13</p>
+</div>
+<h2 id="频率反转">频率反转</h2>
 <p>反极点标准形式</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>G</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>s</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mfrac>     <mrow>      <mn>1</mn>     </mrow>     <mrow>      <mrow>       <mn>1</mn>       <mo stretchy="false">+</mo>       <mfrac>        <mrow>         <msub>          <mi>w</mi>          <mn>0</mn>         </msub>        </mrow>        <mrow>         <mi>s</mi>        </mrow>       </mfrac>      </mrow>     </mrow>    </mfrac>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">G(s)={1} over { 1 + {w _0} over {s}}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-35.mml">include “txt/tech/mathml/power-8-35.mml”</h1>
 <p>波特图</p>
-
-<p><img src="../../images/power-8-14.png" alt="fig.8.14" title="" /></p>
-
+<div class="figure">
+<img src="../../images/power-8-14.png" alt="fig.8.14" /><p class="caption">fig.8.14</p>
+</div>
 <p>反零点标准形式</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>G</mi>   <mrow>    <mrow>     <mo stretchy="false">(</mo>     <mrow>      <mi>s</mi>     </mrow>     <mo stretchy="false">)</mo>    </mrow>    <mo stretchy="false">=</mo>    <mrow>     <mn>1</mn>     <mo stretchy="false">+</mo>     <mfrac>      <mrow>       <msub>        <mi>w</mi>        <mn>0</mn>       </msub>      </mrow>      <mrow>       <mi>s</mi>      </mrow>     </mfrac>    </mrow>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">G(s)=1 + {w _0} over {s}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-37.mml">include “txt/tech/mathml/power-8-37.mml”</h1>
 <p>波特图</p>
-
-<p><img src="../../images/power-8-15.png" alt="fig.8.15" title="" /></p>
-
-<h2>组合响应</h2>
-
+<div class="figure">
+<img src="../../images/power-8-15.png" alt="fig.8.15" /><p class="caption">fig.8.15</p>
+</div>
+<h2 id="组合响应">组合响应</h2>
 <p>举例来说，考虑一下传递函数的波特图：</p>
-
-<p><?xml version="1.0" encoding="UTF-8"?></p>
-
-<p><math xmlns="http://www.w3.org/1998/Math/MathML"> <semantics>  <mrow>   <mi>G</mi>   <mi>（</mi>   <mi>s</mi>   <mrow>    <mi>）</mi>    <mo stretchy="false">=</mo>    <mfrac>     <mrow>      <msub>       <mi>G</mi>       <mn>0</mn>      </msub>     </mrow>     <mrow>      <mrow>       <mo stretchy="false">(</mo>       <mrow>        <mrow>         <mrow>          <mn>1</mn>         </mrow>         <mo stretchy="false">+</mo>         <mrow>          <mfrac>           <mi>s</mi>           <mrow>            <msub>             <mi>w</mi>             <mn>1</mn>            </msub>           </mrow>          </mfrac>         </mrow>        </mrow>       </mrow>       <mo stretchy="false">)</mo>      </mrow>      <mrow>       <mo stretchy="false">(</mo>       <mrow>        <mrow>         <mn>1</mn>         <mo stretchy="false">+</mo>         <mfrac>          <mi>s</mi>          <mrow>           <msub>            <mi>w</mi>            <mn>2</mn>           </msub>          </mrow>         </mfrac>        </mrow>       </mrow>       <mo stretchy="false">)</mo>      </mrow>     </mrow>    </mfrac>   </mrow>  </mrow>  <annotation encoding="StarMath 5.0">G（s） = {G _0} over {( {1} + {s over {w _1}} )(1 + s over {w _2})}</annotation> </semantics></p>
-
+<h1 id="include-txttechmathmlpower-8-45.mml">include “txt/tech/mathml/power-8-45.mml”</h1>
 <p>G0=40(32dB), f1=w1/2pi=100Hz, f2=w2/2pi=2kHz</p>
-
 <p>该传递函数包含3项：增益G0和在频率f1, f2的极点，渐近线如图8.16所示</p>
-
-<p><img src="../../images/power-8-16.png" alt="fig.8.16" title="" /></p>
-
+<div class="figure">
+<img src="../../images/power-8-16.png" alt="fig.8.16" /><p class="caption">fig.8.16</p>
+</div>
 <p>增益G0是正实数，在0频率贡献增益32dB，在100Hz和2kHz的极点对应的渐进线可以参考图8.11所示。</p>
-
 <p>在小于100Hz的频率段，增益G0提供32dB的幅度增量，同时，两个极点提供趋近于0dB的幅度分量，因此低频幅度响应趋近于32dB+0dB+0dB=32dB。</p>
-
 <p>在100Hz到2kHz的频率段，增益G0依然提供32dB的幅度分量，2kHz频率位置的极点也依然提供0dB的频率分量，但100Hz频率位置的极点的幅度渐进线是-20dB每十倍频。幅度响应曲线也因此以-20dB每十倍频斜率变化，如图8.16所示。</p>
-
 <p>在大于2kHz的频率段，100Hz频率和2kHz频率位置到极点分别提供-20dB每十倍频斜率变化的分量，因此传递函数总计-20dB/decade + -20dB/decade = -40dB/decade。</p>
-
 <p>相位变化渐进线在图8.16也有体现，小于10Hz的时候，所有分量贡献总和为0。在f1/10 = 10Hz 和 f2/10 = 200Hz 之间到频率段，主要由f1频率位置到极点提供-45/decade 的变化。在200Hz和10f1=1kHz之间到频率段，两个极点都提供-45/decade的分量，因此总计-90/decade。在1kHz和10f2=20kHz之间的频率段，频率f1位置到极点提供-90度的相位分量，而频率f2位置的极点提供-45/decade的频率变化，因而总计-45/decade。在大于20kHz的频率段，两个极点都提供固定相位分量-90度，总计-180度。</p>
-
-<h2>双极点响应</h2>
+<h2 id="双极点响应">双极点响应</h2>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->

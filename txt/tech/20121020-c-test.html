@@ -8,54 +8,36 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>嵌入式C语言面试必备的问答</h1>
-
+<h1 id="嵌入式c语言面试必备的问答">嵌入式C语言面试必备的问答</h1>
 <p><a href="http://barrgroup.com/embedded-systems/embedded-c-quiz/">Barr group</a>上面的一个嵌入式C语言QUIZ，有些triky~</p>
-
 <p><em>Q</em>：定义一年有多少秒的宏定义</p>
-
-<p><em>A</em>：#define SECOND<em>PER</em>YEAR (365 * 24 * 24 * 24UL)</p>
-
+<p><em>A</em>：#define SECOND_PER_YEAR (365 * 24 * 24 * 24UL)</p>
 <p><em>Q</em>：定义两值取小的宏定义</p>
-
 <p><em>A</em>：#define MIN(x,y) ((x) &lt; (y) ? (x))</p>
-
 <p><em>Q</em>：无限循环的定义方式</p>
-
 <p><em>A</em>：while(1) for(;;) loop: goto loop;</p>
-
 <p><em>Q</em>：int (*a)[10]的作用</p>
-
 <p><em>A</em>：定义10个整形指针的数组(x)<em>A</em>：指向一个整形数组的指针</p>
-
 <p><em>Q</em>：static 的用法</p>
-
 <p><em>A</em>：函数内的变量是常驻内存，不可重入；定义文件内的函数；定义文件那的变量</p>
-
 <p><em>Q</em>：int * const x</p>
-
-<p><em>A</em>：a pointer to a const int(x)<em>A</em>：a const pointer to an intBTW:     const int *x : pointer to a const int    const int *const x : const pointer to a const int</p>
-
+<p><em>A</em>：a pointer to a const int(x)<em>A</em>：a const pointer to an intBTW: const int <em>x : pointer to a const int const int </em>const x : const pointer to a const int</p>
 <p><em>Q</em>：variable 的用法</p>
-
 <p><em>A</em>：访问外设寄存器；中断函数用到的全局变量；多任务或多线程用到的变量；</p>
-
 <p><em>Q</em>：复位最后一个bit</p>
-
 <p><em>A</em>：x &amp;= ~0x1;</p>
-
-<p><em>Q</em>：哪一个编译器支持把变量定义为volatile const </p>
-
+<p><em>Q</em>：哪一个编译器支持把变量定义为volatile const</p>
 <p><em>A</em>：ALL ANSIBTW: 这里可以用于外部存储器的固定数据定义，比如Data Flash</p>
-
 <p><em>Q</em>：直接地址写入数据</p>
-
-<p><em>A</em>：*(Uint16 * const)(0xaaaa) = 0x1234;</p>
+<p><em>A</em>：<em>(Uint16 </em> const)(0xaaaa) = 0x1234;</p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->

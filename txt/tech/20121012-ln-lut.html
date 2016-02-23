@@ -8,27 +8,24 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>ln函数的C语言函数定点实现和线性插值的实现方法</h1>
-
+<h1 id="ln函数的c语言函数定点实现和线性插值的实现方法">ln函数的C语言函数定点实现和线性插值的实现方法</h1>
 <p>ln函数比较消耗计算资源，在底层开发时一般不会直接进行计算，或者也没有函数库实现，定点运算的具体实现方法上一般有两种：</p>
-
 <ul>
 <li>查找表 + 线性插值</li>
 <li>幂次展开</li>
 </ul>
-
 <p>第一种方法比较通用，可以用在一些非线性曲线的拟合，比如在<a href="www.jieyige.com/txt/tech/9-ntc-usage.html">NTC电阻</a>的运算上面，第二种方法比较精确，也可以按照需要选择相应的幂次进行运算，但运算复杂度相对较高。其他定点算法更为复杂，有些还要看下相关的paper。这里主要针对第一种方法进行介绍。</p>
-
-<h2>查找表</h2>
-
+<h2 id="查找表">查找表</h2>
 <p>查找表是底软开发的基本算法，可以根据输入值进行查表直接得到结果，比如I2C进行PEC计算的时候，或者比如NTC电阻应用上。假如使用8bitADC进行温度检测，可以将采样得到的数值作为查找表的index，得到相应的温度数值。比如</p>
-
-<pre class = "prettyprint"><code>typedef signed char int8;
+<pre><code>typedef signed char int8;
 typedef unsigned char Uint8;
 
 int8 get_temp_from_ntc(const Uint8 adc)
@@ -63,30 +60,21 @@ int8 get_temp_from_ntc(const Uint8 adc)
     };
 
     return NTC_LUT[adc];
-}
-</code></pre>
-
+}</code></pre>
 <ul>
-<li>这里的查找表需要根据实际计算得到，这里只是举个例子，实际可能不需要这么大，
-可以根据温度范围和实际计算结果进行删减</li>
-<li><em>static</em>主要是为了防止每次进入函数都要在栈里面开辟空间，在某些CPU甚至要设置
-<strong>__FLASH</strong>，让这个表置于Flash而不是RAM区</li>
+<li>这里的查找表需要根据实际计算得到，这里只是举个例子，实际可能不需要这么大，可以根据温度范围和实际计算结果进行删减</li>
+<li><em>static</em>主要是为了防止每次进入函数都要在栈里面开辟空间，在某些CPU甚至要设置**__FLASH**，让这个表置于Flash而不是RAM区</li>
 <li><em>const</em>表示这个表是只读的，防止意外修改</li>
 <li><em>int8</em>使用8bit定义是为了尽量充分利用存储空间</li>
 </ul>
-
 <p>如果对于ln函数，非线性的斜率较大，如果只是采用查找表会有比较大的误差，因而需要在表中相邻的两个点进行线性插值。</p>
-
-<h2>线性插值</h2>
-
+<h2 id="线性插值">线性插值</h2>
 <p>接着上面的例子，如果ADC扩展到12bit，直接进行查找表需要2048B，扩大查找表需要较多的存储空间，一般无法满足。因而可以用前8bit进行查找表运算，后面4个bit进行线性差值，这样可以达到较好的拟合效果。</p>
-
-<pre class = "prettyprint"><code>return (lut[index] + (adc - index * 16) * (lut[index + 1] - lut[index])/16);
-</code></pre>
-
+<pre><code>return (lut[index] + (adc - index * 16) * (lut[index + 1] - lut[index])/16);</code></pre>
 <p>这里的lut就是对应温度的查找表，加上后面一部分线性插值的结果，index代表前8bit数据，查找表的效果可以从下图（使用<a href="http://www.gnuplot.info/">gnuplot</a>）的对比上看出来，红色点代表直接使用查找表与浮点值的偏差，绿色点表示加上线性插值的结果。可以看出加上插值后，偏差值明显减小。</p>
-
-<p><img src="../../images/10-1.png" alt="lut compare" title="" /></p>
+<div class="figure">
+<img src="../../images/10-1.png" alt="lut compare" /><p class="caption">lut compare</p>
+</div>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->

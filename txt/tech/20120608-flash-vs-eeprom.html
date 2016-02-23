@@ -8,36 +8,32 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>Flash vs EEPROM 区别以及操作方法</h1>
-
-<h2>工艺</h2>
-
+<h1 id="flash-vs-eeprom-区别以及操作方法">Flash vs EEPROM 区别以及操作方法</h1>
+<h2 id="工艺">工艺</h2>
 <p>Flash和EEPROM是类似的存储介质，从存储的原理上基本上是<em>一样的</em>，差别仅仅在于Flash一般是整块操作，而EEPROM可以按字节操作，比较适合大块数据的操作。</p>
-
 <blockquote>
-  <p>Flash memory is a later form of EEPROM. In the industry, there is aconvention to reserve the term EEPROM to byte-wise erasable memoriescompared to block-wise erasable flash memories. EEPROM takes more die areathan flash memory for the same capacity because each cell usually needs botha read, write and erase transistor, while in flash memory the erase circuitsare shared by large blocks of cells (often 512×8).  </p>
+<p>Flash memory is a later form of EEPROM. In the industry, there is aconvention to reserve the term EEPROM to byte-wise erasable memoriescompared to block-wise erasable flash memories. EEPROM takes more die areathan flash memory for the same capacity because each cell usually needs botha read, write and erase transistor, while in flash memory the erase circuitsare shared by large blocks of cells (often 512×8).</p>
 </blockquote>
-
 <p>虽然功能类似，由于擦除的操作特性不同，Flash比较适合大块的存储数据，比如程序本身；EEPROM比较适合可以修改的数据，比如自定义运行参数。芯片设计中可以把两者放在同一个芯片（比如AVR系列）；或者使用单独一小块Flash作为配置数据，增加ECC（比如TI UCD系列）；如果只有Flash，也可以用某块单独Page的Flash作为模拟EEPROM的擦写效果，TI提供了TMS320Fxx使用片内Flash模拟EEPROM的<a href="http://www.ti.com/lit/an/sprab69/sprab69.pdf">操作方法</a>。。</p>
-
 <p>看文档需要<strong>注意</strong>的几个方面：</p>
-
 <ul>
 <li>启动时需要把Flash操作的API拷贝到RAM</li>
 <li>需要把整个sector作为操作对象</li>
 <li>循环使用Flash，对已经写过的区域打标签</li>
 </ul>
-
-<h2>读写时间</h2>
-
+<h2 id="读写时间">读写时间</h2>
 <p>Flash的擦除是整块进行操作，而EEPROM可以单个byte清除。擦除之后，Flash的写入时间较EEPROM短，Flsh的典型值是50us，而EEPROM的典型值是5-10ms。所以外置Flash（通常是AND Flash）的读写总线经常是SPI, 而EEPROM是IIC。</p>
-
-<p><img src="../../images/2-2.png" alt="EEPROM simulation" title="" /></p>
+<div class="figure">
+<img src="../../images/2-2.png" alt="EEPROM simulation" /><p class="caption">EEPROM simulation</p>
+</div>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->

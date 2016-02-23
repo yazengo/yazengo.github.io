@@ -8,97 +8,70 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>程序错误异常处理(1)</h1>
-
-<h2>引子</h2>
-
+<h1 id="程序错误异常处理1">程序错误异常处理(1)</h1>
+<h2 id="引子">引子</h2>
 <p>如果面试时需要写一段字符串拷贝的代码，应该如何写才能让考官满意呢，也许很多人可以很快写出来。</p>
-
-<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+<pre><code>void strcpy(char* to, char* from) {
     while (*from) {
         *to ++ = *from++;
     }
-    *to = '\0';
-}
-</code></pre>
-
+    *to = &#39;\0&#39;;
+}</code></pre>
 <p>或者更为精简的一段：</p>
-
-<pre class = "prettyprint"><code>while((*to ++ = *form ++) != '\0')
-    continue;
-</code></pre>
-
-<p>考官或许会说 strncpy 才是安全的，这个暂时不作为本文的讨论范围，另一些考官或许会问如果要在函数内进行错误和异常的处理，应该如何进行，我们又可以看到五花八门的答案（茴字的x种写法）。ps: 这里先抛开语言，同时，具体的拷贝函数以 ... 代替。</p>
-
+<pre><code>while((*to ++ = *form ++) != &#39;\0&#39;)
+    continue;</code></pre>
+<p>考官或许会说 strncpy 才是安全的，这个暂时不作为本文的讨论范围，另一些考官或许会问如果要在函数内进行错误和异常的处理，应该如何进行，我们又可以看到五花八门的答案（茴字的x种写法）。ps: 这里先抛开语言，同时，具体的拷贝函数以 … 代替。</p>
 <p>1、什么都不做</p>
-
-<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+<pre><code>void strcpy(char* to, char* from) {
     if ((to == NULL) || (from == NULL))
         return;
     ...
-}
-</code></pre>
-
+}</code></pre>
 <p>2、返回负数</p>
-
-<pre class = "prettyprint"><code>int strcpy(char* to, char* from) {
+<pre><code>int strcpy(char* to, char* from) {
     if ((to == NULL) || (from == NULL))
         return -1;
     ...
-}
-</code></pre>
-
+}</code></pre>
 <p>3、使用断言</p>
-
-<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+<pre><code>void strcpy(char* to, char* from) {
     assert(to != NULL);
     assert(from != NULL);
     ...
-}
-</code></pre>
-
+}</code></pre>
 <p>4、使用异常</p>
-
-<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+<pre><code>void strcpy(char* to, char* from) {
     if ((to == NULL) || (from == NULL))
         throw exception;
     ...
-}
-</code></pre>
-
+}</code></pre>
 <p>5、记录到log文件</p>
-
-<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+<pre><code>void strcpy(char* to, char* from) {
     if ((to == NULL) || (from == NULL))
         fwrite(error);
     ...
-}
-</code></pre>
-
+}</code></pre>
 <p>6、使用 last error 的方式</p>
-
-<pre class = "prettyprint"><code>#include &lt;error.h&gt;
+<pre><code>#include &lt;error.h&gt;
 void strcpy(char* to, char* from) {
     if ((to == NULL) || (from == NULL))
         error = 16;
     ...
-}
-</code></pre>
-
+}</code></pre>
 <p>7、将错误信息打印出来</p>
-
-<pre class = "prettyprint"><code>void strcpy(char* to, char* from) {
+<pre><code>void strcpy(char* to, char* from) {
     if ((to == NULL) || (from == NULL))
-        fprintf(stderr, "strcpy takes no NULL pointer")
+        fprintf(stderr, &quot;strcpy takes no NULL pointer&quot;)
     ...
-}
-</code></pre>
-
+}</code></pre>
 <p>当然，可能还会有其他方式，那么这个时候面对五花八门的答案，有没有哪个是标准答案呢，这下傻眼的就是考官自己了。</p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>

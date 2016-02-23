@@ -8,21 +8,20 @@
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
         <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
     </head>
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1>控制信号大部分是低电平有效?</h1>
-
+<h1 id="控制信号大部分是低电平有效">控制信号大部分是低电平有效?</h1>
 <p>有很多控制信号，比如芯片常见的rst管脚，或者通讯中的应用，比如I2C，都是低电平有效的。直观上理解，高电平有效应该更好理解，为什么重要的控制信号比较常用低电平有效。<a href="http://en.wikipedia.org/wiki/Logic_level">wiki</a>上有一段文字做了说明</p>
-
 <blockquote>
-  <p>Many control signals in electronics are active-low signals[1] (usually resetlines, chip-select lines and so on). This stems from the fact[dubious –discuss] that most logic families can sink more current than they cansource, so fanout and noise immunity increase. It also allows for wired-ORlogic if the logic gates are open-collector/open-drain with a pull-upresistor. Examples of this are the I²C bus and the Controller Area Network(CAN),and the PCI Local Bus. RS232 signaling, as used on some serial ports,uses active-low signals.</p>
+<p>Many control signals in electronics are active-low signals[1] (usually resetlines, chip-select lines and so on). This stems from the fact[dubious –discuss] that most logic families can sink more current than they cansource, so fanout and noise immunity increase. It also allows for wired-ORlogic if the logic gates are open-collector/open-drain with a pull-upresistor. Examples of this are the I²C bus and the Controller Area Network(CAN),and the PCI Local Bus. RS232 signaling, as used on some serial ports,uses active-low signals.</p>
 </blockquote>
-
 <p>这里的sink和source定义在wiki上有专门的<a href="http://en.wikipedia.org/wiki/Current_sources_and_sinks">解释</a>，对于MCU来说就相当于是输出0或者是输出1，输出0在芯片内部是电子的移动，输出1在芯片内部是空穴的移动，对于一般的CMOS工艺，电子的移动效率高于空穴，使得<strong>sink</strong>的能力高于source，比如PIC的一款<a href="http://ww2.microchip.com/downloads/en/devicedoc/30430c.pdf">单片机</a>。为了可以直接进行LED等的驱动，sink和source的能力都比较高，最大sink25mA，最大source 20mA 。</p>
-
 <p>在上电的时候，尤其是VCC不稳的情况，有时候一些端口的状态是不定的，因此，如果是高电平有效，通过下拉的方式难以避免误触发。而端口的驱动能力显示更容易输出0, 因此只需要通过上拉电阻，然后在需要的时候拉低使能，就能够尽量避免误触发的问题。</p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
