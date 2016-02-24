@@ -35,10 +35,10 @@
 <img src="../../images/power-8-1.png" alt="Fig. 8.1" /><p class="caption">Fig. 8.1</p>
 </div>
 <p>输入到输出的传递函数可以通过假定占空比变化量为0，得到vg(s)到v(s)的传递函数</p>
-<h1 id="include-txttechmathmlpower-8-1.mml">include “txt/tech/mathml/power-8-1.mml”</h1>
+<p><span class="math">\[G_{vg}(s)=\frac{v(s)}{v_g(s)}(d(s)=0)\]</span></p>
 <p>该传递函数描述了输入vg(t)的变化或者扰动对输出v(t)的影响。比如，在离线式电源应用中，变换器的输入电压往往包含不期望的甚至是有害的交流电压。传递函数可以用来预测这些有害输入对输出电压的影响。</p>
 <p>控制量到输出的传递函数可以通过假定输入电压变化量为0，得到输出电压与占空比相关的等效电路模型。</p>
-<h1 id="include-txttechmathmlpower-8-2.mml">include “txt/tech/mathml/power-8-2.mml”</h1>
+<p><span class="math">\[G_{vd}(s)=\frac{v(s)}{v_d(s)}(v_g(s)=0)\]</span></p>
 <p>该传递函数描述了控制变量d(s)对输出v(t)的影响。在稳压系统中，该函数是环路带宽的重要组成部分，对控制器性能有重大影响。</p>
 <p>输出阻抗Zout(s)可以通过假定输入变量vg(s)和控制变量d(s)为0得到。输出阻抗描述了输出负载电流如何影响输出电压。该数值对温压变换器的设计中也十分重要。输出阻抗包括或者不包括负载阻抗R都是可以的。</p>
 <p>当电磁屏蔽（EMI）滤波器加入变换器的设计中时，输入阻抗Zin(s)是十分重要的。输出阻抗和EMI滤波器的输出阻抗的相对大小决定了EMI滤波器对变换器传递函数的影响。EMI滤波器的详细描述参见第10章。</p>

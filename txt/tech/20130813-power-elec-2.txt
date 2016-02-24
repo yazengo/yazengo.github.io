@@ -10,7 +10,7 @@
 
 幅度的无方向增益G可以表示为：
 
-#include "txt/tech/mathml/power-8-3.mml"
+$$\left \| G \right \|_{dB}=20\log_{10}(\left \| G \right \|)$$
 
 ![table.8.1](../../images/power-table-8-1.png)
 
@@ -18,7 +18,7 @@
 数值没有方向的概念，幅度需要先进行归一化处理。例如，以db表示阻抗Z的幅度值，我
 们需要对阻抗Z除以一个基数Rbase得到归一化的数值。
 
-#include "txt/tech/mathml/power-8-4.mml"
+$$\left \| Z \right \|_{dB}=20\log_{10}(\frac{\left \| Z \right \|}{R_{base}})$$
 
 Rbase的可以是任意值，但我们需要告知他人所使用的值。所以如果|Z|是5欧，Rbase为10
 欧，可以得到 |Z|db = 20log10(5/10) = -6db （对于10欧来说）。通常Rbase可以选择
@@ -27,11 +27,12 @@ Rbase的可以是任意值，但我们需要告知他人所使用的值。所以
 
 幅度的波特图可以推导出f的能量是线性的。比如无方向量纲G(f)的幅度可以表示为
 
-#include "txt/tech/mathml/power-8-5.mml"
+$$\left \| G \right \|=(\frac{f}{f_0})^n$$
 
 式中f0和n都是常数，表示为dB值可以得到
 
-#include "txt/tech/mathml/power-8-6.mml"
+$$\left \| G \right \|_{dB}=20\log_{10}(\frac{f}{f_0})^n=20n
+log_{10}(\frac{f}{f_0})$$
 
 该等式对以不同n值可以参见Fig. 8.3。幅度在频率f=f0的时候可以得到幅度值1=>0dB。
 它们是log10(f)的线性方程。斜率表示对于log10(f)的一单位变化|G|dB的变化幅度，
@@ -45,15 +46,15 @@ log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出
 
 一个简单的单极点传递函数：
 
-#include "txt/tech/mathml/power-8-7.mml"
+$$G(s)=\frac{1}{\frac{s}{w_0}}$$
 
 幅度可以表示为
 
-#include "txt/tech/mathml/power-8-8.mml"
+$$\left \| G(jw) \right \|=\frac{1}{\left \| \frac{jw}{w_0} \right \|}=\frac{1}{\frac{w}{w_0}}$$
 
 我们定义f=w/2pi，则f0=w0/2pi，式8.8变化为
 
-#include "txt/tech/mathml/power-8-9.mml"
+$$\left \| G \right \|=(\frac{f}{f_0})^{-1}$$
 
 该式即为当n=-1的8.5式，如Fig. 8.3所示，8.7的波特图斜率为-20dB每十倍频，同时，
 在f=f0的时候通过0dB。
@@ -62,7 +63,7 @@ log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出
 
 单极点传递函数的标准形式：
 
-#include "txt/tech/mathml/power-8-12.mml"
+$$G(s)=\frac{1}{1+\frac{1}{w_0}}$$
 
 ［注］波特图一般估算过程：
 
@@ -75,7 +76,7 @@ log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出
 
 单零点传递函数的标准形式：
 
-#include "txt/tech/mathml/power-8-29.mml"
+$$G(s)=1+\frac{s}{w_0}$$
 
 波特图
 
@@ -85,7 +86,7 @@ log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出
 
 标准形式
 
-#include "txt/tech/mathml/power-8-32.mml"
+$$G(s)=1-\frac{s}{w_0}$$
 
 波特图
 
@@ -95,7 +96,7 @@ log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出
 
 反极点标准形式
 
-#include "txt/tech/mathml/power-8-35.mml"
+$$G(s)=\frac{1}{1+\frac{w_0}{s}}$$
 
 波特图
 
@@ -103,7 +104,7 @@ log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出
 
 反零点标准形式
 
-#include "txt/tech/mathml/power-8-37.mml"
+$$G(s)=1+\frac{w_0}{s}$$
 
 波特图
 
@@ -113,7 +114,7 @@ log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出
 
 举例来说，考虑一下传递函数的波特图：
 
-#include "txt/tech/mathml/power-8-45.mml"
+$$G(s)=\frac{G_0}{(1+\frac{s}{w_1})(1+\frac{s}{w_2})}$$
 
 G0=40(32dB), f1=w1/2pi=100Hz, f2=w2/2pi=2kHz
 
