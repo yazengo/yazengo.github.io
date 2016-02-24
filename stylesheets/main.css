@@ -24,16 +24,18 @@ body {
 h1, h2, h3 {
 	margin: 0;
 	padding: 0;
-	letter-spacing: -0.06em;
-	/*text-transform: uppercase;*/
+	letter-spacing: -0.02em;
 	font-weight: bold;
-	color: #0285CE;
 	margin: 1em auto 0.5em 0
 }
 
 h1 {
 	font-size: 2.5em;
-	font-style: italic;
+	color: #2b90d9;
+}
+
+h2, h3 {
+	color: #6AAFE6;
 }
 
 h2 {
@@ -54,7 +56,7 @@ ul, ol {
 
 a {
 	text-decoration: none;
-	color: #0285CE;
+	color: #2b90d9;
 }
 
 a:hover {
@@ -73,7 +75,7 @@ th, td {
 tr:nth-child(even){background-color: #f2f2f2}
 
 th {
-	background-color: #0285CE;
+	background-color: #8EC0E4;
 	color: white;
 }
 
