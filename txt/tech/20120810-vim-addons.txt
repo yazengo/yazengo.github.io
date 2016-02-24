@@ -1,4 +1,4 @@
-Vim 的插件更新方式——Vim Addons Manager使用说明
+Vim 的插件更新方式：Vim Addons Manager使用说明
 =======
 
 ##应用为王
@@ -73,6 +73,6 @@ Vim的插件某种意义上也是一种应用，Vim的开发者很有先见之�
 
 **UPDATE**
 
-后来用到了更为简单易用的[VimPlug][]，查找安装应用更为直接。
+后来偶尔发现更为简单易用的[VimPlug][]，查找安装应用更为直接。
 
 [VimPlug]:https://github.com/junegunn/vim-plug
