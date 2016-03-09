@@ -1,0 +1,51 @@
+x220 安装 SSD
+=====
+
+## 为什么需要 SSD
+
+速度、速度、速度
+
+## 如何使用
+
+因为 SSD 的读取性能远高于 HDD，而系统和软件工具本身是最常用的只读文件，因此用
+来装系统是一个性价比较高的选择。而由于 Linux 系统的精简特性，一个 64G 的 SSD
+就足以胜任日常使用。
+
+在华强北转了一圈，SSD 二手的价格没有到新品的一半以下，而 SSD 放的久了，性能可
+能会有一定下降，于是考虑再三还是买了一手货。当然花费的时间成本实际上是不值得的
+，只是想调查一下具体性价比。
+
+具体的安装过程不表，联想的结构设计还是挺扎实的，可玩性也很高。
+
+## 实测结果
+
+[hdparm]( https://en.wikipedia.org/wiki/Hdparm ) 是 Linux 下很方便的测试硬盘的工
+具。
+
+7200 转 HDD
+
+  /dev/sda:
+   Timing cached reads:   5612 MB in  2.00 seconds = 2806.67 MB/sec
+   Timing buffered disk reads: 282 MB in  3.00 seconds =  93.99 MB/sec
+
+SSD
+
+  /dev/sdb:
+   Timing cached reads:   5452 MB in  2.00 seconds = 2726.74 MB/sec
+   Timing buffered disk reads: 808 MB in  3.00 seconds = 269.19 MB/sec
+
+可能是测试方式不一样，没有达到标称数值 500M，但确实有2~3倍的提升效果，基本满意
+。
+
+## 系统迁移
+
+使用 rsync 进行同步，可以保持系统的权限设置，并且对系统的类型和大小没有限制，
+[具体步骤和说明][https://wiki.archlinux.org/index.php/Full_System_Backup_with_rsync]
+
+本来想把 /home 和 /var 独立出来，但登陆的时候也会有很多读取 /home 目录的操作，
+运行时文件也有很多在 /var，而现在消费级的 SSD 的已经[足够稳定] (http://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&mid=403149567&idx=2&sn=653e90cdc0df8efa7056d5aee61dc3a6&scene=21#wechat_redirect)。
+
+修改了 grub 的默认启动项目后，就可以把原来的系统继续保存作为备用，不过 boot 继
+续在 HDD 上面，还有点耦合关系，暂时不处理。修改 fstab 的时候需要注意修改的是目
+标系统对应位置，因为 grub 启动系统的时候已经指定了对应分区的 UUID，从这里加载
+初始系统和配置。
