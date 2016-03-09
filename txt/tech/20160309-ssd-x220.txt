@@ -40,10 +40,10 @@ SSD
 ## 系统迁移
 
 使用 rsync 进行同步，可以保持系统的权限设置，并且对系统的类型和大小没有限制，
-[具体步骤和说明][https://wiki.archlinux.org/index.php/Full_System_Backup_with_rsync]
+[具体步骤和说明](https://wiki.archlinux.org/index.php/Full_System_Backup_with_rsync)
 
 本来想把 /home 和 /var 独立出来，但登陆的时候也会有很多读取 /home 目录的操作，
-运行时文件也有很多在 /var，而现在消费级的 SSD 的已经[足够稳定] (http://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&mid=403149567&idx=2&sn=653e90cdc0df8efa7056d5aee61dc3a6&scene=21#wechat_redirect)。
+运行时文件也有很多在 /var，而现在消费级的 SSD 的已经[足够稳定](http://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&mid=403149567&idx=2&sn=653e90cdc0df8efa7056d5aee61dc3a6&scene=21#wechat_redirect)。
 
 修改了 grub 的默认启动项目后，就可以把原来的系统继续保存作为备用，不过 boot 继
 续在 HDD 上面，还有点耦合关系，暂时不处理。修改 fstab 的时候需要注意修改的是目

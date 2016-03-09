@@ -31,8 +31,8 @@
 <p>/dev/sdb: Timing cached reads: 5452 MB in 2.00 seconds = 2726.74 MB/sec Timing buffered disk reads: 808 MB in 3.00 seconds = 269.19 MB/sec</p>
 <p>可能是测试方式不一样，没有达到标称数值 500M，但确实有2~3倍的提升效果，基本满意。</p>
 <h2 id="系统迁移">系统迁移</h2>
-<p>使用 rsync 进行同步，可以保持系统的权限设置，并且对系统的类型和大小没有限制，[具体步骤和说明][https://wiki.archlinux.org/index.php/Full_System_Backup_with_rsync]</p>
-<p>本来想把 /home 和 /var 独立出来，但登陆的时候也会有很多读取 /home 目录的操作，运行时文件也有很多在 /var，而现在消费级的 SSD 的已经[足够稳定] (http://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&amp;mid=403149567&amp;idx=2&amp;sn=653e90cdc0df8efa7056d5aee61dc3a6&amp;scene=21#wechat_redirect)。</p>
+<p>使用 rsync 进行同步，可以保持系统的权限设置，并且对系统的类型和大小没有限制，<a href="https://wiki.archlinux.org/index.php/Full_System_Backup_with_rsync">具体步骤和说明</a></p>
+<p>本来想把 /home 和 /var 独立出来，但登陆的时候也会有很多读取 /home 目录的操作，运行时文件也有很多在 /var，而现在消费级的 SSD 的已经<a href="http://mp.weixin.qq.com/s?__biz=MzA3MzYwNjQ3NA==&amp;mid=403149567&amp;idx=2&amp;sn=653e90cdc0df8efa7056d5aee61dc3a6&amp;scene=21#wechat_redirect">足够稳定</a>。</p>
 <p>修改了 grub 的默认启动项目后，就可以把原来的系统继续保存作为备用，不过 boot 继续在 HDD 上面，还有点耦合关系，暂时不处理。修改 fstab 的时候需要注意修改的是目标系统对应位置，因为 grub 启动系统的时候已经指定了对应分区的 UUID，从这里加载初始系统和配置。</p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
