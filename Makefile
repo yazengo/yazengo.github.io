@@ -1,6 +1,6 @@
 
 # set a list of txt files
-TXT = $(wildcard txt/tech/*.txt txt/life/*.txt)
+TXT = $(wildcard txt/tech/*.txt)
 
 # make a list of html files
 TEMP_HEADER = $(patsubst %.txt, %.header, $(TXT))
@@ -17,7 +17,7 @@ index/body.html: $(TXT) index/index_body.py
 	python index/index_body.py > $@
 
 %.body: %.txt
-	pandoc -fmarkdown+ignore_line_breaks -S --mathjax $< -o $@
+	pandoc -fmarkdown+ignore_line_breaks --mathjax $< -o $@
 
 %.header: %.txt
 	python html/html_header.py $< > $@

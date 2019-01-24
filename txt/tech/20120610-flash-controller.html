@@ -17,19 +17,19 @@
         <div id="container">
     
 <h1 id="flash-控制器与读写时间">Flash 控制器与读写时间</h1>
-<h2 id="mcu中的flash控制器">MCU中的Flash控制器</h2>
+<p>##MCU中的Flash控制器</p>
 <p>MCU中因为面积和功耗的关系，一般只有一个Flash控制器，这就导致了在进行写Flash操作的时候，Flash中的程序无法运行（相当于没办法同时进行读操作），中断也无法运行，因此在进行系统在线升级，或者一些关键的中断程序，需要将部分程序拷贝到Ram运行。因此也有处理器将Flash分为两大块进行操作，比如Fujitsu的<a href="http://mcu.emea.fujitsu.com/document/appnotes/Public/16Bit/mcu-an-390091-e-16lx_dual_operation_flash/mcu-an-390091-e-v12-16lx_dual_operation_flash.pdf">MB90F897</a></p>
 <p>将Flash分为两个bank,这样操作一个bank的时候，另一个bank的读取不受影响，在在线升级的系统中，可以简化程序的设计，同时也能够防止升级过程中掉电的导致的影响。</p>
-<div class="figure">
-<img src="../../images/2-1.png" alt="two bank flash" /><p class="caption">two bank flash</p>
-</div>
+<figure>
+<img src="../../images/2-1.png" alt="two bank flash" /><figcaption>two bank flash</figcaption>
+</figure>
 <p>可能的总线结构如图，也有可能是用两条单独的总线。</p>
-<div class="figure">
-<img src="../../images/3-2.png" alt="two bank flash" /><p class="caption">two bank flash</p>
-</div>
-<h2 id="flash的操作">Flash的操作</h2>
+<figure>
+<img src="../../images/3-2.png" alt="two bank flash" /><figcaption>two bank flash</figcaption>
+</figure>
+<p>##Flash的操作</p>
 <p>Flash主要分为3种操作，读写和擦除，从物理过程上讲，主要是电子的移动过程。Flash是浮柵结构，写的过程是注入电子，读的过程相当于根据浮柵上电子的情况判断0和1，擦除的过程就是把浮柵上的电子全部赶走。</p>
-<h2 id="flash读写时间">Flash读写时间</h2>
+<p>##Flash读写时间</p>
 <p>Flash的读写一般花的时间都比较长，耗时最长的是擦除过程，整块Flash的擦除是100ms级别的，而写操作的时间也不短，因为需要先进行擦除操作（写为0xff），因此也比较耗时，读操作相对较快，但一般也需要几个时钟的时间。</p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>

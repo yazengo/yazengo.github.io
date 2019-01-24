@@ -37,9 +37,9 @@ n = torch.linspace(1, 100)
 y = torch.cos(n:mul(2 * math.pi * f / fs))
 gnuplot.plot(n, y)</code></pre>
 <p>可以得到余弦函数的图形显示。</p>
-<div class="figure">
-<img src="../../images/20151217-1.png" alt="余弦" /><p class="caption">余弦</p>
-</div>
+<figure>
+<img src="../../images/20151217-1.png" alt="余弦" /><figcaption>余弦</figcaption>
+</figure>
 <h2 id="复数">复数</h2>
 <p>信号处理里面复平面是一个很重要的概念，但 Torch 对复数的支持不是内置的，而是有另外的包 <a href="https://github.com/facebook/ztorch">ztorch</a> 去处理，目前似乎还没有合入主安装包，需要另外添加。</p>
 <!-- JiaThis Button BEGIN -->

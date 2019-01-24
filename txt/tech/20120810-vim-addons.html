@@ -17,11 +17,11 @@
         <div id="container">
     
 <h1 id="vim-的插件更新方式vim-addons-manager使用说明">Vim 的插件更新方式：Vim Addons Manager使用说明</h1>
-<h2 id="应用为王">应用为王</h2>
+<p>##应用为王</p>
 <p><strong>应用</strong>这个词渐渐已经成为互联网内的热门词汇，iOS/Android等纷纷推出自己的应用中心，PC机上也有类似的软件，类似中国特色的360装机等，这种方式连接了开发者和使用者，也是热门的所谓<strong>平台</strong>布局，方便开发者改进程序，也方便使用者更新程序。</p>
 <p>当然这种方式在程序员世界却也是很自然的事情，一个程序集体进行改善，必定需要同步更新，才能保证大家的同步开发，有如svn/git等工具极大方便了程序员之间的交流。将这种方式推广到Linux世界就是各种版本上的包管理，渐渐推广到更广泛的应用，有如今天的各种应用平台。</p>
 <p>Vim的插件某种意义上也是一种应用，Vim的开发者很有先见之明的留下了接口和配置文件，使其成为程序员的贴身装备。同上所述，这种应用也有更新和同步的需求，于是有了插件管理插件<a href="http://www.vim.org/scripts/script.php?script_id=2905">vim-addons-manager</a>。可以通过比较方便的方式增删应用，并保持同步。</p>
-<h2 id="更新方式">更新方式</h2>
+<p>##更新方式</p>
 <p>既然本身是应用，也是需要“与时俱进”，这里使用的github的代码仓库，可以方便的进行同步。</p>
 <pre><code>git://github.com/MarcWeber/vim-addon-manager</code></pre>
 <p>还有自动更新的配置列表，配置了更新应用的配置，如下载地址，更新方式等，也是在代码仓库里。</p>
@@ -32,7 +32,7 @@
 <p>更新插件的方式就剩下一条指令了:</p>
 <pre><code>:UpdateAddons</code></pre>
 <p>在Windows上的安装过程可以参考网上<a href="http://choorucode.wordpress.com/2010/12/09/using-vim-addon-manager-on-windows/">说明</a></p>
-<h2 id="我的应用需求">我的应用需求</h2>
+<p>##我的应用需求</p>
 <p>我目前使用的插件在这里做个备份</p>
 <pre><code>fun SetupVAM()
   set runtimepath+=~/.vim/addons/vim-addon-manager

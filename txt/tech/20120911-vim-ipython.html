@@ -35,18 +35,15 @@ ipython qtkernel</code></pre>
 <p>如果以后对于py的文件都使用ipython调试可以在<em>.vimrc</em>中加入<em>autocmd</em></p>
 <pre><code>autocmd BufRead *.py IPython</code></pre>
 <p>这样每次打开py文件都会“卡”一下，连接到ipython的server。</p>
-<h2 id="自动补全">自动补全</h2>
-<p>vi里面的自动补全不是天生的，一般需要通过omnicompletion实现，然后使用supertab可以比较方便的使用<strong>tab</strong>进行自动补全。</p>
+<p>##自动补全vi里面的自动补全不是天生的，一般需要通过omnicompletion实现，然后使用supertab可以比较方便的使用<strong>tab</strong>进行自动补全。</p>
 <pre><code>[C-X][C-I] 在路径中查找补全项
 [C-X][C-O] omni自动补全</code></pre>
-<h2 id="函数说明">函数说明</h2>
-<p>在ipython里面，函数说明是通过加问号实现的，比如对于一个字符串</p>
+<p>##函数说明在ipython里面，函数说明是通过加问号实现的，比如对于一个字符串</p>
 <pre><code>str = &quot;test&quot;
 str?</code></pre>
 <p>通过vim-ipython可以在vi里面直接通过<strong><leader>d</strong>，一般<leader>是’'，我把<leader>映射为’,‘，所以对于我来说就是‘,d’，可以打开一个窗口显示说明，可以输入q退出。</p>
-<h2 id="基本调试">基本调试</h2>
-<p>直接通过ipython调试不是很方便，在vi里面打开后，可以直接通过[Ctrl+S]将某行或者某些行发送到ipython执行，在后来的版本更改为[Alt+S]，这样就可以通过ipython继续调试。</p>
-<h2 id="缺点">缺点</h2>
+<p>##基本调试直接通过ipython调试不是很方便，在vi里面打开后，可以直接通过[Ctrl+S]将某行或者某些行发送到ipython执行，在后来的版本更改为[Alt+S]，这样就可以通过ipython继续调试。</p>
+<p>##缺点</p>
 <ul>
 <li>iPython本身启动较慢，无法进行很快的编辑和运行</li>
 <li>有时候绑定的自动完成容易与omniComplete冲突</li>

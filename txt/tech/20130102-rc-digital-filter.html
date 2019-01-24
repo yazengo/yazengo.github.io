@@ -19,23 +19,23 @@
 <h1 id="rc滤波的数字实现">RC滤波的数字实现</h1>
 <p>信号与系统里面对数字滤波器的设计方法提供了方法论的指引，但在实际应用是会感觉难以使用，或者陷入公式的推导中间而无法对方法的本质做到“掌握”。这里对模拟系统离散化的一种方法——数值积分法的工程应用做一个简单的总结，并以RC滤波的设计为例子进行理论推导。</p>
 <p>数字应用中常常需要对输入信号进行滤波处理，而达到较为平稳的输出结果，比如AD采样数据，如果直接使用采样进来的数据可能会发现比较大的抖动，在一个平均值附近进行无规律的跳动，这种数据可能无法直接用到数字控制或者监控系统。按照模拟的方法一般是加上低通滤波器滤除高频信号，得到较为平稳的采样数据。通过一些数学推导可以将该模拟滤波器通过数字编程实现，这里主要使用比较常用的模拟离散化方法——数值积分法，对原理的推导可以参考信号与系统理论，我们只利用结果进行推导。</p>
-<div class="figure">
-<img src="../../images/20130102-1-1.png" alt="RC 滤波的模拟电路简图" /><p class="caption">RC 滤波的模拟电路简图</p>
-</div>
+<figure>
+<img src="../../images/20130102-1-1.png" alt="RC 滤波的模拟电路简图" /><figcaption>RC 滤波的模拟电路简图</figcaption>
+</figure>
 <p>根据拉普拉斯变换可以得到RC系统的s域传递函数</p>
-<p><span class="math">\[Y(s)=X(s)\frac{\frac{1}{CS}}{R+\frac{1}{CS}}=X(s)\frac{1}{RCS+1}\]</span></p>
+<p><span class="math display">\[Y(s)=X(s)\frac{\frac{1}{CS}}{R+\frac{1}{CS}}=X(s)\frac{1}{RCS+1}\]</span></p>
 <p>通过数值积分法从s域变换为z域，其中T为采样频率</p>
 <ul>
-<li>一阶后向差法：<span class="math">\(s=\frac{1-z^{-1}}{T}\)</span></li>
-<li>一阶后向差法：<span class="math">\(s=\frac{z-1}{T}\)</span></li>
-<li>双线性变换法：<span class="math">\(s=\frac{2}{T} \cdot \frac{z-1}{z+1}\)</span></li>
+<li>一阶后向差法：<span class="math inline">\(s=\frac{1-z^{-1}}{T}\)</span></li>
+<li>一阶后向差法：<span class="math inline">\(s=\frac{z-1}{T}\)</span></li>
+<li>双线性变换法：<span class="math inline">\(s=\frac{2}{T} \cdot \frac{z-1}{z+1}\)</span></li>
 </ul>
 <p>这里采用后向差法进行实例计算得到z域传递函数</p>
-<p><span class="math">\[Y(z)=\frac{X(z)}{RC \frac{1-z^{-1}}{T} + 1}\]</span></p>
+<p><span class="math display">\[Y(z)=\frac{X(z)}{RC \frac{1-z^{-1}}{T} + 1}\]</span></p>
 <p>最后可以得到数字实现公式</p>
-<p><span class="math">\[y(n)=\frac{y(n-1)}{1+\frac{T}{RC}} + \frac{x(n)}{1+\frac{RC}{T}}\]</span></p>
-<p>实际数字计算时为了简化计算过程，通常采样移位的方式替代乘除法，因此需要取2^k为计算步长，因此取 <span class="math">\(1+\frac{RC}{T}=2^k\)</span> ，得到最后的计算公式</p>
-<p><span class="math">\[y(n)=(1-\frac{1}{2^k})y(n-1)+\frac{1}{2^k}x(n)\]</span></p>
+<p><span class="math display">\[y(n)=\frac{y(n-1)}{1+\frac{T}{RC}} + \frac{x(n)}{1+\frac{RC}{T}}\]</span></p>
+<p>实际数字计算时为了简化计算过程，通常采样移位的方式替代乘除法，因此需要取2^k为计算步长，因此取 <span class="math inline">\(1+\frac{RC}{T}=2^k\)</span> ，得到最后的计算公式</p>
+<p><span class="math display">\[y(n)=(1-\frac{1}{2^k})y(n-1)+\frac{1}{2^k}x(n)\]</span></p>
 <p>这样就可以通过简单的移位操作进行程序处理，得到滤波器的数字实现，编程简单实现如下：</p>
 <pre><code>int rc_filter(const int adc)
 {

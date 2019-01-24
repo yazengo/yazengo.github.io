@@ -21,75 +21,75 @@
 <h2 id="波特图">波特图</h2>
 <p>波特图是传递函数或者其他复数的幅频特性曲线，幅度使用分贝db作为单位，相位使用角度，使用对数轴。</p>
 <p>幅度的无方向增益G可以表示为：</p>
-<p><span class="math">\[\left \| G \right \|_{dB}=20\log_{10}(\left \| G \right \|)\]</span></p>
-<div class="figure">
-<img src="../../images/power-table-8-1.png" alt="table.8.1" /><p class="caption">table.8.1</p>
-</div>
+<p><span class="math display">\[\left \| G \right \|_{dB}=20\log_{10}(\left \| G \right \|)\]</span></p>
+<figure>
+<img src="../../images/power-table-8-1.png" alt="table.8.1" /><figcaption>table.8.1</figcaption>
+</figure>
 <p>一些简单幅度的分贝值如Table 8.1.所示，需要注意当增益是有方向的时候。由于数的对数值没有方向的概念，幅度需要先进行归一化处理。例如，以db表示阻抗Z的幅度值，我们需要对阻抗Z除以一个基数Rbase得到归一化的数值。</p>
-<p><span class="math">\[\left \| Z \right \|_{dB}=20\log_{10}(\frac{\left \| Z \right \|}{R_{base}})\]</span></p>
+<p><span class="math display">\[\left \| Z \right \|_{dB}=20\log_{10}(\frac{\left \| Z \right \|}{R_{base}})\]</span></p>
 <p>Rbase的可以是任意值，但我们需要告知他人所使用的值。所以如果|Z|是5欧，Rbase为10欧，可以得到 |Z|db = 20log10(5/10) = -6db （对于10欧来说）。通常Rbase可以选择为1欧，这样得到的单位就是db欧。因此5欧等同于14db欧。转换器输入电流谐波一般表示为dBuA，即归一化为1uA的dB值。60dBuA等同于1000uA，或者1mA。</p>
 <p>幅度的波特图可以推导出f的能量是线性的。比如无方向量纲G(f)的幅度可以表示为</p>
-<p><span class="math">\[\left \| G \right \|=(\frac{f}{f_0})^n\]</span></p>
+<p><span class="math display">\[\left \| G \right \|=(\frac{f}{f_0})^n\]</span></p>
 <p>式中f0和n都是常数，表示为dB值可以得到</p>
-<p><span class="math">\[\left \| G \right \|_{dB}=20\log_{10}(\frac{f}{f_0})^n=20n
+<p><span class="math display">\[\left \| G \right \|_{dB}=20\log_{10}(\frac{f}{f_0})^n=20n
 log_{10}(\frac{f}{f_0})\]</span></p>
 <p>该等式对以不同n值可以参见Fig. 8.3。幅度在频率f=f0的时候可以得到幅度值1=&gt;0dB。它们是log10(f)的线性方程。斜率表示对于log10(f)的一单位变化|G|dB的变化幅度，log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出，频率f的十倍频变化引起幅度|G|dB变化为20n dB。因此，斜率就是20n/十倍频。同样的，我们可以说斜率是20n log10(2) = 6n dB每八倍频，这里的八倍频表示频率的2的乘积变化。实际上，大部分频率相关的函数可以用一定范围的频率方程表示，方程的一般形式参见8.5式，在这些频率范围上，波特图可以近似为20n dB每十倍频变化。</p>
-<div class="figure">
-<img src="../../images/power-8-3.png" alt="fig.8.3" /><p class="caption">fig.8.3</p>
-</div>
+<figure>
+<img src="../../images/power-8-3.png" alt="fig.8.3" /><figcaption>fig.8.3</figcaption>
+</figure>
 <p>一个简单的单极点传递函数：</p>
-<p><span class="math">\[G(s)=\frac{1}{\frac{s}{w_0}}\]</span></p>
+<p><span class="math display">\[G(s)=\frac{1}{\frac{s}{w_0}}\]</span></p>
 <p>幅度可以表示为</p>
-<p><span class="math">\[\left \| G(jw) \right \|=\frac{1}{\left \| \frac{jw}{w_0} \right \|}=\frac{1}{\frac{w}{w_0}}\]</span></p>
+<p><span class="math display">\[\left \| G(jw) \right \|=\frac{1}{\left \| \frac{jw}{w_0} \right \|}=\frac{1}{\frac{w}{w_0}}\]</span></p>
 <p>我们定义f=w/2pi，则f0=w0/2pi，式8.8变化为</p>
-<p><span class="math">\[\left \| G \right \|=(\frac{f}{f_0})^{-1}\]</span></p>
+<p><span class="math display">\[\left \| G \right \|=(\frac{f}{f_0})^{-1}\]</span></p>
 <p>该式即为当n=-1的8.5式，如Fig. 8.3所示，8.7的波特图斜率为-20dB每十倍频，同时，在f=f0的时候通过0dB。</p>
 <h2 id="单极点响应">单极点响应</h2>
 <p>单极点传递函数的标准形式：</p>
-<p><span class="math">\[G(s)=\frac{1}{1+\frac{1}{w_0}}\]</span></p>
+<p><span class="math display">\[G(s)=\frac{1}{1+\frac{1}{w_0}}\]</span></p>
 <p>［注］波特图一般估算过程：</p>
 <ul>
 <li>根据传递函数得到幅值和角度公式</li>
 <li>分低频高频段估算波特图趋势 w ‘&lt;&lt;’ w0 w ‘&lt;&lt;’ w0 w ‘==’ w0</li>
 </ul>
-<div class="figure">
-<img src="../../images/power-8-11.png" alt="fig.8.11" /><p class="caption">fig.8.11</p>
-</div>
+<figure>
+<img src="../../images/power-8-11.png" alt="fig.8.11" /><figcaption>fig.8.11</figcaption>
+</figure>
 <h2 id="单零点响应">单零点响应</h2>
 <p>单零点传递函数的标准形式：</p>
-<p><span class="math">\[G(s)=1+\frac{s}{w_0}\]</span></p>
+<p><span class="math display">\[G(s)=1+\frac{s}{w_0}\]</span></p>
 <p>波特图</p>
-<div class="figure">
-<img src="../../images/power-8-12.png" alt="fig.8.12" /><p class="caption">fig.8.12</p>
-</div>
+<figure>
+<img src="../../images/power-8-12.png" alt="fig.8.12" /><figcaption>fig.8.12</figcaption>
+</figure>
 <h2 id="右半平面零点">右半平面零点</h2>
 <p>标准形式</p>
-<p><span class="math">\[G(s)=1-\frac{s}{w_0}\]</span></p>
+<p><span class="math display">\[G(s)=1-\frac{s}{w_0}\]</span></p>
 <p>波特图</p>
-<div class="figure">
-<img src="../../images/power-8-13.png" alt="fig.8.13" /><p class="caption">fig.8.13</p>
-</div>
+<figure>
+<img src="../../images/power-8-13.png" alt="fig.8.13" /><figcaption>fig.8.13</figcaption>
+</figure>
 <h2 id="频率反转">频率反转</h2>
 <p>反极点标准形式</p>
-<p><span class="math">\[G(s)=\frac{1}{1+\frac{w_0}{s}}\]</span></p>
+<p><span class="math display">\[G(s)=\frac{1}{1+\frac{w_0}{s}}\]</span></p>
 <p>波特图</p>
-<div class="figure">
-<img src="../../images/power-8-14.png" alt="fig.8.14" /><p class="caption">fig.8.14</p>
-</div>
+<figure>
+<img src="../../images/power-8-14.png" alt="fig.8.14" /><figcaption>fig.8.14</figcaption>
+</figure>
 <p>反零点标准形式</p>
-<p><span class="math">\[G(s)=1+\frac{w_0}{s}\]</span></p>
+<p><span class="math display">\[G(s)=1+\frac{w_0}{s}\]</span></p>
 <p>波特图</p>
-<div class="figure">
-<img src="../../images/power-8-15.png" alt="fig.8.15" /><p class="caption">fig.8.15</p>
-</div>
+<figure>
+<img src="../../images/power-8-15.png" alt="fig.8.15" /><figcaption>fig.8.15</figcaption>
+</figure>
 <h2 id="组合响应">组合响应</h2>
 <p>举例来说，考虑一下传递函数的波特图：</p>
-<p><span class="math">\[G(s)=\frac{G_0}{(1+\frac{s}{w_1})(1+\frac{s}{w_2})}\]</span></p>
+<p><span class="math display">\[G(s)=\frac{G_0}{(1+\frac{s}{w_1})(1+\frac{s}{w_2})}\]</span></p>
 <p>G0=40(32dB), f1=w1/2pi=100Hz, f2=w2/2pi=2kHz</p>
 <p>该传递函数包含3项：增益G0和在频率f1, f2的极点，渐近线如图8.16所示</p>
-<div class="figure">
-<img src="../../images/power-8-16.png" alt="fig.8.16" /><p class="caption">fig.8.16</p>
-</div>
+<figure>
+<img src="../../images/power-8-16.png" alt="fig.8.16" /><figcaption>fig.8.16</figcaption>
+</figure>
 <p>增益G0是正实数，在0频率贡献增益32dB，在100Hz和2kHz的极点对应的渐进线可以参考图8.11所示。</p>
 <p>在小于100Hz的频率段，增益G0提供32dB的幅度增量，同时，两个极点提供趋近于0dB的幅度分量，因此低频幅度响应趋近于32dB+0dB+0dB=32dB。</p>
 <p>在100Hz到2kHz的频率段，增益G0依然提供32dB的幅度分量，2kHz频率位置的极点也依然提供0dB的频率分量，但100Hz频率位置的极点的幅度渐进线是-20dB每十倍频。幅度响应曲线也因此以-20dB每十倍频斜率变化，如图8.16所示。</p>

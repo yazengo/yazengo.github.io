@@ -26,6 +26,7 @@ def main():
 
     parsefile('txt/tech/*.txt')
 
+    '''
     print("""
         </ul>
         <br>
@@ -36,6 +37,7 @@ def main():
         """)
 
     parsefile('txt/life/*.txt')
+    '''
 
     print("""
         </ul>
