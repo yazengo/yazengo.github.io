@@ -1,7 +1,5 @@
 git add images/*
-git add txt/life/*.txt
 git add txt/tech/*.txt
-git add txt/life/*.html
 git add txt/tech/*.html
 git add txt/tech/mathml/*.mml
 git add js/*
