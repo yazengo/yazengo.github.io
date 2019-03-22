@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>蓝牙协议分层</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="蓝牙协议分层">蓝牙协议分层</h1>
+<h1 id="分层">分层</h1>
+<p>分层的好处主要是分而治之, 将复杂系统模块化; 上层逻辑可以不关心下层实现细节, 简化应用逻辑.</p>
+<h2 id="osi-通信模型">OSI 通信模型</h2>
+<p>作为一个概念模型, OSI 提供了一个通信系统的基本参考模型, 包括物理层, 数据链路层, 网络层, 传输层, 会话层, 表达层, 应用层. 估计会话层和表达层大家都不太明白, 所以没有看到具体实现.</p>
+<h2 id="蓝牙协议分层-1">蓝牙协议分层</h2>
+<pre><code>App - Profile
+L2CAP - L2CAP Channel
+Logical - Logical link / Logical Transport
+Physical - Physical Link / Physical Channel</code></pre>
+<p>用人与人的沟通来说的话, Physical 相当于是沟通所用的语言, 不能鸡同鸭讲. Logical约定了双方沟通要不要确认, 不能说的太小声, 会听不见, 也不能一方一直说的不停, 需要看下对方有没有回应. App 相当于具体的谈话内容, L2CAP 保证了多个谈话内容的对应关系和上下文切换, 一方说完“吃了吗”, 下一句不一定是“吃的是什么”, 可能就是“你丫怎么又胖了”, 另一方需要能够切换的过来.</p>
+<p>蓝牙协议实现了 OSI 模型中的物理层和数据链路层, L2CAP 相当于是传输层.</p>
+<h1 id="物理层">物理层</h1>
+<p>两个无线系统要能够通信上, 需要在一段时间内确保是同频的, 这样天线和滤波器等才能调整到合适的条件去进行调制解调. 为了支持多个设备, 支持上下行, 支持并发, 就必须在频率或者时间上进行划分, 于是产生了 TDD, FDD 等双工机制. 蓝牙使用的 TDD, 也就是说在上下行都在同一个频率上, 通过时间 slot 来区分上下行. 为了避免干扰, 引入了调频机制, 也就是在通信一段时间后双方都跳往另外一个设定的频率继续通信.</p>
+<h1 id="数据链路层">数据链路层</h1>
+<p>提供了异步通信链路 ACL 和同步通信链路 SCO, 提供了主副之间的双向逻辑通路.</p>
+<h1 id="l2cap">L2CAP</h1>
+<p>L2CAP 提供了 Channel-based 的抽象给应用层, 包括了分包和组包, 数据的合路和分路.</p>
+<h1 id="profile">Profile</h1>
+<h1 id="host-controller">Host &amp; Controller</h1>
+<h2 id="host">Host</h2>
+<p>介于 Profile 和 HCI 之间的逻辑概念, 主要包括 L2CAP, SDP, ATT, GATT, GAP 等</p>
+<h2 id="controller">Controller</h2>
+<p>HCI 之下的逻辑概念, 主要包括 RF, BB, LMP 等</p>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

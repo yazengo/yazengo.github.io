@@ -7,7 +7,7 @@ from subprocess import call
 def parsefile(filepath):
     files = glob.glob(filepath)
     if files:
-        files.sort(reverse = True)
+        files.sort(reverse = False)
     else:
         return
 

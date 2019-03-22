@@ -1,0 +1,70 @@
+蓝牙 L2CAP vs TCP/UDP
+================
+
+# 传输层
+
+互联网传输协议里面的 TCP/UDP 大概对应 OSI 通信模型里面的传输层, 提供了一种端到
+端的数据通信模型. 蓝牙协议里面的 L2CAP 大致上也是对应传输层, 因而二者提供的服
+务和一些基本概念有些相通的地方.
+
+# Internet
+
+## TCP
+
+* 面向连接 -> 建立连接有3次握手
+* 保证正确性 -> 丢包重传
+* 保证顺序
+
+TCP 编程区分服务器和客户端的流程.服务器的主要作用是绑定特定端口,等待连接.客户
+端通过本地端口去连接服务器端口. 这里用 POSIX 接口写一个基础流程.
+
+### Server
+
+    fd = socket()
+    bind(fd, addr, port)
+    listen(fd)
+    while(1) {
+        cfd = accept(fd)
+        read() 
+        write()
+    }
+
+### Client
+
+    fd = socket()
+    connect(addr, port)
+    read()
+    write()
+
+## UDP
+
+* 面向数据报 -> 发数据前不需要建立连接
+* 可能丢包
+* 可能不按顺序
+
+# L2CAP
+
+L2CAP 的数据包是建立在端到端的通信, 因而就没有网络通信中因为转发导致的顺序性问
+题. 数据包长度往往是和蓝牙收发长度有对应关系, 比如 2DH5 的默认长度为 672B. 链
+路层会对每个 packet 进行 ACK/NACK, 如果没有 ACK 的话, 发送端可以有几种处理方式
+:
+
+* 无限重传 -> 对应 TCP 的正确性
+* 不重传
+* 有限次数重传 -> best-efford 对应 UDP
+
+而音乐应用中一般都是采用无限重传的方式.
+
+# 应用接口
+
+网络通信中使用端口概念对各个服务进行区分, 比如 HTTP 常用的 20 端口, 可以对应到
+蓝牙 L2CAP 的 PSM(Protocol Service Multiplexers).
+
+---         ---             ---
+Protocol    reserved-port   dynamical-port
+TCP         1-1024          1025-65535
+L2CAP       odd(1-4095)     odd(4097-32765)
+---         ---             ---
+
+L2CAP 之上定义的 RFCOMM 也自己定义了 channel 的概念, 提供面向数据流的服务接口,
+这种多层端口设计导致了概念的复杂性.
