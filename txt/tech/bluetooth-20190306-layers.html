@@ -31,15 +31,18 @@ Physical - Physical Link / Physical Channel</code></pre>
 <h1 id="物理层">物理层</h1>
 <p>两个无线系统要能够通信上, 需要在一段时间内确保是同频的, 这样天线和滤波器等才能调整到合适的条件去进行调制解调. 为了支持多个设备, 支持上下行, 支持并发, 就必须在频率或者时间上进行划分, 于是产生了 TDD, FDD 等双工机制. 蓝牙使用的 TDD, 也就是说在上下行都在同一个频率上, 通过时间 slot 来区分上下行. 为了避免干扰, 引入了调频机制, 也就是在通信一段时间后双方都跳往另外一个设定的频率继续通信.</p>
 <h1 id="数据链路层">数据链路层</h1>
-<p>提供了异步通信链路 ACL 和同步通信链路 SCO, 提供了主副之间的双向逻辑通路.</p>
+<p>提供了异步通信链路 ACL 和同步通信链路 SCO, 提供了主副之间的双向逻辑通路. ACL可以无限重传，SCO 链路不行，有对应的保留时隙。这里就引入了和物理层的一个耦合关系，设计上还是有点复杂。</p>
 <h1 id="l2cap">L2CAP</h1>
-<p>L2CAP 提供了 Channel-based 的抽象给应用层, 包括了分包和组包, 数据的合路和分路.</p>
+<p>L2CAP 提供了 Channel-based 的抽象给应用层, 包括了分包和组包, 数据的合路和分路。这个地方有个 MTU 最大服务单元的概念，MTU 是协议层和应用层的最大处理单元，在物理层仍然会根据使用 2DH5/3DH5 来决定实际空中数据包的大小。</p>
 <h1 id="profile">Profile</h1>
+<p>具体的应用层协议，最为常见的就是 A2DP （用于音乐播放），HFP（打电话），规定了具体的应用逻辑。每个应用可能用到一个或者多个 L2CAP 逻辑信道，实现数据流的传输和控制逻辑的传输。</p>
 <h1 id="host-controller">Host &amp; Controller</h1>
 <h2 id="host">Host</h2>
 <p>介于 Profile 和 HCI 之间的逻辑概念, 主要包括 L2CAP, SDP, ATT, GATT, GAP 等</p>
 <h2 id="controller">Controller</h2>
 <p>HCI 之下的逻辑概念, 主要包括 RF, BB, LMP 等</p>
+<h2 id="hci">HCI</h2>
+<p>HOST 与 CONTROLLER 之间的通信协议，二进制协议，解析需要特定的工具辅助。</p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->

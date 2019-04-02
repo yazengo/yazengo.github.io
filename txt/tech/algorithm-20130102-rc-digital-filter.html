@@ -36,6 +36,8 @@
 <p><span class="math display">\[y(n)=\frac{y(n-1)}{1+\frac{T}{RC}} + \frac{x(n)}{1+\frac{RC}{T}}\]</span></p>
 <p>实际数字计算时为了简化计算过程，通常采样移位的方式替代乘除法，因此需要取2^k为计算步长，因此取 <span class="math inline">\(1+\frac{RC}{T}=2^k\)</span> ，得到最后的计算公式</p>
 <p><span class="math display">\[y(n)=(1-\frac{1}{2^k})y(n-1)+\frac{1}{2^k}x(n)\]</span></p>
+<p>对应通用公式为</p>
+<p><span class="math display">\[y(n)=(1-\alpha)y(n-1)+\alpha x(n)\]</span></p>
 <p>这样就可以通过简单的移位操作进行程序处理，得到滤波器的数字实现，编程简单实现如下：</p>
 <pre><code>int rc_filter(const int adc)
 {
@@ -46,6 +48,13 @@
     return (adc_shift &gt;&gt; shift);
 }</code></pre>
 <p>这样就通过很少的内存占用（adc_shift）实现深度为4的一阶RC滤波。</p>
+<p>另一方面，由于RC滤波器的延时特性，可以实现对信号的延迟处理，比如 DRC 处理中的attack time, release time 就可以通过简单的 RC 参数实现，当然这也是从模拟 DRC中获取的等效数字实现。</p>
+<p>对于 RC 电路，有一个时间常数</p>
+<p><span class="math display">\[\tau=RC\]</span></p>
+<p>对应到数字实现，时间常数 d，代表经过 d 个 samples，输出达到 36.8%(-3dB) 的位置。</p>
+<p><span class="math display">\[\alpha=e^{-1/d}\]</span></p>
+<p>对应的 -3dB 截至频率的关系为</p>
+<p><span class="math display">\[\alpha=e^{-2\pi f_C}\]</span></p>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->
