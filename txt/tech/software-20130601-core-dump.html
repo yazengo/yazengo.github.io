@@ -22,6 +22,7 @@
 <h2 id="什么时候-core-dump">什么时候 core dump</h2>
 <p>空指针、野指针、非法指针，这些在c语言里面耳熟能详的名字往往是导致 core dump 的罪魁祸首。操作系统能够给你的内存总是有限的，你一越界他就不干了，立马终止程序运行，把你产生的垃圾还给你。</p>
 <h2 id="core-dump-到哪里去了">core dump 到哪里去了</h2>
+<h3 id="linux">Linux</h3>
 <p>参考 stackoverflow 上面的这个<a href="http://stackoverflow.com/questions/2065912/core-dumped-but-core-file-is-not-in-current-directory">问题</a>，可以通过</p>
 <pre><code>cat /proc/sys/kernel/core_pattern</code></pre>
 <p>来查看自己的计算机是 core dump 到哪里了。</p>
@@ -29,7 +30,8 @@
 <pre><code>sudo systemd-coredumpctl list</code></pre>
 <p>就是用来列出所有 dump 的文件，然后可以同 gdb 调试。</p>
 <p>在目录 /var/lib/systemd/coredump 里面可以找到</p>
-<p>嵌入式系统里面，可以把这些信息重定向到串口输出。</p>
+<h3 id="arm-raw">ARM RAW</h3>
+<p>嵌入式系统里面，可以把这些信息重定向到串口输出，将当前的上下文，内存数据文本化，通过串口输出，然后使用特定工具解析，最后可以用 arm-gdb 分析，比如[CrashDebug][https://github.com/adamgreen/CrashDebug]</p>
 <h2 id="如何分析">如何分析</h2>
 <p>一般是用 objdump 查看 core dump 的文件，然后可以用万能的 gdb 进行调试。比如，我给 strlen 传递了一个空指针。通过</p>
 <pre><code>sudo systemd-coredumpctl gdb 3058</code></pre>
@@ -41,7 +43,7 @@ from /usr/lib/libc.so.6</code></pre>
 <p>调试近期的 coredump</p>
 <pre><code>coredumpctl gdb gvim</code></pre>
 <figure>
-<img src="../../images/20130601-1-1.jpg" alt="core dump" /><figcaption>core dump</figcaption>
+<img src="../../images/20130601-1-1.jpg" alt="" /><figcaption>core dump</figcaption>
 </figure>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
