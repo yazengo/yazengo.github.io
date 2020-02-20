@@ -58,7 +58,8 @@ L2CAP 的数据包是建立在端到端的通信, 因而就没有网络通信中
 # 应用接口
 
 网络通信中使用端口概念对各个服务进行区分, 比如 HTTP 常用的 20 端口, 可以对应到
-蓝牙 L2CAP 的 PSM(Protocol Service Multiplexers).
+蓝牙 L2CAP 的 CID(Channel Indentifier) / Channel endpoint，发起服务的一方需要
+指定 PSM(Protocol Service Multiplexers) 和 Source CID.
 
 ---         ---             ---
 Protocol    reserved-port   dynamical-port
