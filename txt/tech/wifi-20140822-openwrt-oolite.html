@@ -27,7 +27,7 @@
 <h1 id="单板组成">单板组成</h1>
 <p>Oolite调试单板由母板和无线模块组成，采用AR9331芯片方案。</p>
 <figure>
-<img src="../../images/20140822-1.jpg" alt="Oolite 实景图" /><figcaption>Oolite 实景图</figcaption>
+<img src="../../images/20140822-1.jpg" alt="" /><figcaption>Oolite 实景图</figcaption>
 </figure>
 <h1 id="调试接口">调试接口</h1>
 <p>如图中方框内所示，需要注意的是单板上的Tx9331的时候已经是交换过的了，因此母板上J9标识的Tx-TTL而言的，也就是说把USB-TTL的Tx对应的位置就行。</p>
@@ -55,13 +55,13 @@ Bus 002 Device 004: ID 067b:2303 Prolific Technology, Inc. PL2303 Serial Port</c
 <p>等待一连串输出和闪灯后（10s）左右，OpenWrt系统开始运行了，这时候可以在Wifi列表上看到，我这里显示的默认SSID是Oolite_A02E。连接上后可以通过web或者telnet访问。</p>
 <p>在Web访问192.168.1.1，浏览器开始显示LuCi的界面，这时候设置密码的话会让telnet无法登陆。暂时先不设置密码，点击进去可以看到原厂的软件版本。</p>
 <figure>
-<img src="../../images/20140822-2.jpg" alt="原厂软件版本信息" /><figcaption>原厂软件版本信息</figcaption>
+<img src="../../images/20140822-2.jpg" alt="" /><figcaption>原厂软件版本信息</figcaption>
 </figure>
 <p>也可以使用telnet进行访问，输入</p>
 <pre><code>&gt;&gt;telnet 192.168.1.1</code></pre>
 <p>可以在屏幕上看到令人兴奋的OpenWrt欢迎界面。</p>
 <figure>
-<img src="../../images/20140822-3.jpg" alt="telnet 欢迎界面" /><figcaption>telnet 欢迎界面</figcaption>
+<img src="../../images/20140822-3.jpg" alt="" /><figcaption>telnet 欢迎界面</figcaption>
 </figure>
 <p>硬件初步调试完成，下一步就可以开始折腾了。</p>
 <!-- JiaThis Button BEGIN -->
@@ -69,19 +69,25 @@ Bus 002 Device 004: ID 067b:2303 Prolific Technology, Inc. PL2303 Serial Port</c
 <!-- JiaThis Button END -->
 
 <div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+<script>
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 <!--google analyze-->
 <script type="text/javascript">

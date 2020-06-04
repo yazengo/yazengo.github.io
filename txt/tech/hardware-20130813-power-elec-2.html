@@ -23,7 +23,7 @@
 <p>幅度的无方向增益G可以表示为：</p>
 <p><span class="math display">\[\left \| G \right \|_{dB}=20\log_{10}(\left \| G \right \|)\]</span></p>
 <figure>
-<img src="../../images/power-table-8-1.png" alt="table.8.1" /><figcaption>table.8.1</figcaption>
+<img src="../../images/power-table-8-1.png" alt="" /><figcaption>table.8.1</figcaption>
 </figure>
 <p>一些简单幅度的分贝值如Table 8.1.所示，需要注意当增益是有方向的时候。由于数的对数值没有方向的概念，幅度需要先进行归一化处理。例如，以db表示阻抗Z的幅度值，我们需要对阻抗Z除以一个基数Rbase得到归一化的数值。</p>
 <p><span class="math display">\[\left \| Z \right \|_{dB}=20\log_{10}(\frac{\left \| Z \right \|}{R_{base}})\]</span></p>
@@ -35,7 +35,7 @@
 log_{10}(\frac{f}{f_0})\]</span></p>
 <p>该等式对以不同n值可以参见Fig. 8.3。幅度在频率f=f0的时候可以得到幅度值1=&gt;0dB。它们是log10(f)的线性方程。斜率表示对于log10(f)的一单位变化|G|dB的变化幅度，log10(f)的一单位变化表示频率f的10倍频变化。从8.6式可以看出，频率f的十倍频变化引起幅度|G|dB变化为20n dB。因此，斜率就是20n/十倍频。同样的，我们可以说斜率是20n log10(2) = 6n dB每八倍频，这里的八倍频表示频率的2的乘积变化。实际上，大部分频率相关的函数可以用一定范围的频率方程表示，方程的一般形式参见8.5式，在这些频率范围上，波特图可以近似为20n dB每十倍频变化。</p>
 <figure>
-<img src="../../images/power-8-3.png" alt="fig.8.3" /><figcaption>fig.8.3</figcaption>
+<img src="../../images/power-8-3.png" alt="" /><figcaption>fig.8.3</figcaption>
 </figure>
 <p>一个简单的单极点传递函数：</p>
 <p><span class="math display">\[G(s)=\frac{1}{\frac{s}{w_0}}\]</span></p>
@@ -53,34 +53,34 @@ log_{10}(\frac{f}{f_0})\]</span></p>
 <li>分低频高频段估算波特图趋势 w ‘&lt;&lt;’ w0 w ‘&lt;&lt;’ w0 w ‘==’ w0</li>
 </ul>
 <figure>
-<img src="../../images/power-8-11.png" alt="fig.8.11" /><figcaption>fig.8.11</figcaption>
+<img src="../../images/power-8-11.png" alt="" /><figcaption>fig.8.11</figcaption>
 </figure>
 <h2 id="单零点响应">单零点响应</h2>
 <p>单零点传递函数的标准形式：</p>
 <p><span class="math display">\[G(s)=1+\frac{s}{w_0}\]</span></p>
 <p>波特图</p>
 <figure>
-<img src="../../images/power-8-12.png" alt="fig.8.12" /><figcaption>fig.8.12</figcaption>
+<img src="../../images/power-8-12.png" alt="" /><figcaption>fig.8.12</figcaption>
 </figure>
 <h2 id="右半平面零点">右半平面零点</h2>
 <p>标准形式</p>
 <p><span class="math display">\[G(s)=1-\frac{s}{w_0}\]</span></p>
 <p>波特图</p>
 <figure>
-<img src="../../images/power-8-13.png" alt="fig.8.13" /><figcaption>fig.8.13</figcaption>
+<img src="../../images/power-8-13.png" alt="" /><figcaption>fig.8.13</figcaption>
 </figure>
 <h2 id="频率反转">频率反转</h2>
 <p>反极点标准形式</p>
 <p><span class="math display">\[G(s)=\frac{1}{1+\frac{w_0}{s}}\]</span></p>
 <p>波特图</p>
 <figure>
-<img src="../../images/power-8-14.png" alt="fig.8.14" /><figcaption>fig.8.14</figcaption>
+<img src="../../images/power-8-14.png" alt="" /><figcaption>fig.8.14</figcaption>
 </figure>
 <p>反零点标准形式</p>
 <p><span class="math display">\[G(s)=1+\frac{w_0}{s}\]</span></p>
 <p>波特图</p>
 <figure>
-<img src="../../images/power-8-15.png" alt="fig.8.15" /><figcaption>fig.8.15</figcaption>
+<img src="../../images/power-8-15.png" alt="" /><figcaption>fig.8.15</figcaption>
 </figure>
 <h2 id="组合响应">组合响应</h2>
 <p>举例来说，考虑一下传递函数的波特图：</p>
@@ -88,7 +88,7 @@ log_{10}(\frac{f}{f_0})\]</span></p>
 <p>G0=40(32dB), f1=w1/2pi=100Hz, f2=w2/2pi=2kHz</p>
 <p>该传递函数包含3项：增益G0和在频率f1, f2的极点，渐近线如图8.16所示</p>
 <figure>
-<img src="../../images/power-8-16.png" alt="fig.8.16" /><figcaption>fig.8.16</figcaption>
+<img src="../../images/power-8-16.png" alt="" /><figcaption>fig.8.16</figcaption>
 </figure>
 <p>增益G0是正实数，在0频率贡献增益32dB，在100Hz和2kHz的极点对应的渐进线可以参考图8.11所示。</p>
 <p>在小于100Hz的频率段，增益G0提供32dB的幅度增量，同时，两个极点提供趋近于0dB的幅度分量，因此低频幅度响应趋近于32dB+0dB+0dB=32dB。</p>
@@ -101,19 +101,25 @@ log_{10}(\frac{f}{f_0})\]</span></p>
 <!-- JiaThis Button END -->
 
 <div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+<script>
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 <!--google analyze-->
 <script type="text/javascript">

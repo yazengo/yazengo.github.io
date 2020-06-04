@@ -23,7 +23,7 @@
 <p>##使用gschem画原理图</p>
 <p>这个过程和其他软件一样，但主要就是用一种直观的方式把连接关系标示清楚，以便得到网表。这里是初步实验，就用一个RC滤波，示意一下。</p>
 <figure>
-<img src="../../images/4-1.png" alt="rc filter" /><figcaption>rc filter</figcaption>
+<img src="../../images/4-1.png" alt="" /><figcaption>rc filter</figcaption>
 </figure>
 <p>主要需要进行refdes 和value 的标示，refdes 表示在网表中的名称，value 表示数值，这里用一个脉冲方波看看rc 的滤波结果。</p>
 <p>##使用gnetlist生成网表</p>
@@ -53,7 +53,7 @@ R1 2 1 1k
 v1#branch                                    0</code></pre>
 <p>这样可以打印print或者画图plot将电压变换情况，比如plot V(1)</p>
 <figure>
-<img src="../../images/4-2.jpg" alt="rc vo" /><figcaption>rc vo</figcaption>
+<img src="../../images/4-2.jpg" alt="" /><figcaption>rc vo</figcaption>
 </figure>
 <p>有时间整个Buck电路看看。</p>
 <!-- JiaThis Button BEGIN -->
@@ -61,19 +61,25 @@ v1#branch                                    0</code></pre>
 <!-- JiaThis Button END -->
 
 <div id="disqus_thread"></div>
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+<script>
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 <!--google analyze-->
 <script type="text/javascript">
