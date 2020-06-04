@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>嵌入式 Rust —— Hello World</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="嵌入式-rust-hello-world">嵌入式 Rust —— Hello World</h1>
+<p>首先看下 PC Host 的 Hello World。</p>
+<pre><code>fn main {
+    println! (Hello World&quot;);
+}</code></pre>
+<p>PC 的运行环境解决了背后的复杂性，要在硬件环境上运行起来就需要把这些复杂性体现出来。[Freestand Rust Binary][] 里面讲解了这些过程，总结起来主要有几个方面。</p>
+<p><a href="https://os.phil-opp.com/freestanding-rust-binary/">Freestand Rust Binary</a></p>
+<h1 id="std-library">std library</h1>
+<p>Rust 的 std libray 需要使用系统的一些线程，锁之类的资源，裸系统上就不能直接使用，因此需要使用一个全局属性。</p>
+<pre><code>#![no_std]</code></pre>
+<h1 id="panic-handler">panic handler</h1>
+<p>Rust 定义了一个在调用 panic! 默认使用的一个处理函数，这里和系统相关，相关处理在 [std panic handler][] 里面，可以通过系统 api 得到调用栈，便于错误分析。我们在不能直接用 std 库，因此需要自己定义这个处理函数。</p>
+<p><a href="https://doc.rust-lang.org/1.7.0/src/std/panicking.rs.html">std panic handler</a></p>
+<pre><code>use core::panic::PanicInfo;
+
+/// This function is called on panic.
+#[panic_handler]
+fn panic(_info: &amp;PanicInfo) -&gt; ! {
+    loop {}
+}</code></pre>
+<p>[panic_halt][] 为我们处理了这个复杂性，如果发生 panic 就进入循环，代码里面extern 进来就好。</p>
+<pre><code>extern crate panic_halt;</code></pre>
+<p><a href="https://lib.rs/crates/panic-halt">panic_halt</a></p>
+<h1 id="runtime">runtime</h1>
+<p>程序的执行需要特定的运行环境，才能让高层代码运行起来，对于 Cortex-M 主要包括</p>
+<ul>
+<li>堆栈位置</li>
+<li>NVIC 中断表</li>
+<li>bss 数据段初始化</li>
+<li>FPU 初始化(M4)</li>
+</ul>
+<p><a href="https://github.com/rust-embedded/cortex-m-rt">cortex_m_rt</a> 提供了这个过程的整体管理，另外提供了一些属性便于上层处理。</p>
+<h1 id="io">IO</h1>
+<p>println! 是从系统标准输出打印字符，这里当然也不能直接使用。因此需要模拟这个标准输出，通过 [cortex_m_semihosting][] 这个库。</p>
+<p>完整的一个 hello world</p>
+<pre><code>#![no_main]
+#![no_std]
+
+extern crate panic_halt;
+
+use cortex_m_rt::entry;
+use cortex_m_semihosting::{debug, hprintln};
+
+#[entry]
+fn main() -&gt; ! {
+    hprintln!(&quot;Hello, world!&quot;).unwrap();
+    debug::exit(debug::EXIT_SUCCESS);
+    loop {}
+}</code></pre>
+<p><a href="https://docs.rs/cortex-m-semihosting/0.3.5/cortex_m_semihosting/">cortex_m_semihosting</a></p>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,44 @@
+嵌入式rust - Linux 运行环境搭建
+=========
+
+# rust tooltrain
+
+交叉编译工具链，用来在 PC Host 编译生成嵌入式运行指令。
+
+    Cortex M3
+    rustup target add thumbv7m-none-eabi
+
+    Cortec M4
+    rustup target add thumbv7m-none-eabihf
+
+# rust-binutils
+
+用来在 PC Host 查看编译生成的二进制文件，与 cargo 集成 llvm，第三方工具，试了
+一下没有编译通过(20200604)。
+
+    cargo install cargo-binutils
+    rustup component add llvm-tools-preview
+
+也可以直接使用 arm 的 gcc 工具链
+
+    pacman -S arm-none-eabi-gcc
+
+# qemu-system-arm
+
+用来在 PC 上模拟 arm 运行环境，可以测试简单代码。
+
+    pacman -S qemu qemu-arch-extra
+
+查看支持的模拟 evb，Cortex M3 有 lm3s6965evb，lm3s811evb，暂时没找到 Coretex
+M4 的简单支持单板。
+
+    qemu-system-arm -machine help
+
+    qemu-system-arm \
+      -cpu cortex-m3 \
+      -machine lm3s6965evb \
+      -nographic \
+      -semihosting-config enable=on,target=native \
+      -kernel target/thumbv7m-none-eabi/debug/examples/hello
+
+[Embedded Rust Book](https://rust-embedded.github.io/book/)

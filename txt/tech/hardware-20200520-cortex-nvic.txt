@@ -1,0 +1,53 @@
+Cortex M 系列的中断处理
+========
+
+Arm v7 以前中断管理器是由各家厂商自定义，CortexM 系列开始使用 NVIC 进行全局中
+断管理，支持多级中断嵌套，优先级控制，快速上下文切换。
+
+NVIC
+  : Nested Vector Interrupt Controller
+
+# 特殊寄存器
+
+## PRIMASK
+
+1bit，关所有中断，NMI/Hardfault 还能够响应
+
+    CPSID I ; PRIMASK = 1
+    CPSIE I ; PRIMASK = 0
+
+## FAULTMASK
+
+1bit，关所有异常，NMI 还能够响应
+
+主要是为了防止多个异常连续发生，用于系统控制。
+
+    CPSID F ; FAULTMASK = 1
+    CPSIE F ; FAULTMASK = 0
+
+## BESEPRI
+
+8bit，关闭优先级以下的中断，还能响应高优先级中断。
+
+# 中断管理
+
+# 临界区处理
+
+软件运行过程进入临界区的时候，往往需求关中断，同时为了嵌套处理和可重入，一般需
+要保持当前优先级和中断响应配置。
+
+    Enter Critical Section:
+        get PRIMASK
+        __disable_irq -> cpsid i
+
+    Exit Critical Section:
+        __enable_irq -> cpsie i
+
+也可以只关闭低优先级的中断
+
+    Enter Critical Section:
+        get BASEPRI
+        set BASEPRI
+
+    Exit Critical Section:
+        restore BASEPRI

@@ -1,0 +1,80 @@
+嵌入式 Rust —— Hello World
+========
+
+首先看下 PC Host 的 Hello World。
+
+    fn main {
+        println! (Hello World");
+    }
+
+PC 的运行环境解决了背后的复杂性，要在硬件环境上运行起来就需要把这些复杂性体现
+出来。[Freestand Rust Binary][] 里面讲解了这些过程，总结起来主要有几个方面。
+
+[Freestand Rust Binary](https://os.phil-opp.com/freestanding-rust-binary/)
+
+# std library
+
+Rust 的 std libray 需要使用系统的一些线程，锁之类的资源，裸系统上就不能直接使
+用，因此需要使用一个全局属性。
+    
+    #![no_std]
+
+# panic handler
+
+Rust 定义了一个在调用 panic! 默认使用的一个处理函数，这里和系统相关，相关处理
+在 [std panic handler][] 里面，可以通过系统 api 得到调用栈，便于错误分析。我们
+在不能直接用 std 库，因此需要自己定义这个处理函数。
+
+[std panic handler](https://doc.rust-lang.org/1.7.0/src/std/panicking.rs.html)
+
+    use core::panic::PanicInfo;
+
+    /// This function is called on panic.
+    #[panic_handler]
+    fn panic(_info: &PanicInfo) -> ! {
+        loop {}
+    }
+
+[panic_halt][] 为我们处理了这个复杂性，如果发生 panic 就进入循环，代码里面
+extern 进来就好。
+
+    extern crate panic_halt;
+
+[panic_halt](https://lib.rs/crates/panic-halt)
+
+# runtime
+
+程序的执行需要特定的运行环境，才能让高层代码运行起来，对于 Cortex-M 主要包括
+
+* 堆栈位置
+* NVIC 中断表
+* bss 数据段初始化
+* FPU 初始化(M4)
+
+[cortex_m_rt](https://github.com/rust-embedded/cortex-m-rt) 提供了这个过程的整
+体管理，另外提供了一些属性便于上层处理。
+
+# IO
+
+println! 是从系统标准输出打印字符，这里当然也不能直接使用。因此需要模拟这个标
+准输出，通过 [cortex_m_semihosting][] 这个库。
+
+
+完整的一个 hello world
+
+    #![no_main]
+    #![no_std]
+
+    extern crate panic_halt;
+
+    use cortex_m_rt::entry;
+    use cortex_m_semihosting::{debug, hprintln};
+
+    #[entry]
+    fn main() -> ! {
+        hprintln!("Hello, world!").unwrap();
+        debug::exit(debug::EXIT_SUCCESS);
+        loop {}
+    }
+
+[cortex_m_semihosting](https://docs.rs/cortex-m-semihosting/0.3.5/cortex_m_semihosting/)

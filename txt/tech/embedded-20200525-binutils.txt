@@ -1,0 +1,48 @@
+二进制工具的使用
+=======================
+
+# binutils
+
+源文件经过编译生成中间文件，这些中间文件一般是位置无关的，然后通过连接过程生成
+最后的可执行文件。
+
+编译过程生成了一些二进制文件，而对这些二进制文件的分析对于一些问题的处理是十分
+重要的，分析工具的合集就是 binutils，主要包括
+
+
+* addr2line 从目标文件的虚拟地址获取文件的行号或符号
+* size      列出总体和section的大小
+* objcopy   复制目标文件，过程中可以修改
+* objdump   显示目标文件的相关信息，亦可反汇
+* readelf   显示ELF文件的内容
+* strings
+* nm        显示目标文件内的符号
+* ...
+
+# addr2line
+
+# size
+
+列出总体和section的大小
+
+## 获取程序中各段地址和大小
+
+    size -Ax [objfile/elffile]
+    ->
+    section                    size         addr
+    .boot_struct               0x10   0x3c000000
+    .boot_text_flash          0x778    0xc000010
+    .got_info                   0x0   0x3c000788
+    .vector_table             0x100   0x20000000
+
+# objdump
+
+# readelf
+
+## 获取 elf 头信息
+
+    readelf -f [elffile]
+    ->
+    OS/ABI:                            UNIX - System V
+    Machine:                           ARM
+    Entry point address:               0x3c00041d

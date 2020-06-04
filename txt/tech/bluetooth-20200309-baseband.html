@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>蓝牙通信的建立过程</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="蓝牙通信的建立过程">蓝牙通信的建立过程</h1>
+<h1 id="综述">综述</h1>
+<p>这里主要描述一下蓝牙协议中的基带和一小部分的链路控制，处理上层应用的时候往往不用考虑这部分的运作，但如果遇到比较复杂的应用场景，或者进行细节优化的时候，就比较容易无从下手。同时，这些也涉及到比较多的通信和物理知识，因此工程师也很有必要对基带有基本的了解。</p>
+<h1 id="无线通信基础">无线通信基础</h1>
+<p>蓝牙通信本质上也是无线通信的一种，所谓无线通信就是信息的传递介质变成了电磁波，为了有效传播和充分利用带宽，就需要让信息调制到载波上面，接收到收到电磁波后，通过解调将信息还原出来。</p>
+<pre><code>--------------      --------------
+|发送端      |  ~&gt;  |接收端      |
+|信息 -&gt; 调制|  ~&gt;  |解调 -&gt; 信息|
+--------------      --------------</code></pre>
+<p>衡量发送端能力很重要的指标是发射功率，很大程度决定了达到接收端的信噪比。衡量接收端能力的一个重要指标是接收灵敏度，决定了在多差的信噪比下能够还原出有效信号的能力。</p>
+<h2 id="调制解调">调制解调</h2>
+<p>一个设备上一般都需要同时进行收发，而对信息进行调制解调的过程就构成了基带部分，基带整合了信号的处理和放大，是数字信号和模拟信号转换的中枢，是无线设备中非常重要的部分。</p>
+<p>蓝牙工作在 2.4G ISM 频段，也就是说他的载频是工作在 2.4G，这个频段比较适合家庭应用，也是免费公有频段，因此有很多设备可能对传输造成干扰，比如微波炉、手提电话、Wi-Fi等。</p>
+<p>蓝牙包含了多钟调制方式，QFSK, 4-QPSK, 8-DPSK 等，这里不深究每种调制方式的区别，可以简单认为对应这不同的传输速率。</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>QFSK</td>
+<td>1Mbps</td>
+</tr>
+<tr class="even">
+<td>4-QPSK</td>
+<td>2Mbps</td>
+</tr>
+<tr class="odd">
+<td>8-DPSK</td>
+<td>3Mbps</td>
+</tr>
+</tbody>
+</table>
+<p>蓝牙中 EDR 信号一个 package 的调制包括了两种，头信息是用 QFSK，负载信息则使用QPSK。</p>
+<h2 id="跳频">跳频</h2>
+<p>由于ISM频段比较容易收到干扰，蓝牙协议在 2.4G 上划分了 79 个频段，每个频段 1M带宽，每秒跳变 1600 次。而调频序列是通过两边约定的一个关系，这样收发在每个时间点都可以跳转到对应的频率进行信息传输。</p>
+<h2 id="tdd">TDD</h2>
+<p>由于在某个空间和时间范围内，空中的频谱资源是一定的，收发两端就需要按照一定的约定关系，将数据的接收和发送分开处理，也就是所谓的双工。无线的双工方式主要包括时分复用（TDD），频分复用（FDD），码分复用（SDD）。</p>
+<p>蓝牙通信采用的是 TDD，直观上也比较容易理解，就是收发双方在时间上错开，每一个时间单位是一个时隙（slot），对应 625us，接收一个 slot，不管有没有更多的数据要发，切到接收状态，接收一个slot时间的信息。这也是空中数据会有很多 POLL，NULL 包类型，也就是时间到了，没有实际数据收发，就可以发送 POLL，NULL。同时，由于是基于时间去同步收发，就要求两边在同步上后一直要保持同步关系，这样才能保持通信。</p>
+<h1 id="蓝牙连接过程">蓝牙连接过程</h1>
+<p>根据上面的描述，对于无线信号通信我们可以发现发送端和接收端在某个时刻需要工作在同样载频上，才能有效通信。那问题就来了，一开始双方都不知道对方工作在什么频率，也不知道对方什么时候打开时间窗，两边的时钟也不是同步的，要怎么通信上，对上这个暗号。于是蓝牙协议里面就约定了设备的发现和连接过程，也是这个过程定义，让众多设备能够方便的互联起来。</p>
+<h2 id="基本过程">基本过程</h2>
+<p>设备的发现和连接重点就是对上频率和时间，在某个时刻，收发都处在统一频点下的情况下，就可以交换一些初始数据，其后的通信就能够严格同步起来。由于收发双方配对成功前都无法直到对方信息，因此这个过程主要是通过错开收发双方的时间达到的，比如一方按照一个时间间隔 n 变换频点，另一方用一个大得多的间隔变换频点，一段时间后，总会有在同一个时刻，两边是在同一个频点上，也就实现了频率的对齐和时间的对齐。</p>
+<h2 id="设备发现">设备发现</h2>
+<p>发起连接的一方是 inquiry 的过程，接收连接的一方进入 inquiry scan 的状态，inquiry 在每半个时隙发起一个 ID 包，接收端间隔一段时间(inquiry scan intervaldefault:2.56s)，开启一段时间(inquiry scan window default: 11.25ms) 的接收窗口。在某个时刻，频率对上的情况下，Slave 就会在下一个 slot 回复一个 FHS 包，接着回复 Extend Inquire Resonse package。这样就能得到Slave 的设备信息。</p>
+<pre><code>        ID  ID           
+         |   |   |       
+Master --|---|---|--------------------
+                 FHS        Extend
+       --|       |--|       |--|
+Slave    |-------|  |-------|  |------</code></pre>
+<h2 id="设备连接">设备连接</h2>
+<p>发起连接的一方是 page 的过程，接收连接的一方进入 page scan 的状态，page 在每半个时隙（Interlaced Scan）发起一个 ID 包，接收端间隔一段时间(page scan intervaldefault:1.28s)，开启一段时间(page scan window default: 11.25ms) 的接收窗口。在某个时刻，频率对上的情况下，Slave 先在下一个slot 回复一个 ID 包，Master 就会在下一个 slot 发送一个 FHS 包，自此双方开始通信。</p>
+<pre><code>        ID  ID           FHS
+         |   |   |       |--|
+Master --|---|---|-------|  |------
+                ID
+       --|       |       |--|
+Slave    |-------|-------|  |------</code></pre>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yazengo'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

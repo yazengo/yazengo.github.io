@@ -1,0 +1,61 @@
+寄存器比特操作
+=============
+
+# 典型问题
+
+嵌入式开发中，datasheet 里面的一些寄存器，经常遇到需要对某些bit 进行操作。比如
+需要将一个32bit 寄存器的 bit[10:5] 写 0x20。
+
+    31                                0
+    xxxxxxxx|xxxxxxxx|xxxxxxxx|xxxxxxxx
+                            |-----|
+
+# C语音比特操作
+
+C 语音里面可以定义 bitfield 结构体
+
+    struct {
+        unsigned int func1: 4;
+        unsigned int func2: 6;
+        unsigned int reserved: 22;
+    } REG_T;
+
+    REG_T reg;
+    reg.func2 = 0x20;
+
+但 bitfileld 对编译器不是很友好，需要最原始的操作符方式，兼容性会比较好。包括
+按位与(&)，按位或(|)，左移(<<)，右移(>>)。
+
+对于实例可以定义一个代表移位数量的 shift 和操作的比特数 width。
+
+    shift = 5
+    width = 6
+
+# 实例代码
+
+从 [uboot](https://github.com/Embedfire/ebf_6ull_uboot/blob/master/include/bitfield.h) 里面可以找到对应的函数。
+
+    // 获取对应的 mask  -> (0x3F << 5)
+    static inline uint bitfield_mask(uint shift, uint width)
+    {
+        return ((1 << width) - 1) << shift;
+    }
+    
+    // 获取数值
+    static inline uint bitfield_extract(uint reg_val, uint shift, uint width)
+    {
+        return (reg_val & bitfield_mask(shift, width)) >> shift;
+    }
+    (val & (0x3F << 5)) >> 5
+
+    // 替换数值
+    static inline uint bitfield_replace(uint reg_val, uint shift, uint width,
+                        uint bitfield_val)
+    {
+        uint mask = bitfield_mask(shift, width);
+
+        return (reg_val & ~mask) | ((bitfield_val << shift) & mask);
+    }
+    old_value = old_value & ~(0x3F)  // 清0
+    new_value = old_value | ((new_value << 5) & 0x3F) // 按位或上新数据
+

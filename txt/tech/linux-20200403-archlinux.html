@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
     
-		<title>蓝牙 L2CAP vs TCP/UDP</title>
+		<title>ArchLinux 常用软件</title>
 
         <link rel="stylesheet" media="all" href="../../Han/han.min.css">
         <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
@@ -16,67 +16,13 @@
     <body onload = "prettyPrint()">
         <div id="container">
     
-<h1 id="蓝牙-l2cap-vs-tcpudp">蓝牙 L2CAP vs TCP/UDP</h1>
-<h1 id="传输层">传输层</h1>
-<p>互联网传输协议里面的 TCP/UDP 大概对应 OSI 通信模型里面的传输层, 提供了一种端到端的数据通信模型. 蓝牙协议里面的 L2CAP 大致上也是对应传输层, 因而二者提供的服务和一些基本概念有些相通的地方.</p>
-<h1 id="internet">Internet</h1>
-<h2 id="tcp">TCP</h2>
-<ul>
-<li>面向连接 -&gt; 建立连接有3次握手</li>
-<li>保证正确性 -&gt; 丢包重传</li>
-<li>保证顺序</li>
-</ul>
-<p>TCP 编程区分服务器和客户端的流程.服务器的主要作用是绑定特定端口,等待连接.客户端通过本地端口去连接服务器端口. 这里用 POSIX 接口写一个基础流程.</p>
-<h3 id="server">Server</h3>
-<pre><code>fd = socket()
-bind(fd, addr, port)
-listen(fd)
-while(1) {
-    cfd = accept(fd)
-    read() 
-    write()
-}</code></pre>
-<h3 id="client">Client</h3>
-<pre><code>fd = socket()
-connect(addr, port)
-read()
-write()</code></pre>
-<h2 id="udp">UDP</h2>
-<ul>
-<li>面向数据报 -&gt; 发数据前不需要建立连接</li>
-<li>可能丢包</li>
-<li>可能不按顺序</li>
-</ul>
-<h1 id="l2cap">L2CAP</h1>
-<p>L2CAP 的数据包是建立在端到端的通信, 因而就没有网络通信中因为转发导致的顺序性问题. 数据包长度往往是和蓝牙收发长度有对应关系, 比如 2DH5 的默认长度为 672B. 链路层会对每个 packet 进行 ACK/NACK, 如果没有 ACK 的话, 发送端可以有几种处理方式:</p>
-<ul>
-<li>无限重传 -&gt; 对应 TCP 的正确性</li>
-<li>不重传</li>
-<li>有限次数重传 -&gt; best-efford 对应 UDP</li>
-</ul>
-<p>而音乐应用中一般都是采用无限重传的方式.</p>
-<h1 id="应用接口">应用接口</h1>
-<p>网络通信中使用端口概念对各个服务进行区分, 比如 HTTP 常用的 20 端口, 可以对应到蓝牙 L2CAP 的 CID(Channel Indentifier) / Channel endpoint，发起服务的一方需要指定 PSM(Protocol Service Multiplexers) 和 Source CID.</p>
-<table>
-<tbody>
-<tr class="odd">
-<td>Protocol</td>
-<td>reserved-port</td>
-<td>dynamical-port</td>
-</tr>
-<tr class="even">
-<td>TCP</td>
-<td>1-1024</td>
-<td>1025-65535</td>
-</tr>
-<tr class="odd">
-<td>L2CAP</td>
-<td>odd(1-4095)</td>
-<td>odd(4097-32765)</td>
-</tr>
-</tbody>
-</table>
-<p>L2CAP 之上定义的 RFCOMM 也自己定义了 channel 的概念, 提供面向数据流的服务接口,这种多层端口设计导致了概念的复杂性.</p>
+<h1 id="archlinux-常用软件">ArchLinux 常用软件</h1>
+<p>参考资源</p>
+<h1 id="窗口管理器">窗口管理器</h1>
+<h1 id="文件管理器">文件管理器</h1>
+<h1 id="输入法">输入法</h1>
+<h1 id="终端">终端</h1>
+<h1 id="section"></h1>
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->

@@ -1,0 +1,61 @@
+嵌入式 Rust —— 寄存器读写
+========
+
+要进行真正意义上的嵌入式开发，总是需要对某个地址进行读写操作。C 语言上的操作比
+较简单。
+
+    volatile unsigned int *addr = 0x20000010;
+    unsigned int value = *addr;
+    *addr = 2;
+
+Rust 也提供了类似的方法
+
+    [#!no_std]
+    use core::ptr;
+    let addr = 0x20000010 as *const u32;
+    unsafe {
+        let value = ptr::read_volatile(addr);
+        ptr::write_volatile(addr, 2);
+    }
+
+Rust 的包管理系统给应用提供了很好的分层机制。
+
+    Board crate  板极
+    -----------------
+    Hal crate    试图定义一些通用操作，类似 CMSIS
+    -----------------
+    PAC crate    外设， 比如 UART，可以用 SVD 文件描述
+    -----------------
+    CPU crate    CPU 寄存器，比如 systick
+    
+于是对于一个系统寄存器的读写就通过层层封装。
+
+    cortex_m (CPU crate)
+            |
+            |->  peripheral module (systick, nvic, ...)
+                     |
+                     |-> volatile_register::{RO, RW}
+                                |
+                                |-> vcell (volatile cell)
+                                      |
+                                      |-> core::ptr{read_volatile, write_volatile}
+                                    
+这是一个对 systick 模块的配置。
+
+    use cortex_m::peripheral::{syst, Peripherals};
+    use cortex_m_rt::entry;
+
+    #[entry]
+    fn main() -> ! {
+        let mut peripherals = Peripherals::take().unwrap();
+        let mut systick = peripherals.SYST;
+        systick.set_clock_source(syst::SystClkSource::Core);
+        systick.set_reload(1_000);
+        systick.clear_current();
+        systick.enable_counter();
+        while !systick.has_wrapped() {
+            // Loop
+        }
+
+        loop {}
+    }

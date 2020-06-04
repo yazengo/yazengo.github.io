@@ -1,0 +1,52 @@
+Syncthing 使用方法总结
+==========
+
+# 文件同步
+
+# Syncthing 原理
+
+# 安装（Ubtuntu）
+
+    apt install curl
+    curl -s https://syncthing.net/release-key.txt | apt-key add -
+    echo "deb https://apt.syncthing.net/ syncthing release" > /etc/apt/sources.list.d/syncthing.list
+    apt-get update
+    apt-get install syncthing
+
+
+# 配置
+
+由于 Syncthing 本身的
+
+## relay 服务端
+
+    -pools="" : 将服务器设置为私有 relay
+    -listen=":22067": 设置服务器的监听端口
+
+需要注意的是这里的参数都是字符串的形式，运行的信息输出里面能看到生成的 id，比
+如
+
+    relay://0.0.0.0:22066/?id=XGJ6RLN...
+
+## 同步服务器
+
+开启设置页面 $HOME/.config/syncthing/config.xml
+
+        <address>127.0.0.1:8384</address>
+        ->
+        <address>0.0.0.0:8384</address>
+
+记得设置密码
+
+## 客户端
+
+### 配置 relay
+
+从网页配置界面设置，Actions -> Settings -> Connections -> Sync Protocol Listen
+Addresss，多个地址可以用 "," 隔开。
+
+参考连接：
+
+[Syncthing就是我要的同步备份软件]:https://zhih.me/syncthing-the-best/
+[服务器教程1]:https://zhuanlan.zhihu.com/p/89776195
+[服务器教程2]:https://segmentfault.com/a/1190000017273107

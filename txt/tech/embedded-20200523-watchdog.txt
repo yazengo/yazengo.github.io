@@ -1,0 +1,12 @@
+看门狗
+=========
+
+# 看门狗的作用
+
+# 如何喂狗
+
+## 单循环系统
+
+## 多任务系统
+
+[Barr]:https://barrgroup.com/embedded-systems/how-to/advanced-watchdog-timer-tips
