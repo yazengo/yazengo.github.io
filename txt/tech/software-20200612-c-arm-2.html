@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>C 语言和 ARM 汇编 - 1 体系结构</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="c-语言和-arm-汇编---1-体系结构">C 语言和 ARM 汇编 - 1 体系结构</h1>
+<p>我们先用一个简单例子，说明 C 代码如何生成指令，然后在实际系统中运行。</p>
+<pre><code>int globalVar;
+void main()
+{
+    globalVar = 10;
+}</code></pre>
+<p>例子里面有两个地方需要注意的，有个全局变量和一个函数，函数里面有具体需要运行的指令，而全局变量里面存储了数据。如果这个代码转换成机器指令，会在实际内存中占据对应的数据段和代码段。</p>
+<pre><code>Data +----------------+
+     | globalVar: 4B  |
+Code +----------------+
+     | main:          |
+     |  globalVar = 10|
+     +----------------+</code></pre>
+<p>数据段包含了4个字节的数据，代码段包含了函数中生成对应的机器指令，CPU 执行这些指令并对数据段里面的数据做处理。</p>
+<p>可以用如下指令生成对应的汇编：</p>
+<pre><code>arm-none-eabi-gcc -S test-1.c</code></pre>
+<p>主要汇编代码：</p>
+<pre><code># 声明全局变量 gloablVal, .comm 表明这个变量是全局未初始化数据
+# 汇编后会将它分配到 .bss 段
+.comm   gloablVal,4,4
+# 代码段开始
+.text
+.align  2
+# 对外声明全局函数，可以在外部调用
+.global main
+.type   main, %function
+main:
+# 将 fp(r11) 入栈，fp 可以在函数调用过程中作为局部变量起始地址
+    str fp, [sp, #-4]!
+# 函数没有用到局部变量，于是 fp,sp 都没有变化
+    add fp, sp, #0
+# 加载全局变量的地址到寄存器 r3
+    ldr r3, .L2
+# 加载立即数到 r2
+    mov r2, #10
+# 将 r3 地址里面对应数据设置为 r2
+    str r2, [r3]
+    sub sp, fp, #0
+# fp 出栈
+    ldr fp, [sp], #4
+    bx  lr
+.L2:
+    .word   gloablVal</code></pre>
+<h1 id="寄存器">寄存器</h1>
+<p>Cortex M 系列包含了一些通用寄存器和专用寄存器，其中 R11(FP) 可以用来指示函数局部变量的起始位置，R13(SP) 指示堆栈的当前位置。注意其中 FP 是可选的，主要是用来回溯函数调用过程，通过当前的 FP/SP，可以找到调用函数的 FP/SP，以此类推。可以通过编译选项里面的 -fomit-frame-pointer 忽略 FP，这样函数进入和退出的时候可以少几条指令，可以有一定的优化效果。</p>
+<p>Backtrace 可以复原函数的调用过程和数据，具体是通过几个专用寄存器来实现的。</p>
+<pre><code>pc: where we are
+lr: where we was
+sp: where the stack is
+fp: where the stack was</code></pre>
+<p>通过这四个寄存器就可以还原出函数的调用过程和中间局部变量。</p>
+<p>当处理器调用异常时，会将 8 个寄存器自动按顺序压栈</p>
+<ul>
+<li>PC</li>
+<li>xPSR</li>
+<li>R0~R3</li>
+<li>R12</li>
+<li>LR</li>
+</ul>
+<h1 id="分段">分段</h1>
+<p>通过分区可以在链接的时候，将同样的段合并起来，通过链接程序生成可执行二进制文件。一个段可以包含代码、数据、可重定向表格等。注意 section 和 segment 的概念有所区别，section 是从链接角度来看的，包含了链接过程需要的信息，segment 是运行角度来看的，包含运行过程需要的信息。</p>
+<p>一些常见的 section/segment:</p>
+<ul>
+<li>.text 可执行指令</li>
+<li>.bss 未初始化变量，加载的时候会被清0，对应程序中的全局变量，静态变量等</li>
+<li>.data 初始化变量，对应程序中赋值的全局变量</li>
+<li>.rodata 只读数据段，一般对应程序中的字符串</li>
+</ul>
+<p>一些分区 sections 在存在于中间文件，并没有用到可执行文件中，比如 .debug 分区，只是用作调试使用，比如 gdb；有些分区最后会合并到对应的分段，比如 .comm 分区链接后分配到 .bss 分段。</p>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,112 @@
+C 语言和 ARM 汇编 - 6 分支跳转
+=================
+
+# if .. else ..
+
+一个使用 if 进行条件判断的例子
+
+    int a = 4;
+    int b = 8;
+    int d = 0;
+    if (a > b)
+        d = 1;
+    else
+        d = 2;
+
+局部变量对应位置
+
+    a -> sp[12]
+    b -> sp[8]
+    d -> sp[4]
+
+汇编代码
+
+
+    # 准备堆栈
+        sub	sp, sp, #16
+    # sp[12] = 4
+        movs	r3, #4
+        str	r3, [sp, #12]
+    # sp[8] = 8
+        movs	r3, #8
+        str	r3, [sp, #8]
+    # sp[4] = 0
+        movs	r3, #0
+        str	r3, [sp, #4]
+    # 比较 sp[8] sp[12]
+        ldr	r2, [sp, #12]
+        ldr	r3, [sp, #8]
+        cmp	r2, r3
+    # 如果 sp[12] > sp[8]，跳转到 .L22
+        ble	.L2
+        movs	r3, #1
+        str	r3, [sp, #4]
+        b	.L1
+    .L2:
+        movs	r3, #2
+        str	r3, [sp, #4]
+    .L1:
+    # 恢复堆栈指针
+        add	sp, sp, #16
+        @ sp needed
+        bx	lr
+
+# switch .. case
+
+例子
+
+    int a = 4;
+    int b = 8;
+    int d = 0;
+    switch(b)
+    {
+        case 2:
+            a++;
+            break;
+        case 8:
+            b++;
+            break;
+        default:
+            d++;
+            break;
+    }
+
+对应的汇编代码
+
+        sub	sp, sp, #16
+        movs	r3, #4
+        str	r3, [sp, #12]
+        movs	r3, #8
+        str	r3, [sp, #8]
+        movs	r3, #0
+        str	r3, [sp, #4]
+        ldr	r3, [sp, #8]
+    # if sp[8] == 2，跳转到 .L3
+        cmp	r3, #2
+        beq	.L3
+    # if sp[8] == 8，跳转到 .L4
+        cmp	r3, #8
+        beq	.L4
+        b	.L6
+    .L3:
+        ldr	r3, [sp, #12]
+        adds	r3, r3, #1
+        str	r3, [sp, #12]
+        b	.L1
+    .L4:
+        ldr	r3, [sp, #8]
+        adds	r3, r3, #1
+        str	r3, [sp, #8]
+        b	.L1
+    .L6:
+        ldr	r3, [sp, #4]
+        adds	r3, r3, #1
+        str	r3, [sp, #4]
+        nop
+    .L1:
+        add	sp, sp, #16
+        @ sp needed
+        bx	lr
+    
+每个 case 结束，都有一个跳转指令 b，对应了代码里面的 break，如果没有写 break，
+也就是 fall though，会继续执行下面的 case。

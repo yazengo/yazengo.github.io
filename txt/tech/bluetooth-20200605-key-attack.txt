@@ -1,0 +1,82 @@
+蓝牙安全
+=============
+
+# 蓝牙配对过程
+
+配对的最终产物是 link key
+
+## LMP 配对（PIN）
+
+     LMP_in_rand
+    --------------->
+     LMP_accepted
+    <--------------
+    * Both device generate Kinit = f(PIN, rand, BD_ADDR)
+     LMP_comb_key
+    <--------------->
+    * Generate Link key
+
+## SSP
+
+     IO capability
+    <-------------------->
+     pub key
+    <-------------------->
+     LMP_simple_pairing_confirm
+    <---------------------
+     LMP_simple_pairing_number
+    <-------------------->
+
+在这个过程中如果有 MITM 中间人攻击，有机会主从切换，声称不支持 Secure
+Connection，这样就有机会进行变为 auth 的发起者，进行单向认证连接上设备，也就是
+[BIAS attack][]。
+
+[BIAS attack]:https://www.kb.cert.org/vuls/id/647177/
+
+# 蓝牙认证过程
+
+认证 Authentication 主要目的是确认设备的合法性，都是基于 [Challenge–
+response][] 的模式，发起方发送一个随机数(chanlenge)，接收方根据特定算法生成密
+钥给发起方，发起方收到密钥后可以进行认证过程。
+
+[Challenge–response]:https://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication
+
+可以防范几种攻击：
+* sniffer 密钥不是明文传输
+* replay attack 每次随机数不一样
+* password guess 如果知道特定算法，密码强度不够就可以暴力破解
+
+蓝牙认证主要包括两种模式，密钥就是 link key：
+* lagacy authentication 单向认证 （BIAS 攻击的基础）
+* secure authentication 双向认证
+
+# 蓝牙加密过程
+
+encrypt_key = f(link key, rand, BD_ADDR)
+
+加密 Encryption 是对通信过程中的 payload 部分进行，主要有两种模式
+
+* lagacy (E0)
+* AES-CCM
+
+主要流程包括
+
+     LMP_encryption_mode_req
+    ---------------------------->
+     LMP_accepted (p2p enc, p2p enc without broadcast, no encrypt)
+    <---------------------------
+     LMP_encrption_key_size_req
+    ---------------------------->
+     LMP_accepted(8~128bits)
+    <---------------------------
+     LMP_start_encryption_req
+    ---------------------------->
+     LMP_accepted
+    <---------------------------
+
+由于最后的加密密钥字节数是可以商量的，而大多数蓝牙设备为了兼容性最小字节数是按
+照标准设置的1个字节，如果第三方知道地址，就有机会通过LMP协商降低加密等级，这样
+就有机会进行暴力破解，也就是[KNOB Attack][]。
+
+[KNOB Attack]:https://knobattack.com/
+

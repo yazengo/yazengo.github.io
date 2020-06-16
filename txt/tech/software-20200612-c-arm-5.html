@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>C 语言和 ARM 汇编 - 5 位操作</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="c-语言和-arm-汇编---5-位操作">C 语言和 ARM 汇编 - 5 位操作</h1>
+<p>我们看一下这个例子</p>
+<pre><code>int a = 4;
+int b = 8;
+int c = a | b;
+int d = b &amp; c;</code></pre>
+<p>局部变量在堆栈中的对应位置如下</p>
+<pre><code>a -&gt; sp[12]
+b -&gt; sp[8]
+c -&gt; sp[4]
+d -&gt; sp[0]</code></pre>
+<p>对应的汇编代码</p>
+<pre><code># 设定局部变量堆栈
+sub sp, sp, #16
+# sp[12] = 4
+movs    r3, #4
+str r3, [sp, #12]
+# sp[8] = 8
+movs    r3, #8
+str r3, [sp, #8]
+# sp[4] = sp[12] orrs sp[8]
+ldr r2, [sp, #12]
+ldr r3, [sp, #8]
+orrs    r3, r3, r2
+str r3, [sp, #4]
+
+# sp[0] = sp[8] ands sp[4]
+ldr r2, [sp, #8]
+ldr r3, [sp, #4]
+ands    r3, r3, r2
+str r3, [sp]
+add sp, sp, #16
+@ sp needed
+bx  lr</code></pre>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

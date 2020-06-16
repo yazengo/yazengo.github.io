@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>C 语言和 ARM 汇编 - 9 数组索引</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="c-语言和-arm-汇编---9-数组索引">C 语言和 ARM 汇编 - 9 数组索引</h1>
+<p>例子</p>
+<pre><code>int globalArr[5];
+void main()
+{
+    int b;
+    int localArr[5];
+    globalArr[2] = 12;
+    localArr[0] = 3;
+    localArr[4] = 18;
+    b = localArr[4];
+}</code></pre>
+<p>汇编代码</p>
+<pre><code>    sub sp, sp, #24
+    ldr r3, .L2
+# globalArr[2] = 12
+# 由于数组每个值是 int，用4个直接，因此 2 的位置在 [r3, #8]
+    movs    r2, #12
+    str r2, [r3, #8]
+# localArr[0] = 3
+    movs    r3, #3
+    str r3, [sp]
+    movs    r3, #18
+    str r3, [sp, #16]
+    ldr r3, [sp, #16]
+    str r3, [sp, #20]
+    add sp, sp, #24
+    @ sp needed
+    bx  lr
+.L3:
+    .align  2
+.L2:
+    .word   globalArr</code></pre>
+<p>全局数组是加载地址到寄存器，然后通过 [addr, offset] 访问对应位置，局部数组是通过 SP 上的偏移进行访问。</p>
+<h1 id="通过指针访问数组">通过指针访问数组</h1>
+<p>例子</p>
+<pre><code>int globalArr[5];
+void main()
+{
+    int b;
+    int *ptr = globalArr;
+    b = ptr[4];
+}</code></pre>
+<p>汇编代码</p>
+<pre><code>sub sp, sp, #8
+ldr r3, .L2
+str r3, [sp, #4]
+ldr r3, [sp, #4]
+# r3 &lt;- *(r3 + 16) = ptr[4]
+ldr r3, [r3, #16]
+str r3, [sp]
+add sp, sp, #8
+@ sp needed
+bx  lr</code></pre>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

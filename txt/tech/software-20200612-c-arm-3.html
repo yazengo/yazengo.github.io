@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>C 语言和 ARM 汇编 - 3 堆栈和局部变量</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="c-语言和-arm-汇编---3-堆栈和局部变量">C 语言和 ARM 汇编 - 3 堆栈和局部变量</h1>
+<p>让我们从一个例子开始</p>
+<pre><code>int globalVar;
+void main()
+{
+    int localVar = 10;
+    globalVar = localVar;
+}</code></pre>
+<p>这个程序里面有一个全局变量，我们之前分析编译后会放到数据段里面，那么局部变量呢？是放到堆栈！当程序开始执行的时候，内存分布会如图所示：</p>
+<pre><code>------------
+    Code
+------------
+    Data
+------------
+            ^
+            |
+    Stack     - SP
+------------</code></pre>
+<p>于是例子中就需要对堆栈的操作，可以简化为</p>
+<pre><code>fun:
+SP -= 4
+SP[0] = 10
+SP += 4
+return</code></pre>
+<p>刚开始的时候，SP 指向堆栈起始位置，程序开始的时候，SP 向上增长4个字节，作为函数局部变量存储位置，函数运行过程可以对局部变量进行读写操作，在函数返回前，将堆栈退回到原来的位置。例子中只有一个局部变量，如果有多个局部变量，SP 就需要移动更多的位置，放置局部变量。</p>
+<p>让我们看看实际生成的汇编代码，我们用 -fomit-frame-pointer 先忽略 FP 的处理。</p>
+<pre><code>main:
+# 虽然局部变量只用了4个字节，编译器为了性能优化会申请8个字节，另外4个字节
+# 不使用，X86 默认是 16 个字节对齐
+    sub sp, sp, #8
+# 赋值局部变量
+    movs    r3, #10
+    str r3, [sp, #4]
+# 赋值全局变量
+    ldr r2, .L2
+    ldr r3, [sp, #4]
+    str r3, [r2]
+# 恢复 SP
+    add sp, sp, #8
+    bx  lr
+.L2:
+    .word   globalVar</code></pre>
+<p>函数调用过程栈指针的变化过程：</p>
+<pre><code>|  |
+|  |
+|  |
+|  |
+|  |
+---- &lt;- SP
+函数调用前
+
+|  |
+|  |
+|  |
+|--| &lt;- SP
+|  |
+---- 
+异常函数调用，默认将 PC/LR/R0-R3 入栈
+
+|  |
+|  |
+|--| &lt;- SP
+|--| 
+|  |
+---- 
+函数调用，局部变量申请
+
+|  |
+|  |
+|  |
+|--| &lt;- SP
+|  |
+---- 
+函数调用结束，局部变量释放
+
+|  |
+|  |
+|  |
+|  |
+|  |
+---- &lt;- SP
+函数调用返回， PC/LR/R0-R3 出栈</code></pre>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

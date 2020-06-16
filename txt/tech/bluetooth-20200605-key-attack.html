@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>蓝牙安全</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="蓝牙安全">蓝牙安全</h1>
+<h1 id="蓝牙配对过程">蓝牙配对过程</h1>
+<p>配对的最终产物是 link key</p>
+<h2 id="lmp-配对pin">LMP 配对（PIN）</h2>
+<pre><code> LMP_in_rand
+---------------&gt;
+ LMP_accepted
+&lt;--------------
+* Both device generate Kinit = f(PIN, rand, BD_ADDR)
+ LMP_comb_key
+&lt;---------------&gt;
+* Generate Link key</code></pre>
+<h2 id="ssp">SSP</h2>
+<pre><code> IO capability
+&lt;--------------------&gt;
+ pub key
+&lt;--------------------&gt;
+ LMP_simple_pairing_confirm
+&lt;---------------------
+ LMP_simple_pairing_number
+&lt;--------------------&gt;</code></pre>
+<p>在这个过程中如果有 MITM 中间人攻击，有机会主从切换，声称不支持 SecureConnection，这样就有机会进行变为 auth 的发起者，进行单向认证连接上设备，也就是<a href="https://www.kb.cert.org/vuls/id/647177/">BIAS attack</a>。</p>
+<h1 id="蓝牙认证过程">蓝牙认证过程</h1>
+<p>认证 Authentication 主要目的是确认设备的合法性，都是基于 [Challenge–response][] 的模式，发起方发送一个随机数(chanlenge)，接收方根据特定算法生成密钥给发起方，发起方收到密钥后可以进行认证过程。</p>
+<p>可以防范几种攻击：* sniffer 密钥不是明文传输* replay attack 每次随机数不一样* password guess 如果知道特定算法，密码强度不够就可以暴力破解</p>
+<p>蓝牙认证主要包括两种模式，密钥就是 link key：* lagacy authentication 单向认证 （BIAS 攻击的基础）* secure authentication 双向认证</p>
+<h1 id="蓝牙加密过程">蓝牙加密过程</h1>
+<p>encrypt_key = f(link key, rand, BD_ADDR)</p>
+<p>加密 Encryption 是对通信过程中的 payload 部分进行，主要有两种模式</p>
+<ul>
+<li>lagacy (E0)</li>
+<li>AES-CCM</li>
+</ul>
+<p>主要流程包括</p>
+<pre><code> LMP_encryption_mode_req
+----------------------------&gt;
+ LMP_accepted (p2p enc, p2p enc without broadcast, no encrypt)
+&lt;---------------------------
+ LMP_encrption_key_size_req
+----------------------------&gt;
+ LMP_accepted(8~128bits)
+&lt;---------------------------
+ LMP_start_encryption_req
+----------------------------&gt;
+ LMP_accepted
+&lt;---------------------------</code></pre>
+<p>由于最后的加密密钥字节数是可以商量的，而大多数蓝牙设备为了兼容性最小字节数是按照标准设置的1个字节，如果第三方知道地址，就有机会通过LMP协商降低加密等级，这样就有机会进行暴力破解，也就是<a href="https://knobattack.com/">KNOB Attack</a>。</p>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>

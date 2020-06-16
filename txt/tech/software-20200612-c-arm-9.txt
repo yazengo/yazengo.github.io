@@ -1,0 +1,67 @@
+C 语言和 ARM 汇编 - 9 数组索引
+==========
+
+例子
+
+    int globalArr[5];
+    void main()
+    {
+        int b;
+        int localArr[5];
+        globalArr[2] = 12;
+        localArr[0] = 3;
+        localArr[4] = 18;
+        b = localArr[4];
+    }
+
+汇编代码
+
+        sub	sp, sp, #24
+        ldr	r3, .L2
+    # globalArr[2] = 12
+    # 由于数组每个值是 int，用4个直接，因此 2 的位置在 [r3, #8]
+        movs	r2, #12
+        str	r2, [r3, #8]
+    # localArr[0] = 3
+        movs	r3, #3
+        str	r3, [sp]
+        movs	r3, #18
+        str	r3, [sp, #16]
+        ldr	r3, [sp, #16]
+        str	r3, [sp, #20]
+        add	sp, sp, #24
+        @ sp needed
+        bx	lr
+    .L3:
+        .align	2
+    .L2:
+        .word	globalArr
+
+全局数组是加载地址到寄存器，然后通过 [addr, offset] 访问对应位置，局部数组是通
+过 SP 上的偏移进行访问。
+
+# 通过指针访问数组
+
+例子
+
+    int globalArr[5];
+    void main()
+    {
+        int b;
+        int *ptr = globalArr;
+        b = ptr[4];
+    }
+
+汇编代码
+
+
+	sub	sp, sp, #8
+	ldr	r3, .L2
+	str	r3, [sp, #4]
+	ldr	r3, [sp, #4]
+    # r3 <- *(r3 + 16) = ptr[4]
+	ldr	r3, [r3, #16]
+	str	r3, [sp]
+	add	sp, sp, #8
+	@ sp needed
+	bx	lr

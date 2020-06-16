@@ -1,0 +1,42 @@
+C 语言和 ARM 汇编 - 5 位操作
+=================
+
+我们看一下这个例子
+
+    int a = 4;
+    int b = 8;
+    int c = a | b;
+    int d = b & c;
+
+局部变量在堆栈中的对应位置如下
+
+    a -> sp[12]
+    b -> sp[8]
+    c -> sp[4]
+    d -> sp[0]
+
+对应的汇编代码
+
+    # 设定局部变量堆栈
+	sub	sp, sp, #16
+    # sp[12] = 4
+	movs	r3, #4
+	str	r3, [sp, #12]
+    # sp[8] = 8
+	movs	r3, #8
+	str	r3, [sp, #8]
+    # sp[4] = sp[12] orrs sp[8]
+	ldr	r2, [sp, #12]
+	ldr	r3, [sp, #8]
+	orrs	r3, r3, r2
+	str	r3, [sp, #4]
+
+    # sp[0] = sp[8] ands sp[4]
+	ldr	r2, [sp, #8]
+	ldr	r3, [sp, #4]
+	ands	r3, r3, r2
+	str	r3, [sp]
+	add	sp, sp, #16
+	@ sp needed
+	bx	lr
+

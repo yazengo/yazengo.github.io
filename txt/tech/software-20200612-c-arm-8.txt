@@ -1,0 +1,45 @@
+C 语言和 ARM 汇编 - 8 指针取值
+=================
+
+例子
+
+    int globalVar;
+    void main()
+    {
+        int b;
+        int * ptr;
+        ptr = &globalVar;
+        *ptr = 100;
+        b = *ptr;
+    }
+
+局部变量
+
+    b -> sp[0]
+    ptr -> sp[4]
+
+汇编代码
+
+
+        sub	sp, sp, #8
+    # r3 = &globalVar
+        ldr	r3, .L2
+        str	r3, [sp, #4]
+    # ptr = r3
+        ldr	r3, [sp, #4]
+        movs	r2, #100
+    # *ptr = r2 = 100
+        str	r2, [r3]
+        ldr	r3, [sp, #4]
+        ldr	r3, [r3]
+    # b = r3 = *r3 = *ptr
+        str	r3, [sp]
+        add	sp, sp, #8
+        @ sp needed
+        bx	lr
+    .L3:
+        .align	2
+    .L2:
+        .word	globalVar
+
+主要过程就是将地址加载到寄存器，然后通过 [addr] 取得地址对应的数值。

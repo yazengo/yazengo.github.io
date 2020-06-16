@@ -1,0 +1,36 @@
+C 语言和 ARM 汇编 - 10 函数指针
+==========
+
+例子
+
+    void fun1()
+    {
+    }
+
+    void main()
+    {
+        void (*fptr)() = fun1;
+        fptr();
+    }
+
+汇编
+
+    fun1:
+        bx	lr
+    main:
+        push	{lr}
+        sub	sp, sp, #12
+        ldr	r3, .L3
+    # fptr <- fun1 = .L3
+        str	r3, [sp, #4]
+        ldr	r3, [sp, #4]
+    # fptr()
+        blx	r3
+        add	sp, sp, #12
+        @ sp needed
+    # pc <- lr
+        ldr	pc, [sp], #4
+    .L4:
+        .align	2
+    .L3:
+        .word	fun1

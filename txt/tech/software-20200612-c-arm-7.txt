@@ -1,0 +1,93 @@
+C 语言和 ARM 汇编 - 7 循环
+=================
+
+# while
+
+实例代码
+
+    int a = 4;
+    int b = 8;
+    int d = 0;
+    while(b > a)
+    {
+        d = a + 2;
+        b--;
+    }
+
+汇编代码
+
+        sub	sp, sp, #16
+        movs	r3, #4
+        str	r3, [sp, #8]
+        movs	r3, #8
+        str	r3, [sp, #12]
+        movs	r3, #0
+        str	r3, [sp, #4]
+    # 跳转到 while 比较大小
+        b	.L2
+    .L3:
+        ldr	r3, [sp, #8]
+        adds	r3, r3, #2
+        str	r3, [sp, #4]
+        ldr	r3, [sp, #12]
+        subs	r3, r3, #1
+        str	r3, [sp, #12]
+    .L2:
+    # 比较 b > a
+        ldr	r2, [sp, #12]
+        ldr	r3, [sp, #8]
+        cmp	r2, r3
+        bgt	.L3
+        add	sp, sp, #16
+        @ sp needed
+        bx	lr
+
+
+# for
+
+    int a = 4;
+    int b = 8;
+    int d = 0;
+    for(b = 9; b > a; b--)
+    {
+        d = a + 2;
+    }
+
+汇编代码
+
+   
+        sub	sp, sp, #16
+        movs	r3, #4
+        str	r3, [sp, #8]
+        movs	r3, #8
+        str	r3, [sp, #12]
+        movs	r3, #0
+        str	r3, [sp, #4]
+    # 条件初始化 b = 9
+        movs	r3, #9
+        str	r3, [sp, #12]
+    # 条件判断 b > a
+        b	.L2
+    .L3:
+    # tmp = sp[8] + 2
+        ldr	r3, [sp, #8]
+        adds	r3, r3, #2
+    # sp[4] = tmp
+        str	r3, [sp, #4]
+    # 条件更新 b--
+        ldr	r3, [sp, #12]
+        subs	r3, r3, #1
+        str	r3, [sp, #12]
+    .L2:
+        ldr	r2, [sp, #12]
+        ldr	r3, [sp, #8]
+        cmp	r2, r3
+        bgt	.L3
+        add	sp, sp, #16
+        @ sp needed
+        bx	lr
+
+生成的汇编与 while 类似，有2点需要注意
+
+* loop 的初始化条件在判断条件之前
+* 条件的更新是在 if-block 运行之后

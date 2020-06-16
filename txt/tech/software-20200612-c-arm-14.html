@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+    
+		<title>C 语言和 ARM 汇编 - 14 结构体的内存分配</title>
+
+        <link rel="stylesheet" media="all" href="../../Han/han.min.css">
+        <link rel="stylesheet" media="all" href="../../stylesheets/main.css">
+        <link href="../../js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+        <script async type="text/javascript" src="../../js/google-code-prettify/prettify.js"></script>
+        <script type="text/javascript" async
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+    </head>
+    <body onload = "prettyPrint()">
+        <div id="container">
+    
+<h1 id="c-语言和-arm-汇编---14-结构体的内存分配">C 语言和 ARM 汇编 - 14 结构体的内存分配</h1>
+<p>我们使用结构体的时候，编译器会为结构体分配一段连续的内存，大小是由结构体大小决定。编译器会根据数据对齐的要求，在数据中增加 padding 来提高访问效率。通过一些设置也能设定 padding 的方式。</p>
+<p>数据结构体里面的成员是通过偏移地址进行访问。</p>
+<p>代码 struct data_struct { int a; int b; }; struct data_struct global_data; int main() { struct data_struct local_data; global_data.a = 10; global_data.b = 15; local_data.a = 25; local_data.b = 20; return 0; }</p>
+<p>汇编 sub sp, sp, #8 ldr r3, .L3 movs r2, #10 # global_data.a = global_data[0] str r2, [r3] ldr r3, .L3 movs r2, #15 # global_data.b = global_data[4] str r2, [r3, #4] movs r3, #25 # local_data.a = sp[0] str r3, [sp] movs r3, #20 # local_data.b = sp[4] str r3, [sp, #4] movs r3, #0 mov r0, r3 add sp, sp, #8 @ sp needed bx lr .L4: .align 2 .L3: .word global_data</p>
+<h1 id="padding">padding</h1>
+<p>编译器通常会通过 padding 将结构体成员对齐到整数倍字节，提高访问效率。对齐的字节数根据 CPU 架构会有所不同。</p>
+<p>举个例子</p>
+<pre><code>struct data_struct
+{
+    char a;
+    int b;
+};</code></pre>
+<p>如果我们在 i386 上使用 sizeof(struct data_struct) 获得的数值是 8，虽然 char 实际占用的是1个字节，但编译器会对齐到 4字节。</p>
+<pre><code>struct data_struct
+{
+    char a;
+    int b;
+} __attribute__((packed));</code></pre>
+<p>通过设置 packed 可以取消编译器的优化效果，将结构体成员按照实际占用的数值分配。这个属性也可以放到成员上，比如</p>
+<pre><code>struct data_struct
+{
+    char a;
+    int b __attribute__((packed));
+};</code></pre>
+<h1 id="通过函数返回结构体">通过函数返回结构体</h1>
+<pre><code>struct data_struct
+{
+    int a;
+    int b;
+} ;
+struct data_struct fun()
+{
+    struct data_struct data;
+    data.a = 20;
+    data.b = 25;
+    return data;
+}
+int main()
+{
+    struct data_struct data = fun();
+    return 0;
+}</code></pre>
+<p>汇编</p>
+<pre><code>main:
+    push    {lr}
+    sub sp, sp, #12
+    mov r3, sp
+# 将堆栈的首地址 sp 作为参数传递给 fun，然后在 fun 里面通过指针偏移操作结
+# 构体成员
+    mov r0, r3
+    bl  fun</code></pre>
+<p>实际上对应了这种写法</p>
+<pre><code>void fun(struct data_struct *ptr)
+{
+    struct data_struct data;
+    data.a = 20;
+    data.b = 25;
+    ptr-&gt;a = data.a;
+    ptr-&gt;b = data.b;
+}
+int main()
+{
+    struct data_struct data;
+    fun(&amp;data);
+    return 0;
+}</code></pre>
+<p>通过指针传递的方式实现了结构体数据返回，有2点需要注意：</p>
+<ul>
+<li>返回结构体的函数，输入参数必须是 void</li>
+<li>该函数获得了指向结构体变量的额外参数</li>
+</ul>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://jieyige.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<!--google analyze-->
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15464172-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+</script>
+
+
+<div id="footer">
+    <p><img src="../../images/0.jpg" alt="me" title="" /></p>
+    <p>介一个IT民工甲，Firmware，嵌入式，数字电源，Wi-Fi, Bluetooth, to be Geek，
+    <br>80后伪奋青，Canon 450D，Arch Linux，Kindle，一介书生
+    <br><a href="http://yazengo.github.io">yazengo.github.io</a>
+    </p>
+</div>
+
+        </div>
+        
+    </body>
+</html>
